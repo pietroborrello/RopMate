@@ -51,7 +51,7 @@ d3.json("ls.json", function(error, file) {
       return d.type;
   })
   .key(function(d) {
-      return d.dest;
+      return d.params;
   })
   .entries(file)
   .map(function(group) {
