@@ -73,6 +73,17 @@ d3.json("ls.json", function(error, file) {
   root = d3.hierarchy({name: "Gadgets", children: data})
   root.x0 = 0;
   root.y0 = 0;
+  //load whole tree
+  update(root);
+  
+  var nodes = root.descendants();
+  nodes.forEach(function(d) {
+    d._children = d.children;
+    d.children = null;
+  });
+  root.children = root._children;
+  root._children = null;
+  //collapse the tree
   update(root);
 });
 
@@ -111,7 +122,11 @@ function update(source) {
   nodeEnter.append("rect")
       .attr("y", -barHeight / 2)
       .attr("height", barHeight)
-      .attr("width", barWidth)
+      .attr("width", function(d) {
+          if(d.children == null && d._children == null) return barWidth; 
+          else if(d._children == null) return barWidth + d.children.length; 
+          else return barWidth + d._children.length; 
+          })
       .style("fill", color)
       .on("click", click);
 
