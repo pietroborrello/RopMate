@@ -6,12 +6,21 @@
             }
 
             function fields(){
-                if(document.register.Operation.value == "load"){
-                  document.register.text1.style = "visibility: visible"
+                if(document.register.Operation.value != "Nonselezionata"){
+                  document.register.param1.style = "visibility: visible"
                 }
                 return true;
             }
 
+            function verify(){
+              var dest = document.register.destination.value;
+              if (typeof dest == "string"){
+                return ture;
+              }
+              else{
+                window.alert("Invalid destination")
+              }
+            }
 
         </script>
     </head>
@@ -33,19 +42,37 @@
                 ESI <input type ="checkbox" name ="esi" size ='3' value = 'yes'>
                 EDI <input type ="checkbox" name ="edi" size ='3' value = 'yes'><br>
 
+                <br><b>Destination</b>
+                <input type="text" name="destination" size = "5" onchange="return verify();"><br>
+
+                <br><b>Stack Fix</b>
+                <select name ="Stack_fix">
+                    <option selected value="Nonselezionata">Non selezionata
+                    <option value="4">4
+                    <option value="8">8
+                    <option value="12"> 12
+                    <option value="16"> 16
+                </select><br>
 
                 <br><b>Operation</b>
                 <select name ="Operation" onchange="return fields();">
                     <option selected value="Nonselezionata">Non selezionata
-                    <option value="load">Load
-                    <option value="add">Add
+                    <option value="LoadConst">LoadConst
+                    <option value="CopyReg">CopyReg
+                    <option value="ReadMemOp"> ReadMemOp
+                    <option value="IncReg"> IncReg
+                    <option value="WriteMemOp"> WriteMemOp
+                    <option value="SetZero"> SetZero
+                    <option value="BinOp"> BinOp
+                    <option value="ReadMem"> ReadMem
+                    <option value="WriteMem"> WriteMem
                 </select><br><br>
 
-                <input type="text" name="text1" placeholder="insert register" style="visibility: hidden"><br>
-                <input type="text" name="text2" placeholder="insert register" style="visibility: hidden"><br>
-                <input type="text" name="text3" placeholder="insert register" style="visibility: hidden"><br>
-                <input type="text" name="text4" placeholder="insert register" style="visibility: hidden"><br>
-                <input type="text" name="text5" placeholder="insert register" style="visibility: hidden"><br>
+                <input type="text" name="param1" placeholder="insert parameter" style="visibility: hidden"><br>
+                <input type="text" name="param2" placeholder="insert parameter" style="visibility: hidden"><br>
+                <input type="text" name="param3" placeholder="insert parameter" style="visibility: hidden"><br>
+                <input type="text" name="param4" placeholder="insert parameter" style="visibility: hidden"><br>
+                <input type="text" name="param5" placeholder="insert parameter" style="visibility: hidden"><br>
 
                 <br>
                 <input type ="reset" value ="Reset">
