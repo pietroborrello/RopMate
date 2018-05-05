@@ -1,0 +1,22 @@
+
+{
+  "name": "Gadgets",
+  "children": [
+  {
+   "name": "LoadConst",
+   "children": [
+    {
+     "name": "stack_fix: 8",
+     "children": [
+      {"name": "sal byte ptr [ebp - 0x14], cl; pop ebx; ret", "size": 3938}
+     ]
+    },
+    {"name": "stack_fix: 4",
+    "children": [
+     {"name": "", "size": 3938}
+    ]
+   }
+  ]
+  }
+]
+}
