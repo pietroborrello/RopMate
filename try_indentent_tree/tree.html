@@ -38,7 +38,9 @@
 </style>
 <body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script>
 
 var margin = {top: 30, right: 20, bottom: 30, left: 20},
@@ -72,11 +74,14 @@ d3.json("ls.json", function(error, file) {
   .map(function(group) {
     return {
         name: group.key,
+        depth: group.depth+1,
         children: group.values.map(function(group) {
             return {
                 name: group.key,
+                depth: group.depth+1,
                 children: group.values.map(function(group) {
                     return {
+                    depth: 1,    
                     name: group.disasm
                     }
                 })
@@ -150,21 +155,6 @@ function update(source) {
           })
       .style("fill", color)
       .on("click", click)
-      .on("mouseover", function(d) {
-           div.transition()
-             .duration(200)
-             .style("opacity", .9);
-          if (d.data.name != undefined){
-           div.html(d.data.name + "<br/>")
-             .style("left", (d3.event.pageX) + "px")
-             .style("top", (d3.event.pageY) + "px");
-          }
-       })
-     .on("mouseout", function(d) {
-       div.transition()
-         .duration(500)
-         .style("opacity", 0);
-       });
 
   nodeEnter.append("text")
       .attr("dy", 3.5)
@@ -238,7 +228,7 @@ function click(d) {
   }
   update(d);
   if(d.children == null && d._children == null){
-    var add = window.confirm("Do you want to add this gadget to your chain?");
+    //var add = window.confirm("Do you want to add this gadget to your chain?");
     if (add == true){
       //aggiungi alla catena
       //parent.down.modify();
@@ -248,15 +238,13 @@ function click(d) {
 
 
 function color(d) {
-  var color_ = d3.scaleOrdinal(d3.schemePaired)
-  .domain(["LoadConst", "CopyReg", "ReadMemOp", "IncReg", "WriteMemOp", "SetZero", "BinOp", "ReadMem", "WriteMem", "Gadgets"])
-
+  var color_ = d3.scaleOrdinal(d3.schemeBlues[9]).domain([7,6,5,4,3,2,1,0]);
   if(d._children){
-    return color_(d.data.name);
+    return color_(d.depth*2+1);
   }
   if(d.children)
-    return color_(d.data.name);
-  return "#e6f2ff";
+    return color_(d.depth*2);
+  return color_(d.depth*2 + 1);
 }
 
 </script>
