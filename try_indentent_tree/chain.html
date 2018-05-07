@@ -1,14 +1,21 @@
 <html>
     <head>
+      <style>
+      .title{
+            position: fixed;
+       }
+       </style>
     </head>
 
     <body>
       <script src="https://d3js.org/d3.v4.min.js"></script>
       <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
       <form action="" method ="post" name ="register">
-        <b>Result</b><br>
-        <button type="button" onclick="return remove_all();"> Remove all </button>
-        <button type="button" onclick="return remove();"> Remove</button>
+        <div class="title">
+          <b>Result</b><br>
+          <button type="button" onclick="return remove_all();"> Remove all </button>
+          <button type="button" onclick="return remove();"> Remove</button>
+        </div>
       </form>
 
       <script>
@@ -22,7 +29,7 @@
         count = count + 1;
         var rectangle = svgContainer.append("rect")
         .attr("x", -50 + (count*120))
-        .attr("y", 20)
+        .attr("y", 60)
         .attr("width", 100)
         .attr("height", 50)
         .attr("fill", "#b3d9ff")
