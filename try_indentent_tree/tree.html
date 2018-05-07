@@ -81,7 +81,7 @@ d3.json("ls.json", function(error, file) {
                 depth: group.depth+1,
                 children: group.values.map(function(group) {
                     return {
-                    depth: 1,    
+                    depth: 1,
                     name: group.disasm
                     }
                 })
@@ -228,11 +228,12 @@ function click(d) {
   }
   update(d);
   if(d.children == null && d._children == null){
+    parent.down.add(d.data.name);
     //var add = window.confirm("Do you want to add this gadget to your chain?");
-    if (add == true){
+    //if (add == true){
       //aggiungi alla catena
-      //parent.down.modify();
-    }
+      //parent.down.add();
+    //}
   }
 }
 

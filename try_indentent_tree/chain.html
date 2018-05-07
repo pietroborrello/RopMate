@@ -1,17 +1,51 @@
 <html>
     <head>
-        <script type="text/javascript" language ="javascript">
-          //come far comunicare i due frame, usare top
-          function modify(){
-            //window.alert("Ciao");
-          }
-        </script>
     </head>
 
     <body>
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
       <form action="" method ="post" name ="register">
         <b>Result</b><br>
-        <button type="button" onclick="return modify();"> Modify </button>
+        <button type="button" onclick="return remove_all();"> Remove all </button>
+        <button type="button" onclick="return remove();"> Remove</button>
       </form>
+
+      <script>
+      //make the svg container
+      var count = 0;
+      var svgContainer = d3.select("body").append("svg")
+        .attr("width", 20000)
+        .attr("height", 20000);
+       //make the rectangle
+      function add(x){
+        count = count + 1;
+        var rectangle = svgContainer.append("rect")
+        .attr("x", -50 + (count*120))
+        .attr("y", 20)
+        .attr("width", 100)
+        .attr("height", 50)
+        .attr("fill", "#b3d9ff")
+        .attr("class", "rect" + count)
+        .style("stroke","black");
+
+        /*svgContainer.append("text")
+            .attr("x", -50 + (count*120))
+            .attr("y", 20)
+            .text(function(d) { return x; });*/
+      }
+
+      function remove_all(){
+        svgContainer.selectAll("rect").remove()
+        count = 0;
+      }
+
+      function remove(){
+        svgContainer.select(".rect" + count).remove()
+        count = count - 1;
+      }
+
+    </script>
+
     </body>
 </html>
