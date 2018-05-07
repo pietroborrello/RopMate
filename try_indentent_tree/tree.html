@@ -61,7 +61,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("ls.json", function(error, file) {
+d3.json("baby_stack.json", function(error, file) {
   if (error) throw error;
   data = d3.nest()
   .key(function(d) {
@@ -80,10 +80,17 @@ d3.json("ls.json", function(error, file) {
                 name: group.key,
                 depth: group.depth+1,
                 children: group.values.map(function(group) {
-                    return {
-                    depth: 1,
-                    name: group.disasm
-                    }
+                    var merged = {
+                        depth: 1,
+                        name: group.disasm
+                        };
+
+                    // Copy each key-val pair of group.values into merged
+                    Object.keys(group).forEach(function(key) {
+                    merged[key] = group[key];
+                    });
+
+                    return merged;
                 })
             }
         })
@@ -228,7 +235,7 @@ function click(d) {
   }
   update(d);
   if(d.children == null && d._children == null){
-    parent.down.add(d.data.name);
+    parent.down.add(d);
     //var add = window.confirm("Do you want to add this gadget to your chain?");
     //if (add == true){
       //aggiungi alla catena
