@@ -50,13 +50,9 @@
       }
 
       function remove_all(){
-        //selectAll non rimuove il testo 
-        /*svgContainer.selectAll("rect").remove()
-        count = 0;*/
-        while(count > 0){
-          svgContainer.selectAll(".rect" + count).remove()
-          count = count - 1;
-        }
+        svgContainer.selectAll("rect").remove();
+        svgContainer.selectAll("text").remove();
+        count = 0;
       }
 
       function remove(){

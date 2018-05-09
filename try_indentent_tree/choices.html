@@ -112,15 +112,39 @@
               .attr("fill", "#e6f3ff")
               .style("stroke","black");
 
-              //non centrare il testo, ma aggiungi il wrap
               svgContainer.append("text")
-                  .attr("x",80)
+                  .attr("x",60)
                   .attr("y", 85)
                   .attr("dy", 0)
-                  .attr("text-anchor", "middle")
-                  .attr("dominant-baseline", "central")
                   .text(x.data.type)
+                  .call(wrap, 210);
             }
+
+
+            function wrap(text, width) {
+              text.each(function() {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", 60).attr("y", y).attr("dy", dy + "em")
+                while (word = words.pop()) {
+                  line.push(word)
+                  tspan.text(line.join(" "))
+                  if (tspan.node().getComputedTextLength() > width) {
+                    line.pop()
+                    tspan.text(line.join(" "))
+                    line = [word]
+                    window.alert(lineNumber);
+                    tspan = text.append("tspan").attr("x", 60).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
+                  }
+                }
+              })
+             }
 
 
         </script>
