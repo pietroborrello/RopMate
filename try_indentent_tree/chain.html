@@ -4,6 +4,7 @@
       .title{
             position: fixed;
        }
+
        </style>
     </head>
 
@@ -25,11 +26,13 @@
         .attr("width", 20000)
         .attr("height", 20000);
        //make the rectangle
-      function add(x){
+      function add_block(x){
         count = count + 1;
         var rectangle = svgContainer.append("rect")
         .attr("x", -50 + (count*120))
         .attr("y", 60)
+        .attr("rx", 4)
+        .attr("ry", 4)
         .attr("width", 100)
         .attr("height", 50)
         .attr("fill", "#b3d9ff")

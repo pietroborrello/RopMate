@@ -46,7 +46,7 @@
 var margin = {top: 30, right: 20, bottom: 30, left: 20},
     width = Math.max(1400,parseInt(window.innerWidth));
     barHeight = 25,
-    barWidth = (width - margin.left - margin.right) * 0.45;
+    barWidth = (width - margin.left - margin.right) * 0.55;
 
 var i = 0,
     duration = 200,
@@ -235,7 +235,8 @@ function click(d) {
   }
   update(d);
   if(d.children == null && d._children == null){
-    parent.down.add(d);
+    parent.down.add_block(d);
+    parent.dx.add_window(d);
     //var add = window.confirm("Do you want to add this gadget to your chain?");
     //if (add == true){
       //aggiungi alla catena

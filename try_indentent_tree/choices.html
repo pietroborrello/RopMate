@@ -1,10 +1,7 @@
 <html>
     <head>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
         <script type="text/javascript" language ="javascript">
-
-            function print(){
-            }
-
             function fields(){
                 if(document.register.Operation.value != "Nonselezionata"){
                   document.register.param1.style = "visibility: visible"
@@ -22,10 +19,20 @@
               }
             }
 
+            function chain(){
+            }
         </script>
+
+        <style>
+        #btnadd {
+             margin-top: 240px;
+             margin-left: -27px;
+             position: absolute;
+         }
+        </style>
     </head>
 
-    <body>
+    <body style="overflow-y:hidden; overflow-x:hidden;">
         <form action="" method ="post" name ="register">
             <div align = center>
                 <font color ="#000000">
@@ -75,10 +82,44 @@
                 <input type="text" name="param5" placeholder="insert parameter" style="visibility: hidden"><br>
 
                 <br>
-                <input type ="reset" value ="Reset">
-                <button type="button" onclick="return print();"> Print </button>
+                <input type ="reset" value ="Reset"><br>
+                <button type="button" name = "btnadd" id = "btnadd" style="visibility: hidden "return chain();""> Add </button>
+
                 </font>
             </div>
         </form>
+
+        <script>
+            var svgContainer = d3.select("body").append("svg")
+              .attr("width", 20000)
+              .attr("height", 20000);
+
+
+            function add_window(x){
+              //trova il modo di salvare la x in una variabile globale così che possa
+              //essere passata anche alla funzione che aggiunge il blocco alla chain 
+              document.register.btnadd.style = "visibility: visible"
+              var rectangle = svgContainer.append("rect")
+              .attr("x", 40)
+              .attr("y", 60)
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("width", 250)
+              .attr("height", 200)
+              .attr("fill", "#e6f3ff")
+              .style("stroke","black");
+
+              //non centrare il testo, ma aggiungi il wrap
+              svgContainer.append("text")
+                  .attr("x",80)
+                  .attr("y", 85)
+                  .attr("dy", 0)
+                  .attr("text-anchor", "middle")
+                  .attr("dominant-baseline", "central")
+                  .text(x.data.type)
+            }
+
+
+        </script>
     </body>
 </html>
