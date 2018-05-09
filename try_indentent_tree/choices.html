@@ -20,6 +20,8 @@
             }
 
             function chain(){
+              var gadget = localStorage.getItem('gadget');
+              parent.down.add_block(gadget);
             }
         </script>
 
@@ -83,7 +85,7 @@
 
                 <br>
                 <input type ="reset" value ="Reset"><br>
-                <button type="button" name = "btnadd" id = "btnadd" style="visibility: hidden "return chain();""> Add </button>
+                <button type="button" name = "btnadd" id = "btnadd" style="visibility: hidden" onclick = "return chain();"> Add </button>
 
                 </font>
             </div>
@@ -97,8 +99,9 @@
 
             function add_window(x){
               //trova il modo di salvare la x in una variabile globale così che possa
-              //essere passata anche alla funzione che aggiunge il blocco alla chain 
+              //essere passata anche alla funzione che aggiunge il blocco alla chain
               document.register.btnadd.style = "visibility: visible"
+              localStorage.setItem('gadget', x.data.type);
               var rectangle = svgContainer.append("rect")
               .attr("x", 40)
               .attr("y", 60)

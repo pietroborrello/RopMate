@@ -46,17 +46,24 @@
             .attr("class", "rect" + count)
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "central")
-            .text(x.data.type)
+            .text(x);
       }
 
       function remove_all(){
-        svgContainer.selectAll("rect").remove()
-        count = 0;
+        //selectAll non rimuove il testo 
+        /*svgContainer.selectAll("rect").remove()
+        count = 0;*/
+        while(count > 0){
+          svgContainer.selectAll(".rect" + count).remove()
+          count = count - 1;
+        }
       }
 
       function remove(){
-        svgContainer.selectAll(".rect" + count).remove()
-        count = count - 1;
+        if(count > 0){
+          svgContainer.selectAll(".rect" + count).remove()
+          count = count - 1;
+        }
       }
 
     </script>
