@@ -1,0 +1,45 @@
+
+.node rect {
+cursor: pointer;
+}
+
+.node text {
+font: 13px sans-serif;
+}
+
+.link {
+fill: none;
+stroke: #9ecae1;
+stroke-width: 1.5px;
+}
+
+body{
+    background-color: #263238;
+    font: 15px sans-serif;
+    color: #fafafa;
+}
+  
+
+.title{
+    position: fixed;
+}
+
+text {
+  font: 15px sans-serif;
+  pointer-events: none;
+}
+
+#btnadd {
+    margin-top: 240px;
+    margin-left: -27px;
+    position: absolute;
+}
+
+rect {
+   fill:#6baed6;
+   fill-opacity: 0.75;
+   stroke: #000000;
+   stroke-width: 1.5px;
+   }
+
+  

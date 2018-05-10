@@ -1,5 +1,7 @@
 <html>
     <head>
+
+        <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script type="text/javascript" language ="javascript">
             function fields(){
@@ -19,33 +21,11 @@
               }
             }
         </script>
-
-        <style>
-        #btnadd {
-             margin-top: 240px;
-             margin-left: -27px;
-             position: absolute;
-         }
-
-        rect {
-            fill:#b3d9ff;
-            fill-opacity: 0.5;
-            stroke: #000000;
-            stroke-width: 1.5px;
-            }
-
-        text {
-            font: 13px sans-serif;
-            pointer-events: none;
-            }
-
-        </style>
     </head>
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
         <form action="" method ="post" name ="register">
             <div align = center>
-                <font color ="#000000">
                 <b>Memory </b>
                 <input type ="checkbox" name ="Memory" size ='3' value = 'yes'><br><br>
 
@@ -95,7 +75,6 @@
                 <input type ="reset" value ="Reset"><br>
                 <button type="button" name = "btnadd" id = "btnadd" style="visibility: hidden" onclick = "return chain();"> Add </button>
 
-                </font>
             </div>
         </form>
 
