@@ -18,6 +18,10 @@ body{
     font: 15px sans-serif;
     color: #fafafa;
 }
+
+labels {
+    font-weight: normal;
+}
   
 
 .title{
@@ -36,8 +40,8 @@ text {
 }
 
 rect {
-   fill:#6baed6;
-   fill-opacity: 0.75;
+   fill:#66c2a4;
+   fill-opacity: 0.8;
    stroke: #000000;
    stroke-width: 1.5px;
    }

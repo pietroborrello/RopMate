@@ -26,10 +26,10 @@
     <body style="overflow-y:hidden; overflow-x:hidden;">
         <form action="" method ="post" name ="register">
             <div align = center>
-                <b>Memory </b>
+                Memory
                 <input type ="checkbox" name ="Memory" size ='3' value = 'yes'><br><br>
 
-                <b>Preserved registers</b><br>
+                Preserved registers<br>
                 EAX <input type ="checkbox" name ="eax" size ='3' value = 'yes'>
                 EBX <input type ="checkbox" name ="ebx" size ='3' value = 'yes'>
                 ECX <input type ="checkbox" name ="ecx" size ='3' value = 'yes'>
@@ -39,10 +39,10 @@
                 ESI <input type ="checkbox" name ="esi" size ='3' value = 'yes'>
                 EDI <input type ="checkbox" name ="edi" size ='3' value = 'yes'><br>
 
-                <br><b>Destination</b>
+                <br>Destination
                 <input type="text" name="destination" size = "5" onchange="return verify();"><br>
 
-                <br><b>Stack Fix</b>
+                <br>Stack Fix
                 <select name ="Stack_fix">
                     <option selected value="Nonselezionata">Non selezionata
                     <option value="4">4
@@ -51,7 +51,7 @@
                     <option value="16"> 16
                 </select><br>
 
-                <br><b>Operation</b>
+                <br>Operation
                 <select name ="Operation" onchange="return fields();">
                     <option selected value="Nonselezionata">Non selezionata
                     <option value="LoadConst">LoadConst

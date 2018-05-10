@@ -215,7 +215,7 @@ function click(d) {
 
 
 function color(d) {
-  var color_ = d3.scaleOrdinal(d3.schemeBlues[9]).domain([7,6,5,4,3,2,1,0]);
+  var color_ = d3.scaleOrdinal(d3.schemeBuGn[9]).domain([7,6,5,4,3,2,1,0]);
   if(d._children){
     return color_(d.depth*2+1);
   }
