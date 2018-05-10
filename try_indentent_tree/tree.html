@@ -4,6 +4,8 @@
 
 .node rect {
   cursor: pointer;
+  fill:#fff;
+  fill-opacity: 0.5;
   stroke: #3182bd;
   stroke-width: 1.5px;
 }
@@ -19,19 +21,6 @@
   stroke-width: 1.5px;
 }
 
-.tooltip {
-  position: absolute;
-  text-align: center;
-  max-width: 500px;
-  max-height: 512px;
-  padding: 8px;
-  margin-top: -20px;
-  font: 10px sans-serif;
-  background-color: black;
-  color: #fff;
-  pointer-events: none;
-  border-radius: 8px;
-}
 
 </style>
 <body>
@@ -233,11 +222,12 @@ function click(d) {
   }
   update(d);
   if(d.children == null && d._children == null){
-    parent.dx.add_window(d);
+    parent.choices.selectedGadget = d;
+    parent.choices.add_gadget_info_window();
     //var add = window.confirm("Do you want to add this gadget to your chain?");
     //if (add == true){
       //aggiungi alla catena
-      //parent.down.add();
+      //parent.chain.add();
     //}
   }
 }

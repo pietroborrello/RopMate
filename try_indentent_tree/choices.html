@@ -26,6 +26,19 @@
              margin-left: -27px;
              position: absolute;
          }
+
+        rect {
+            fill:#b3d9ff;
+            fill-opacity: 0.5;
+            stroke: #000000;
+            stroke-width: 1.5px;
+            }
+
+        text {
+            font: 13px sans-serif;
+            pointer-events: none;
+            }
+
         </style>
     </head>
 
@@ -91,10 +104,12 @@
               .attr("width", 20000)
               .attr("height", 20000);
 
-            var block;
-            function add_window(x){
-              block = x;
+            var selectedGadget;
+            function add_gadget_info_window()
+            {
               document.register.btnadd.style = "visibility: visible";
+              svgContainer.selectAll("rect").remove();
+              svgContainer.selectAll("text").remove();
               var rectangle = svgContainer.append("rect")
               .attr("x", 40)
               .attr("y", 60)
@@ -109,7 +124,7 @@
                   .attr("x",60)
                   .attr("y", 85)
                   .attr("dy", 0)
-                  .text(x.data.type)
+                  .text(selectedGadget.data.type + ";" + selectedGadget.data.disasm)
                   .call(wrap, 210);
             }
 
@@ -117,7 +132,7 @@
             function wrap(text, width) {
               text.each(function() {
                 var text = d3.select(this),
-                    words = text.text().split(/\s+/).reverse(),
+                    words = text.text().split(/[;]/).reverse(),
                     word,
                     line = [],
                     lineNumber = 0,
@@ -125,22 +140,21 @@
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy")),
                     tspan = text.text(null).append("tspan").attr("x", 60).attr("y", y).attr("dy", dy + "em")
-                while (word = words.pop()) {
-                  line.push(word)
-                  tspan.text(line.join(" "))
-                  if (tspan.node().getComputedTextLength() > width) {
-                    line.pop()
+                    while (word = words.pop()) {
+                    line.push(word)
                     tspan.text(line.join(" "))
-                    line = [word]
-                    window.alert(lineNumber);
-                    tspan = text.append("tspan").attr("x", 60).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
-                  }
-                }
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop()
+                        tspan.text(line.join(" "))
+                        line = [word]
+                        tspan = text.append("tspan").attr("x", 60).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
+                    }
+                    }
               })
              }
 
              function chain(){
-               parent.down.add_block(block.data.type);
+               parent.chain.add_block_to_chain(selectedGadget);
              }
         </script>
     </body>

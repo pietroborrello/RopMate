@@ -5,6 +5,19 @@
             position: fixed;
        }
 
+       rect {
+          cursor: pointer;
+          fill:#b3d9ff;
+          fill-opacity: 0.5;
+          stroke: #000000;
+          stroke-width: 1.5px;
+        }
+
+        text {
+          font: 13px sans-serif;
+          pointer-events: none;
+        }
+
        </style>
     </head>
 
@@ -25,7 +38,8 @@
       var svgContainer = d3.select("body").append("svg")
         .attr("width", 20000)
         .attr("height", 20000);
-      function add_block(x){
+
+      function add_block_to_chain(selectedGadget){
         count = count + 1;
         var rectangle = svgContainer.append("rect")
         .attr("x", -50 + (count*120))
@@ -34,9 +48,11 @@
         .attr("ry", 4)
         .attr("width", 100)
         .attr("height", 50)
-        .attr("fill", "#b3d9ff")
         .attr("class", "rect" + count)
-        .style("stroke","black");
+        .on("click", function(d){
+          parent.choices.selectedGadget = selectedGadget;
+          parent.choices.add_gadget_info_window();
+          });
 
         svgContainer.append("text")
             .attr("x", (count*120))
@@ -45,7 +61,7 @@
             .attr("class", "rect" + count)
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "central")
-            .text(x);
+            .text(selectedGadget.data.type);
       }
 
       function remove_all(){
