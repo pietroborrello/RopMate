@@ -20,12 +20,11 @@
       </form>
 
       <script>
-      //make the svg container
+      //aggiungi testo come hyperlink
       var count = 0;
       var svgContainer = d3.select("body").append("svg")
         .attr("width", 20000)
         .attr("height", 20000);
-       //make the rectangle
       function add_block(x){
         count = count + 1;
         var rectangle = svgContainer.append("rect")

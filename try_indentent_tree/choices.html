@@ -18,11 +18,6 @@
                 window.alert("Invalid destination")
               }
             }
-
-            function chain(){
-              var gadget = localStorage.getItem('gadget');
-              parent.down.add_block(gadget);
-            }
         </script>
 
         <style>
@@ -96,12 +91,10 @@
               .attr("width", 20000)
               .attr("height", 20000);
 
-
+            var block;
             function add_window(x){
-              //trova il modo di salvare la x in una variabile globale così che possa
-              //essere passata anche alla funzione che aggiunge il blocco alla chain
-              document.register.btnadd.style = "visibility: visible"
-              localStorage.setItem('gadget', x.data.type);
+              block = x;
+              document.register.btnadd.style = "visibility: visible";
               var rectangle = svgContainer.append("rect")
               .attr("x", 40)
               .attr("y", 60)
@@ -146,7 +139,9 @@
               })
              }
 
-
+             function chain(){
+               parent.down.add_block(block.data.type);
+             }
         </script>
     </body>
 </html>
