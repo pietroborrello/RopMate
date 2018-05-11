@@ -1,7 +1,7 @@
 <html>
     <head>
 
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script type="text/javascript" language ="javascript">
             function fields(){
@@ -90,7 +90,7 @@
               svgContainer.selectAll("rect").remove();
               svgContainer.selectAll("text").remove();
               var rectangle = svgContainer.append("rect")
-              .attr("x", 40)
+              .attr("x", 50)
               .attr("y", 60)
               .attr("rx", 4)
               .attr("ry", 4)
@@ -111,7 +111,6 @@
                     .attr("dy", 0)
                     .text(selectedGadget.data.disasm)
                     .call(split_lines);
-                console.log(selectedGadget)
             }
 
 

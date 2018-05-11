@@ -1,0 +1,24 @@
+{
+  "name": "ropvis",
+  "version": "1.0.0",
+  "description": "ropchain graphical builder",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "npm run watch & live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pietroborrello/RopVis.git"
+  },
+  "keywords": [
+    "ropvis"
+  ],
+  "author": "Pietro Borrello, Serena Ferracci",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/pietroborrello/RopVis/issues"
+  },
+  "homepage": "https://github.com/pietroborrello/RopVis#readme",
+  "dependencies": {}
+}
