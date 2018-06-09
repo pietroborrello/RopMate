@@ -1,0 +1,10 @@
+Collapsible Tree:
+https://bl.ocks.org/mbostock/4339083
+
+Changing size of rect to fit inside text:
+https://stackoverflow.com/questions/25224475/changing-size-of-rect-to-fit-inside-text
+
+Show choices:
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.3704&rep=rep1&type=pdf
+
+http://www.rw.cdl.uni-saarland.de/teaching/infovis08/systemsPart1.pdf
