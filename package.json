@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server --ignore=.git/,node_modules/ ./",
-    "build": "rollup -c | uglifyjs -c -m -o build/d3.min.js"
+    "build": "rollup -c && uglifyjs build/d3.js -c -m -o build/d3.min.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "d3": "^5.4.0"
   },
   "devDependencies": {
+    "live-server": "^1.2.0",
     "rollup": "^0.60.1",
     "rollup-plugin-node-resolve": "^3.3.0",
     "uglify-js": "^3.4.0"
