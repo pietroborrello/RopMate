@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server --ignore=.git/,node_modules/ ./",
-    "build": "rollup -c | uglifyjs -c -m -o build/d3.min.js"
+    "build": "rollup -c && uglifyjs build/d3.js -c -m -o build/d3.min.js"
   },
   "repository": {
     "type": "git",
