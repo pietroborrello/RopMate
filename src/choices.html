@@ -99,6 +99,14 @@
                 .attr("fill", "#e6f3ff")
                 .style("stroke","black")
                 .on("click", function(d){
+                    d3.select(this).transition()
+                    .duration(50)
+                    .style("fill-opacity", "0.6")
+                    .transition()
+                    .delay(51)
+                    .duration(50)
+                    .style("fill-opacity", "0.8");
+
                     return chain();
                 });
 

@@ -32,6 +32,13 @@
         .attr("height", 50)
         .attr("class", "rect" + count)
         .on("click", function(d){
+          d3.select(this).transition()
+                    .duration(50)
+                    .style("fill-opacity", "0.6")
+                    .transition()
+                    .delay(51)
+                    .duration(50)
+                    .style("fill-opacity", "0.8");
           parent.choices.selectedGadget = selectedGadget;
           parent.choices.add_gadget_info_window();
           });
