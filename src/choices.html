@@ -1,8 +1,8 @@
 <html>
     <head>
 
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <script src="../node_modules/d3/dist/d3.min.js"></script>
         <script type="text/javascript" language ="javascript">
             function fields(){
                 if(document.register.Operation.value != "Nonselezionata"){
@@ -86,18 +86,18 @@
             var selectedGadget;
             function add_gadget_info_window()
             {
-              document.register.btnadd.style = "visibility: visible";
-              svgContainer.selectAll("rect").remove();
-              svgContainer.selectAll("text").remove();
-              var rectangle = svgContainer.append("rect")
-              .attr("x", 40)
-              .attr("y", 60)
-              .attr("rx", 4)
-              .attr("ry", 4)
-              .attr("width", 250)
-              .attr("height", 200)
-              .attr("fill", "#e6f3ff")
-              .style("stroke","black");
+                document.register.btnadd.style = "visibility: visible";
+                svgContainer.selectAll("rect").remove();
+                svgContainer.selectAll("text").remove();
+                var rectangle = svgContainer.append("rect")
+                .attr("x", 50)
+                .attr("y", 60)
+                .attr("rx", 4)
+                .attr("ry", 4)
+                .attr("width", 250)
+                .attr("height", 200)
+                .attr("fill", "#e6f3ff")
+                .style("stroke","black");
 
                 svgContainer.append("text")
                     .attr("x",60)
@@ -111,7 +111,6 @@
                     .attr("dy", 0)
                     .text(selectedGadget.data.disasm)
                     .call(split_lines);
-                console.log(selectedGadget)
             }
 
 
