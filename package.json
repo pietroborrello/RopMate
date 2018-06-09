@@ -25,6 +25,7 @@
     "d3": "^5.4.0"
   },
   "devDependencies": {
+    "live-server": "^1.2.0",
     "rollup": "^0.60.1",
     "rollup-plugin-node-resolve": "^3.3.0",
     "uglify-js": "^3.4.0"
