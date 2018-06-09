@@ -130,7 +130,10 @@ function update(source) {
   nodeEnter.append("text")
       .attr("dy", 3.5)
       .attr("dx", 5.5)
-      .text(function(d) { return d.data.name; });
+      .text(function(d) { 
+          var crop_len = 70;
+          return (d.data.name.length > crop_len)? d.data.name.substring(0, crop_len-2)+"...": d.data.name;
+          });
 
   // Transition nodes to their new position.
   nodeEnter.transition()
