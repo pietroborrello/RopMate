@@ -11,7 +11,7 @@
 var margin = {top: 30, right: 20, bottom: 30, left: 20},
     width = Math.max(1400,parseInt(window.innerWidth));
     barHeight = 25,
-    barWidth = (width - margin.left - margin.right) * 0.55;
+    barWidth = (width - margin.left - margin.right) * 0.3;
 
 var i = 0,
     duration = 200,
@@ -121,8 +121,8 @@ function update(source) {
       .attr("height", barHeight)
       .attr("width", function(d) {
           if(d.children == null && d._children == null) return barWidth;
-          else if(d._children == null) return barWidth + d.children.length;
-          else return barWidth + d._children.length;
+          else if(d._children == null) return barWidth;// + d.children.length;
+          else return barWidth;// + d._children.length;
           })
       .style("fill", color)
       .on("click", click)

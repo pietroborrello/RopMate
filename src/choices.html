@@ -80,34 +80,37 @@
 
         <script>
             var svgContainer = d3.select("body").append("svg")
-              .attr("width", 20000)
-              .attr("height", 20000);
+              .attr("width", "100%")
+              .attr("height", "100%");
 
             var selectedGadget;
             function add_gadget_info_window()
             {
-                document.register.btnadd.style = "visibility: visible";
+                //document.register.btnadd.style = "visibility: visible";
                 svgContainer.selectAll("rect").remove();
                 svgContainer.selectAll("text").remove();
                 var rectangle = svgContainer.append("rect")
-                .attr("x", 50)
-                .attr("y", 60)
+                .attr("x", "15%")
+                .attr("y", "5%")
                 .attr("rx", 4)
                 .attr("ry", 4)
-                .attr("width", 250)
-                .attr("height", 200)
+                .attr("width", "70%")
+                .attr("height", "20%")
                 .attr("fill", "#e6f3ff")
-                .style("stroke","black");
+                .style("stroke","black")
+                .on("click", function(d){
+                    return chain();
+                });
 
                 svgContainer.append("text")
-                    .attr("x",60)
-                    .attr("y", 85)
+                    .attr("x","20%")
+                    .attr("y", "8%")
                     .attr("dy", 0)
                     .text(selectedGadget.data.type + " 0x" + selectedGadget.data.address.toString(16))
 
                 svgContainer.append("text")
-                    .attr("x",60)
-                    .attr("y", 105)
+                    .attr("x","20%")
+                    .attr("y", "10%")
                     .attr("dy", 0)
                     .text(selectedGadget.data.disasm)
                     .call(split_lines);
@@ -124,7 +127,7 @@
                     lineHeight = 1.1, // ems
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy")),
-                    tspan = text.text(null).append("tspan").attr("x", 60).attr("y", y).attr("dy", dy + "em")
+                    tspan = text.text(null).append("tspan").attr("x", "20%").attr("y", y).attr("dy", dy + "em")
                     while (word = words.pop()) {
                     line.push(word)
                     tspan.text(line.join(" "))
@@ -132,7 +135,7 @@
                         line.pop()
                         tspan.text(line.join(" "))
                         line = [word]
-                        tspan = text.append("tspan").attr("x", 60).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
+                        tspan = text.append("tspan").attr("x", "20%").attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
                     }
                     }
               })
@@ -148,7 +151,7 @@
                     lineHeight = 1.1, // ems
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy")),
-                    tspan = text.text(null).append("tspan").attr("x", 60).attr("y", y).attr("dy", dy + "em")
+                    tspan = text.text(null).append("tspan").attr("x", "20%").attr("y", y).attr("dy", dy + "em")
                     while (word = words.pop()) {
                     line.push(word)
                     tspan.text(line.join(" "))
@@ -156,7 +159,7 @@
                         line.pop()
                         tspan.text(line.join(" "))
                         line = [word.trim()]
-                        tspan = text.append("tspan").attr("x", 60).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word.trim())
+                        tspan = text.append("tspan").attr("x", "20%").attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word.trim())
                     }
                     }
               })
