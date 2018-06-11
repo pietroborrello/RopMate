@@ -73,6 +73,12 @@ rect {
    padding: 3px;
    pointer-events: none;
    overflow:hidden;
-   white-space: nowrap; 
+   white-space: nowrap;
   text-overflow: ellipsis;
+ }
+
+ .filter_bar{
+    width:30%;
+    height:70%;
+    font: 13px sans-serif;
  }
