@@ -20,7 +20,8 @@
                 svgContainer.selectAll(".gadget_chosen").remove();
 
                 var chosen_group = svgContainer.append("g")
-                .attr("class", "gadget_chosen")
+                .classed("gadget_chosen", true)
+                .classed("disable-selection", true)
 
                 chosen_group.append("rect")
                 .attr("x", "15%")
