@@ -2,6 +2,12 @@
     max-width: 100px;
 }
 
+#gadget_chosen {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
 .node rect {
 cursor: pointer;
 }
