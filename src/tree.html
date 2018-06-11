@@ -13,6 +13,8 @@ var margin = {top: 30, right: 20, bottom: 30, left: 20},
     barHeight = 25,
     barWidth = (width - margin.left - margin.right) * 0.3;
 
+var crop_len = 65;
+
 var i = 0,
     duration = 200,
     root;
@@ -131,7 +133,6 @@ function update(source) {
       .attr("dy", 3.5)
       .attr("dx", 5.5)
       .text(function(d) { 
-          var crop_len = 70;
           return (d.data.name.length > crop_len)? d.data.name.substring(0, crop_len-2)+"...": d.data.name;
           });
 

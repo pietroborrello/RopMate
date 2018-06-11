@@ -1,3 +1,6 @@
+.gadget_chosen {
+    max-width: 100px;
+}
 
 .node rect {
 cursor: pointer;

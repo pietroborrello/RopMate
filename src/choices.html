@@ -88,9 +88,12 @@
             {
                 //parent.document.getElementsByTagName( 'frameset' )[ 0 ].cols="50%, *";
                 //document.register.btnadd.style = "visibility: visible";
-                svgContainer.selectAll("rect").remove();
-                svgContainer.selectAll("text").remove();
-                var rectangle = svgContainer.append("rect")
+                svgContainer.selectAll(".gadget_chosen").remove();
+                
+                var chosen_group = svgContainer.append("g")
+                .attr("class", "gadget_chosen")
+
+                chosen_group.append("rect")
                 .attr("x", "15%")
                 .attr("y", "5%")
                 .attr("rx", 4)
@@ -111,13 +114,13 @@
                     return chain();
                 });
 
-                svgContainer.append("text")
+                chosen_group.append("text")
                     .attr("x","20%")
                     .attr("y", "8%")
                     .attr("dy", 0)
                     .text(selectedGadget.data.type + " 0x" + selectedGadget.data.address.toString(16))
 
-                svgContainer.append("text")
+                chosen_group.append("text")
                     .attr("x","20%")
                     .attr("y", "10%")
                     .attr("dy", 0)
