@@ -31,7 +31,7 @@ body{
 labels {
     font-weight: normal;
 }
-  
+
 
 .title{
     position: fixed;
@@ -55,3 +55,15 @@ rect {
    stroke-width: 1px;
    }
 
+
+ div.tooltip {
+   position: absolute;
+   text-align: center;
+   width: 60px;
+   height: 28px;
+   padding: 2px;
+   font: 12px sans-serif;
+   background: lightsteelblue;
+   border: 0px;
+   pointer-events: none;
+ }

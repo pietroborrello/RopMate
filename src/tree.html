@@ -128,11 +128,27 @@ function update(source) {
           })
       .style("fill", color)
       .on("click", click)
+      .on("mouseover", function(d) {
+          if(d.children == null && d._children == null && d.data.name.length > crop_len){
+            div.transition()
+                .duration(50)
+                .style("opacity", 1);
+            console.log(d)
+            div	.html("Ciao")
+                .style("left", (d.y) + "px")
+                .style("top", (d.x) + "px");
+          }
+        })
+        .on("mouseout", function(d) {
+            div.transition()
+                .duration(50)
+                .style("opacity", 0);
+        });
 
   nodeEnter.append("text")
       .attr("dy", 3.5)
       .attr("dx", 5.5)
-      .text(function(d) { 
+      .text(function(d) {
           return (d.data.name.length > crop_len)? d.data.name.substring(0, crop_len-2)+"...": d.data.name;
           });
 
