@@ -50,7 +50,7 @@ text {
 
 rect {
    fill:#66c2a4;
-   fill-opacity: 0.8;
+   fill-opacity: 1;
    stroke: #000000;
    stroke-width: 1px;
    }
@@ -65,6 +65,9 @@ rect {
    background: #f7fcfd;
    color: black;
    padding: 3px;
-   border: 0px;
+   border: 1px solid black;
    pointer-events: none;
+   overflow:hidden;
+   white-space: nowrap; 
+  text-overflow: ellipsis;
  }
