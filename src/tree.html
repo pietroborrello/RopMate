@@ -108,7 +108,6 @@ function update(source) {
 
   var nodeEnter = node.enter().append("g")
       .attr("class", "node")
-      .classed("disable-selection", true)
       .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
       .style("opacity", 0);
 

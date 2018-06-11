@@ -31,7 +31,6 @@
         .attr("width", 100)
         .attr("height", 50)
         .attr("class", "rect" + count)
-        .classed("disable-selection", true)
         .on("click", function(d){
           d3.select(this).transition()
                     .duration(50)
@@ -51,7 +50,6 @@
             .attr("class", "rect" + count)
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "central")
-            .classed("disable-selection", true)
             .text(selectedGadget.data.type);
       }
 
