@@ -134,8 +134,8 @@ function update(source) {
                 .duration(50)
                 .style("opacity", 1);
             console.log(d)
-            div	.html(d.data.name)
-                .style("left", (d.y + 28) + "px")
+            div	.html(" " + d.data.name + " ")
+                .style("left", (d.y + 29) + "px")
                 .style("top", (d.x + 26) + "px");
           }
         })

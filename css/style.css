@@ -60,9 +60,11 @@ rect {
    position: absolute;
    text-align: center;
    max-width: 1000px;
-   height: 24px;
-   font: 15px sans-serif;
-   background: lightsteelblue;
+   height: 18px;
+   font: 13px sans-serif;
+   background: #f7fcfd;
+   color: black;
+   padding: 3px;
    border: 0px;
    pointer-events: none;
  }
