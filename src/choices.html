@@ -145,7 +145,7 @@
             };
 
             d3scatterplot = function(svg,X,cities) {
-                var nPix= 420,n=X.length,mar = [40,60,40,40];
+                var nPix= 0.7*parseInt(window.innerWidth),n=X.length,mar = [40,40,40,40];
 
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
                 var yv = X.map(function(e) { return e.y;}),yRange=expand(yv.range());
