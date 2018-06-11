@@ -24,28 +24,7 @@
     </head>
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
-        <form action="" method ="post" name ="register">
-            <div align = center>
-                Memory
-                <input type ="checkbox" name ="Memory" size ='3' value = 'yes'><br><br>
-
-                Preserved registers<br>
-                EAX <input type ="checkbox" name ="eax" size ='3' value = 'yes'>
-                EBX <input type ="checkbox" name ="ebx" size ='3' value = 'yes'>
-                ECX <input type ="checkbox" name ="ecx" size ='3' value = 'yes'>
-                EDX <input type ="checkbox" name ="edx" size ='3' value = 'yes'><br>
-                ESP <input type ="checkbox" name ="esp" size ='3' value = 'yes'>
-                EBP <input type ="checkbox" name ="ebp" size ='3' value = 'yes'>
-                ESI <input type ="checkbox" name ="esi" size ='3' value = 'yes'>
-                EDI <input type ="checkbox" name ="edi" size ='3' value = 'yes'><br>
-
-                
-                <br>
-                <input type ="reset" value ="Reset"><br>
-
-            </div>
-            <div id="gadget_chosen"></div>
-        </form>
+        <div id="gadget_chosen"></div>
 
         <script>
             var svgContainer = d3.select("div#gadget_chosen").append("svg")
@@ -58,7 +37,7 @@
                 //parent.document.getElementsByTagName( 'frameset' )[ 0 ].cols="50%, *";
                 //document.register.btnadd.style = "visibility: visible";
                 svgContainer.selectAll(".gadget_chosen").remove();
-                
+
                 var chosen_group = svgContainer.append("g")
                 .attr("class", "gadget_chosen")
 

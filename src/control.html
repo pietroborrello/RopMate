@@ -1,0 +1,50 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <script src="../build/d3.min.js"></script>
+        <script type="text/javascript" language ="javascript">
+            function fields(){
+                if(document.register.Operation.value != "Nonselezionata"){
+                  document.register.param1.style = "visibility: visible"
+                }
+                return true;
+            }
+
+            function verify(){
+              var dest = document.register.destination.value;
+              if (typeof dest == "string"){
+                return ture;
+              }
+              else{
+                window.alert("Invalid destination")
+              }
+            }
+        </script>
+    </head>
+
+    <body style="overflow-y:hidden; overflow-x:hidden;">
+        <form action="" method ="post" name ="register">
+            <div align = center>
+                Memory
+                <input type ="checkbox" name ="Memory" size ='3' value = 'yes'><br><br>
+
+                Preserved registers<br>
+                EAX <input type ="checkbox" name ="eax" size ='3' value = 'yes'><br>
+                EBX <input type ="checkbox" name ="ebx" size ='3' value = 'yes'><br>
+                ECX <input type ="checkbox" name ="ecx" size ='3' value = 'yes'><br>
+                EDX <input type ="checkbox" name ="edx" size ='3' value = 'yes'><br>
+                ESP <input type ="checkbox" name ="esp" size ='3' value = 'yes'><br>
+                EBP <input type ="checkbox" name ="ebp" size ='3' value = 'yes'><br>
+                ESI <input type ="checkbox" name ="esi" size ='3' value = 'yes'><br>
+                EDI <input type ="checkbox" name ="edi" size ='3' value = 'yes'><br>
+
+
+                <br>
+                <input type ="reset" value ="Reset"><br>
+
+            </div>
+            <div id="gadget_chosen"></div>
+        </form>
+    </body>
+</html>
