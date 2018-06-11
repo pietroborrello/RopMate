@@ -82,6 +82,6 @@ rect {
 
  .filter_bar{
     width:30%;
-    height:65%;
+    height:25px;
     font: 13px sans-serif;
  }
