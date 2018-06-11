@@ -76,10 +76,11 @@
                 <button type="button" name = "btnadd" id = "btnadd" style="visibility: hidden" onclick = "return chain();"> Add </button>
 
             </div>
+            <div id="gadget_chosen"></div>
         </form>
 
         <script>
-            var svgContainer = d3.select("body").append("svg")
+            var svgContainer = d3.select("div#gadget_chosen").append("svg")
               .attr("width", "100%")
               .attr("height", "100%");
 
