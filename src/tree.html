@@ -28,16 +28,55 @@ var svg = d3.select("body").append("svg")
   .append("g").attr("class", "tree")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("/files/ls.json").then(function(file) {
-  data = d3.nest()
-  .key(function(d) {
-      return d.type;
-  })
-  .key(function(d) {
-      return d.params;
-  })
-  .entries(file)
-  .map(function(group) {
+var filter = {
+    type:'',
+    params:'',
+    preserved_regs:'',
+    mem:''
+};
+
+var gadgets;
+
+d3.json("/files/ls.json").then(load_setup);
+
+function load_setup(_gadgets) {
+    gadgets = _gadgets
+    reload()
+}
+
+function reload() {
+    filtered_gadgets = gadgets.filter(function(gadget, index, array) {
+        for (var key in filter) {
+            if (filter.hasOwnProperty(key)) {
+                var val = filter[key];
+                if (val)
+                    switch (key) {
+                        // TODO: filter management
+                        case 'type':
+                            break;
+                        case 'params':
+                            if(gadget.params != val) return false;
+                            break;
+                        case 'preserved_regs':
+                            break;
+                        case 'mem':
+                            break;
+                        default:
+                            break;
+                    }
+            }
+        }
+        return true;
+    })
+    data = d3.nest()
+    .key(function(d) {
+        return d.type;
+    })
+    .key(function(d) {
+        return d.params;
+    })
+    .entries(filtered_gadgets)
+    .map(function(group) {
     return {
         name: group.key,
         depth: group.depth+1,
@@ -61,24 +100,24 @@ d3.json("/files/ls.json").then(function(file) {
             }
         })
     }
-  });
+    });
 
-  root = d3.hierarchy({name: "Gadgets", children: data})
-  root.x0 = 0;
-  root.y0 = 0;
-  //load whole tree
-  //update(root);
+    root = d3.hierarchy({name: "Gadgets", children: data})
+    root.x0 = 0;
+    root.y0 = 0;
+    //load whole tree
+    //update(root);
 
-  var nodes = root.descendants();
-  nodes.forEach(function(d) {
+    var nodes = root.descendants();
+    nodes.forEach(function(d) {
     d._children = d.children;
     d.children = null;
-  });
-  root.children = root._children;
-  root._children = null;
-  //collapse the tree
-  update(root);
-});
+    });
+    root.children = root._children;
+    root._children = null;
+    //collapse the tree
+    update(root);
+};
 
 function update(source) {
 
@@ -216,7 +255,7 @@ function click(d) {
     d._children = null;
   }
   update(d);
-  if(d.children == null && d._children == null){
+  if(d.children == null && d._children == null && d.data.disasm){
     parent.choices.selectedGadget = d;
     parent.choices.add_gadget_info_window();
     //var add = window.confirm("Do you want to add this gadget to your chain?");
@@ -228,14 +267,9 @@ function click(d) {
 }
 
 function filter_tree(filter_value){
-  //check inserted value
-  //redraw the tree insert the
-  /*var nodes = root.descendants();
-  nodes.forEach(function(d) {
-    d._children = d.children;
-    d.children = null;
-  });
-  update(root);*/
+    // TODO: naive filter
+    filter.params = filter_value
+    reload()
 }
 
 function color(d) {
