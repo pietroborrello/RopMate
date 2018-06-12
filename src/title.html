@@ -4,13 +4,19 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="../build/d3.min.js"></script>
 
+        <script>
+        function filter_tree(){
+            parent.tree.filter_tree(document.getElementById('filter').value)
+        }
+        </script>
+
     </head>
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
         <span style="float:left;"><h1 style="margin:0px;">RopVis</h1></span>
         <div align=right>
           <label for="filter">Filter:</label>
-          <input type="text" id="filter" name="filter" class="filter_bar" style="margin-top: 10px;">
+          <input type="text" id="filter" name="filter" class="filter_bar" style="margin-top: 10px;" onchange="return filter_tree()">
         </div>
     </body>
 </html>

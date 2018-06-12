@@ -16,7 +16,7 @@
             var svgMDSContainer = d3.select("div#mds_view").append("svg")
               .attr("width", "100%")
               .attr("height", "70%");
-            
+
             var selectedGadget = {data: {type:'', address:'0', disasm:"Click on a gadget to display it"}};
             add_gadget_info_window()
 
@@ -150,7 +150,7 @@
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
                 var yv = X.map(function(e) { return e.y;}),yRange=expand(yv.range());
                 svg.attr("width", nPix+mar[0]+mar[2])
-                .attr("height", nPix+mar[1]+mar[3]);    
+                .attr("height", nPix+mar[1]+mar[3]);
 
 
                 var sg = svg.append("g")
@@ -159,47 +159,47 @@
                     + mar[1] + ")");
 
 
-                
-                    
+
+
                 var xScale = d3.scaleLinear()
                 .range([0, nPix])
                 .domain(xRange);
-                
+
                 var yScale = d3.scaleLinear()
                 .range([nPix, 0])
                 .domain(yRange);
-                
-                
+
+
                 var labels = sg.selectAll(".labels")
                 .data(X).enter()
                 .append("text")
-                .attr("class", "label")  
+                .attr("class", "label")
                 .attr("x",function(d) {return xScale(d.x);})
                 .attr("y",function(d) {return yScale(d.y);})
                 .text(function(d,i) {return cities[i];})
                 .attr("font-size",10)
                 .attr("id",function(d,i) {return "label" + i});
-                
+
 
 
                 var dots = sg.selectAll(".datapoint")
                 .data(X).enter()
                 .append("circle")
-                .attr("class", "datapoint")  
+                .attr("class", "datapoint")
                 .attr("cx",function(d) {return xScale(d.x);})
                 .attr("cy",function(d) {return yScale(d.y);})
                 .attr("id",function(d,i) {return "point" + i})
                 .attr("r",2);
-                
+
                 var ghosts = sg.selectAll(".ghost")
                 .data(X).enter()
                 .append("circle")
-                .attr("class", "ghost")  
+                .attr("class", "ghost")
                 .attr("cx",function(d) {return xScale(d.x);})
                 .attr("cy",function(d) {return yScale(d.y);})
                 .attr("r",8);
-            
-                
+
+
                 console.log(labels);
 
                 var xAxis = d3.axisBottom(xScale).ticks(4);

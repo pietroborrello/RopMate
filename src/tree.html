@@ -129,7 +129,7 @@ function update(source) {
           if(d.children == null && d._children == null && d.data.name.length > crop_len){
 
             d3.selectAll(".tooltip").remove();
-            
+
             var tooltip = d3.select("body")
             .append("div")
             .attr("class", "tooltip")
@@ -227,6 +227,16 @@ function click(d) {
   }
 }
 
+function filter_tree(filter_value){
+  //check inserted value
+  //redraw the tree insert the
+  /*var nodes = root.descendants();
+  nodes.forEach(function(d) {
+    d._children = d.children;
+    d.children = null;
+  });
+  update(root);*/
+}
 
 function color(d) {
   var color_ = d3.scaleOrdinal(d3.schemeBuGn[9]).domain([7,6,5,4,3,2,1,0]);
