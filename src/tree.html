@@ -25,7 +25,7 @@ var diagonal = d3.linkHorizontal()
 
 var svg = d3.select("body").append("svg")
     .attr("width", width) // + margin.left + margin.right)
-  .append("g").attr("class", "tree")
+    .append("g").attr("class", "tree")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var filter = {
@@ -55,7 +55,7 @@ function reload() {
                         case 'type':
                             break;
                         case 'params':
-                            if(gadget.params != val) return false;
+                            if(gadget.params != val && gadget.dest != val) return false;
                             break;
                         case 'preserved_regs':
                             for(var reg of gadget.modified_regs)

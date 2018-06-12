@@ -52,12 +52,20 @@
               .attr("dominant-baseline", "central")
               .text(selectedGadget.data.type);
 
+          svgContainer.append("svg:path")
+            .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
+            .attr("class", "rect" + count)
+            .style("stroke-width", 1)
+            .style("stroke", "black")
+            .attr("fill", "#66c2a4")
+            .attr("transform", "translate(" + (-77 + count * 130) + "," + 72.5 + ")");
         }
       }
 
       function remove_all(){
         svgContainer.selectAll("rect").remove();
         svgContainer.selectAll("text").remove();
+        svgContainer.selectAll("path").remove();
         count = 0;
       }
 
