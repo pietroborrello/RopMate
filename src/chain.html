@@ -22,35 +22,36 @@
         .attr("height", 20000);
 
       function add_block_to_chain(selectedGadget){
-        count = count + 1;
-        var rectangle = svgContainer.append("rect")
-        .attr("x", -50 + (count*120))
-        .attr("y", 60)
-        .attr("rx", 4)
-        .attr("ry", 4)
-        .attr("width", 100)
-        .attr("height", 50)
-        .attr("class", "rect" + count)
-        .on("click", function(d){
-          d3.select(this).transition()
-                    .duration(50)
-                    .style("fill-opacity", "0.6")
-                    .transition()
-                    .delay(51)
-                    .duration(50)
-                    .style("fill-opacity", "1");
-          parent.choices.selectedGadget = selectedGadget;
-          parent.choices.add_gadget_info_window();
-          });
-
-        svgContainer.append("text")
-            .attr("x", (count*120))
-            .attr("y", 85)
-            .attr("dy", 0)
-            .attr("class", "rect" + count)
-            .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "central")
-            .text(selectedGadget.data.type);
+        if(selectedGadget.data.type != ""){
+          count = count + 1;
+          var rectangle = svgContainer.append("rect")
+          .attr("x", -50 + (count*120))
+          .attr("y", 60)
+          .attr("rx", 4)
+          .attr("ry", 4)
+          .attr("width", 100)
+          .attr("height", 50)
+          .attr("class", "rect" + count)
+          .on("click", function(d){
+            d3.select(this).transition()
+                      .duration(50)
+                      .style("fill-opacity", "0.6")
+                      .transition()
+                      .delay(51)
+                      .duration(50)
+                      .style("fill-opacity", "1");
+            parent.choices.selectedGadget = selectedGadget;
+            parent.choices.add_gadget_info_window();
+            });
+          svgContainer.append("text")
+              .attr("x", (count*120))
+              .attr("y", 85)
+              .attr("dy", 0)
+              .attr("class", "rect" + count)
+              .attr("text-anchor", "middle")
+              .attr("dominant-baseline", "central")
+              .text(selectedGadget.data.type);
+        }
       }
 
       function remove_all(){
