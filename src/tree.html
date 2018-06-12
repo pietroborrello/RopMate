@@ -32,7 +32,7 @@ var filter = {
     type:'',
     params:'',
     preserved_regs:[],
-    mem:''
+    avoid_mem: false
 };
 
 var gadgets;
@@ -61,7 +61,8 @@ function reload() {
                             for(var reg of gadget.modified_regs)
                                 if (val.includes(reg)) return false;
                             break;
-                        case 'mem':
+                        case 'avoid_mem':
+                            if(val && gadget.mem[0].length) return false;
                             break;
                         default:
                             break;

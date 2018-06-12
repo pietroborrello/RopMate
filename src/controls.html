@@ -9,10 +9,10 @@
     <body style="overflow-y:hidden; overflow-x:hidden;">
         <form action="" method ="post" name ="register">
             <div align = center>
-                Memory
-                <input type ="checkbox" name ="Memory" size ='3' value = 'yes'><br><br>
+                Avoid Memory
+                <input type ="checkbox" name ="Memory" size ='3' value = 'yes' onchange="set_avoid_mem(this)"><br><br>
 
-                Preserved registers<br><br>
+                Preserved Registers<br><br>
                 EAX <input type ="checkbox" name ="eax" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
                 EBX <input type ="checkbox" name ="ebx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
                 ECX <input type ="checkbox" name ="ecx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
@@ -44,9 +44,16 @@
                 parent.tree.reload()
             }
 
+            function set_avoid_mem(checkbox)
+            {
+                parent.tree.filter.avoid_mem = checkbox.checked
+                parent.tree.reload()
+            }
+
             function clear_preserved_regs() {
                 // yes, this works
                 parent.tree.filter.preserved_regs.length = 0; 
+                parent.tree.filter.avoid_mem = false
                 parent.tree.reload()
             }
         </script>
