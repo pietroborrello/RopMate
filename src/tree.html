@@ -71,6 +71,7 @@ function reload() {
         }
         return true;
     })
+    console.log( '' + filtered_gadgets.length + ' gadgets')
     data = d3.nest()
     .key(function(d) {
         return d.type;
