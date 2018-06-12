@@ -13,21 +13,42 @@
                 <input type ="checkbox" name ="Memory" size ='3' value = 'yes'><br><br>
 
                 Preserved registers<br><br>
-                EAX <input type ="checkbox" name ="eax" size ='3' value = 'yes'><br>
-                EBX <input type ="checkbox" name ="ebx" size ='3' value = 'yes'><br>
-                ECX <input type ="checkbox" name ="ecx" size ='3' value = 'yes'><br>
-                EDX <input type ="checkbox" name ="edx" size ='3' value = 'yes'><br>
-                ESP <input type ="checkbox" name ="esp" size ='3' value = 'yes'><br>
-                EBP <input type ="checkbox" name ="ebp" size ='3' value = 'yes'><br>
-                ESI <input type ="checkbox" name ="esi" size ='3' value = 'yes'><br>
-                EDI <input type ="checkbox" name ="edi" size ='3' value = 'yes'><br>
+                EAX <input type ="checkbox" name ="eax" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
+                EBX <input type ="checkbox" name ="ebx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
+                ECX <input type ="checkbox" name ="ecx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
+                EDX <input type ="checkbox" name ="edx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
+                EBP <input type ="checkbox" name ="ebp" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
+                ESI <input type ="checkbox" name ="esi" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
+                EDI <input type ="checkbox" name ="edi" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
 
 
                 <br>
-                <input type ="reset" value ="Reset"><br>
+                <input type ="reset" value ="Reset" onclick="clear_preserved_regs()"><br>
 
             </div>
             <div id="gadget_chosen"></div>
         </form>
+
+        <script>
+            function add_preserved_reg(checkbox) {
+                if(checkbox.checked)
+                {
+                    if(!parent.tree.filter.preserved_regs.includes(checkbox.name))
+                        parent.tree.filter.preserved_regs.push(checkbox.name)
+                }
+                else {
+                    if(parent.tree.filter.preserved_regs.includes(checkbox.name))
+                    var i = parent.tree.filter.preserved_regs.indexOf(checkbox.name);
+                    parent.tree.filter.preserved_regs.splice(i, 1);
+                }
+                parent.tree.reload()
+            }
+
+            function clear_preserved_regs() {
+                // yes, this works
+                parent.tree.filter.preserved_regs.length = 0; 
+                parent.tree.reload()
+            }
+        </script>
     </body>
 </html>

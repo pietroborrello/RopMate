@@ -31,7 +31,7 @@ var svg = d3.select("body").append("svg")
 var filter = {
     type:'',
     params:'',
-    preserved_regs:'',
+    preserved_regs:[],
     mem:''
 };
 
@@ -58,6 +58,8 @@ function reload() {
                             if(gadget.params != val) return false;
                             break;
                         case 'preserved_regs':
+                            for(var reg of gadget.modified_regs)
+                                if (val.includes(reg)) return false;
                             break;
                         case 'mem':
                             break;
