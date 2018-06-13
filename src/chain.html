@@ -86,14 +86,14 @@
 
       function scrollLeftTween(scrollLeft) {
           return function () {
-            var i = d3.interpolateNumber(scrollLeft-180, scrollLeft);
+            var i = d3.interpolateNumber(window.pageXOffset, scrollLeft);
             return function (t) {window.scrollTo(i(t),0); };
           };
         }
 
       function scrollRightTween(scrollLeft, all) {
           return function () {
-            var i = d3.interpolateNumber(scrollLeft, all ? 0 : scrollLeft-180);
+            var i = d3.interpolateNumber(window.pageXOffset, all ? 0 : scrollLeft-180);
             return function (t) { window.scrollTo(i(t), 0); };
           };
         }
@@ -134,13 +134,13 @@
           svgContainer.selectAll(".rect" + count)
             .transition()
             .duration(duration)
-            .style("opacity", "0")
+            .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
 
           svgContainer.selectAll(".rect" + count)
             .transition()
             .duration(duration)
             .delay(duration)
-            .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
+            .style("opacity", "0")
             .remove()
 
           count = count - 1;
