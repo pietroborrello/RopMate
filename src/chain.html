@@ -65,7 +65,7 @@
       function trim(text) {
         if(text.length > 18) 
         {
-          // substitute long addresses with 0x_
+          // replace long addresses with '0x...'
           if(text.includes('0x')) return text.replace(/(.*)0x[0123456789abcdef]+(.*)/, "$10x...$2")
           else return text.substring(0, 16) + "..."
         }
