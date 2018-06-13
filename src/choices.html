@@ -9,7 +9,7 @@
         <div id="mds_view"></div>
 
         <script>
-            var duration = 300;
+            var duration = 200;
             
             var svgGadgetContainer = d3.select("div#gadget_chosen").append("svg")
               .attr("width", "100%")
@@ -29,29 +29,29 @@
                 svgGadgetContainer.selectAll(".gadget_chosen").remove();
 
                 var chosen_group = svgGadgetContainer.append("g")
-                .classed("gadget_chosen", true)
+                    .classed("gadget_chosen", true)
                 
 
                 chosen_group.append("rect")
-                .attr("x", "15%")
-                .attr("y", "5%")
-                .attr("rx", 4)
-                .attr("ry", 4)
-                .attr("width", "70%")
-                .attr("height", "90%")
-                .attr("fill", "#e6f3ff")
-                .style("stroke","black")
-                .on("click", function(d){
-                    d3.select(this).transition()
-                    .duration(50)
-                    .style("fill-opacity", "0.6")
-                    .transition()
-                    .delay(51)
-                    .duration(50)
-                    .style("fill-opacity", "1");
+                    .attr("x", "15%")
+                    .attr("y", "5%")
+                    .attr("rx", 4)
+                    .attr("ry", 4)
+                    .attr("width", "70%")
+                    .attr("height", "90%")
+                    .attr("fill", "#e6f3ff")
+                    .style("stroke","black")
+                    .on("click", function(d){
+                        d3.select(this).transition()
+                        .duration(50)
+                        .style("fill-opacity", "0.6")
+                        .transition()
+                        .delay(51)
+                        .duration(50)
+                        .style("fill-opacity", "1");
 
-                    return chain();
-                });
+                        return chain();
+                    });
 
                 chosen_group.append("text")
                     .attr("x","20%")

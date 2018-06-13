@@ -17,6 +17,8 @@
       <script>
       //aggiungi testo come hyperlink
       var count = 0;
+      var duration = 200;
+
       var svgContainer = d3.select("body").append("svg")
         .attr("width", 20000)
         .attr("height", 20000);
@@ -24,48 +26,55 @@
       function add_block_to_chain(selectedGadget){
         if(selectedGadget.data.type != ""){
           count = count + 1;
-          var rectangle = svgContainer.append("rect")
-          .attr("x", -130 + (count*180))
-          .attr("y", 60)
-          .attr("rx", 4)
-          .attr("ry", 4)
-          .attr("width", 150)
-          .attr("height", 50)
-          .attr("class", "rect" + count)
-          .on("click", function(d){
-            d3.select(this).transition()
-                      .duration(50)
-                      .style("fill-opacity", "0.6")
-                      .transition()
-                      .delay(51)
-                      .duration(50)
-                      .style("fill-opacity", "1");
-            parent.choices.selectedGadget = selectedGadget;
-            parent.choices.add_gadget_info_window();
-            });
-          svgContainer.append("text")
+
+          var rect_group = svgContainer.append("g")
+            .classed("rect" + count, true)
+            .style("opacity", "0")
+
+          rect_group.append("rect")
+            .attr("x", -130 + (count*180))
+            .attr("y", 60)
+            .attr("rx", 4)
+            .attr("ry", 4)
+            .attr("width", 150)
+            .attr("height", 50)
+            .on("click", function(d){
+              d3.select(this).transition()
+                        .duration(50)
+                        .style("fill-opacity", "0.6")
+                        .transition()
+                        .delay(51)
+                        .duration(50)
+                        .style("fill-opacity", "1");
+              parent.choices.selectedGadget = selectedGadget;
+              parent.choices.add_gadget_info_window();
+              });
+          rect_group.append("text")
               .attr("x", -55 + (count*180))
               .attr("y", 85)
               .attr("dy", 0)
-              .attr("class", "rect" + count)
               .attr("text-anchor", "middle")
               .attr("dominant-baseline", "central")
               .text(trim(selectedGadget.data.params));
 
           if(count > 1){
-            svgContainer.append("svg:path")
-            .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
-            .attr("class", "rect" + count)
-            .style("stroke-width", 1)
-            .style("stroke", "black")
-            .attr("fill", "#66c2a4")
-            .attr("transform", "translate(" + (-157 + count * 180) + "," + 72.5 + ")");
+            rect_group.append("svg:path")
+              .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
+              .style("stroke-width", 1)
+              .style("stroke", "black")
+              .attr("fill", "#66c2a4")
+              .attr("transform", "translate(" + (-157 + count * 180) + "," + 72.5 + ")");
           }
 
-            if(selectedGadget.data.dest) {
-              parent.frames["controls"].document.getElementById(selectedGadget.data.dest).checked = true;
-              add_preserved_reg(selectedGadget.data.dest)
-            } 
+          rect_group
+            .transition()
+            .duration(duration)
+            .style("opacity", "1")
+
+          if(selectedGadget.data.dest) {
+            parent.frames["controls"].document.getElementById(selectedGadget.data.dest).checked = true;
+            add_preserved_reg(selectedGadget.data.dest)
+          } 
         }
       }
 
@@ -86,15 +95,21 @@
         }
 
       function remove_all(){
-        svgContainer.selectAll("rect").remove();
-        svgContainer.selectAll("text").remove();
-        svgContainer.selectAll("path").remove();
+        svgContainer.selectAll("g")
+          .transition()
+          .duration(duration)
+          .style("opacity", "0")
+          .remove();
         count = 0;
       }
 
       function remove(){
         if(count > 0){
-          svgContainer.selectAll(".rect" + count).remove()
+          svgContainer.selectAll(".rect" + count)
+            .transition()
+            .duration(duration)
+            .style("opacity", "0")
+            .remove()
           count = count - 1;
         }
       }
