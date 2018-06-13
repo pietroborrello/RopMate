@@ -59,6 +59,11 @@
             .style("stroke", "black")
             .attr("fill", "#66c2a4")
             .attr("transform", "translate(" + (-157 + count * 180) + "," + 72.5 + ")");
+
+            if(selectedGadget.data.dest) {
+              parent.frames["controls"].document.getElementById(selectedGadget.data.dest).checked = true;
+              add_preserved_reg(selectedGadget.data.dest)
+            } 
         }
       }
 
@@ -71,6 +76,12 @@
         }
         else return text;
       }
+
+      function add_preserved_reg(reg) {
+            if (!parent.tree.filter.preserved_regs.includes(reg))
+              parent.tree.filter.preserved_regs.push(reg)
+              parent.tree.reload()
+        }
 
       function remove_all(){
         svgContainer.selectAll("rect").remove();
