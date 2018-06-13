@@ -30,14 +30,19 @@
           var rect_group = svgContainer.append("g")
             .classed("rect" + count, true)
             .style("opacity", "0")
+            .call(d3.drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended));
 
           rect_group.append("rect")
-            .attr("x", -130 + (count*180))
-            .attr("y", 60)
+            .attr("x", 0)
+            .attr("y", 0)
             .attr("rx", 4)
             .attr("ry", 4)
             .attr("width", 150)
             .attr("height", 50)
+            .attr("transform", "translate(" + [-130 + (count*180), 60] + ")")
             .on("click", function(d){
               d3.select(this).transition()
                         .duration(50)
@@ -49,13 +54,16 @@
               parent.choices.selectedGadget = selectedGadget;
               parent.choices.add_gadget_info_window();
               });
+
           rect_group.append("text")
-              .attr("x", -55 + (count*180))
-              .attr("y", 85)
+              .attr("x", 0)
+              .attr("y", 0)
               .attr("dy", 0)
               .attr("text-anchor", "middle")
               .attr("dominant-baseline", "central")
+              .attr("transform", "translate(" + [-55 + (count*180), 85] + ")")
               .text(trim(selectedGadget.data.params));
+              
 
           if(count > 1){
             rect_group.append("svg:path")
@@ -82,18 +90,34 @@
             add_preserved_reg(selectedGadget.data.dest)
           } 
         }
+
+        function dragstarted() {
+          d3.select(this)
+            .classed("active", true);
+        }
+
+        function dragged(d) {
+          d3.select(this).attr("transform", function(d,i){
+            return "translate(" + [d3.event.x - 120,d3.event.y - 80] + ")"
+          })
+        }
+
+        function dragended() {
+          d3.select(this)
+          .classed("active", false);
+        }
       }
 
       function scrollLeftTween(scrollLeft) {
           return function () {
-            var i = d3.interpolateNumber(window.pageXOffset, scrollLeft);
+            var i = d3.interpolateNumber(scrollLeft-180, scrollLeft);
             return function (t) {window.scrollTo(i(t),0); };
           };
         }
 
       function scrollRightTween(scrollLeft, all) {
           return function () {
-            var i = d3.interpolateNumber(window.pageXOffset, all ? 0 : scrollLeft-180);
+            var i = d3.interpolateNumber(scrollLeft, all ? 0 : scrollLeft-180);
             return function (t) { window.scrollTo(i(t), 0); };
           };
         }
@@ -134,13 +158,13 @@
           svgContainer.selectAll(".rect" + count)
             .transition()
             .duration(duration)
-            .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
+            .style("opacity", "0")
 
           svgContainer.selectAll(".rect" + count)
             .transition()
             .duration(duration)
             .delay(duration)
-            .style("opacity", "0")
+            .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
             .remove()
 
           count = count - 1;
