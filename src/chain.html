@@ -25,11 +25,11 @@
         if(selectedGadget.data.type != ""){
           count = count + 1;
           var rectangle = svgContainer.append("rect")
-          .attr("x", -50 + (count*130))
+          .attr("x", -130 + (count*180))
           .attr("y", 60)
           .attr("rx", 4)
           .attr("ry", 4)
-          .attr("width", 100)
+          .attr("width", 150)
           .attr("height", 50)
           .attr("class", "rect" + count)
           .on("click", function(d){
@@ -44,13 +44,13 @@
             parent.choices.add_gadget_info_window();
             });
           svgContainer.append("text")
-              .attr("x", (count*130))
+              .attr("x", -55 + (count*180))
               .attr("y", 85)
               .attr("dy", 0)
               .attr("class", "rect" + count)
               .attr("text-anchor", "middle")
               .attr("dominant-baseline", "central")
-              .text(selectedGadget.data.type);
+              .text(trim(selectedGadget.data.params));
 
           svgContainer.append("svg:path")
             .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
@@ -58,8 +58,12 @@
             .style("stroke-width", 1)
             .style("stroke", "black")
             .attr("fill", "#66c2a4")
-            .attr("transform", "translate(" + (-77 + count * 130) + "," + 72.5 + ")");
+            .attr("transform", "translate(" + (-157 + count * 180) + "," + 72.5 + ")");
         }
+      }
+
+      function trim(text) {
+        return text;
       }
 
       function remove_all(){
