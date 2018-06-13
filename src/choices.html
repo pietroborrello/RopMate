@@ -9,6 +9,8 @@
         <div id="mds_view"></div>
 
         <script>
+            var duration = 300;
+            
             var svgGadgetContainer = d3.select("div#gadget_chosen").append("svg")
               .attr("width", "100%")
               .attr("height", "30%");
@@ -28,6 +30,7 @@
 
                 var chosen_group = svgGadgetContainer.append("g")
                 .classed("gadget_chosen", true)
+                
 
                 chosen_group.append("rect")
                 .attr("x", "15%")
@@ -54,14 +57,24 @@
                     .attr("x","20%")
                     .attr("y", "15%")
                     .attr("dy", 0)
+                    .style("opacity", "0")
                     .text(selectedGadget.data.type + " 0x" + selectedGadget.data.address.toString(16))
 
                 chosen_group.append("text")
                     .attr("x","20%")
                     .attr("y", "20%")
                     .attr("dy", 0)
+                    .style("opacity", "0")
                     .text(selectedGadget.data.disasm)
                     .call(split_lines);
+                
+                chosen_group
+                    .selectAll('text')
+                    .transition()
+                    .duration(duration)
+                    .style("opacity", "1")
+
+
             }
 
              function split_lines(text) {
