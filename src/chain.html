@@ -18,6 +18,7 @@
       //aggiungi testo come hyperlink
       var count = 0;
       var duration = 200;
+      var list_gadgets_chain = []
 
       var svgContainer = d3.select("body").append("svg")
         .attr("width", 20000)
@@ -26,6 +27,7 @@
       function add_block_to_chain(selectedGadget){
         if(selectedGadget.data.type != ""){
           count = count + 1;
+          list_gadgets_chain.push(selectedGadget)
 
           var rect_group = svgContainer.append("g")
             .classed("rect" + count, true)
@@ -38,6 +40,7 @@
           rect_group.append("rect")
             .attr("x", 0)
             .attr("y", 0)
+            .attr("count", count)
             .attr("rx", 4)
             .attr("ry", 4)
             .attr("width", 150)
@@ -90,21 +93,34 @@
             add_preserved_reg(selectedGadget.data.dest)
           } 
         }
-
+        
+        var gadget_id;
         function dragstarted() {
-          d3.select(this)
-            .classed("active", true);
+          gadget_id = d3.select(this).attr("class").charAt(4) - 1
         }
 
         function dragged(d) {
           d3.select(this).attr("transform", function(d,i){
-            return "translate(" + [d3.event.x - 120,d3.event.y - 80] + ")"
+            return "translate(" + [d3.event.x - (gadget_id + 1)*120 - gadget_id*60 , d3.event.y - 80] + ")"
           })
         }
 
         function dragended() {
-          d3.select(this)
-          .classed("active", false);
+          ending_position = Math.floor((d3.event.x +130)/180 + 0.5) - 1
+          if(ending_position < 0) ending_position = 0;
+          if(ending_position > (length_chain - 1)) ending_position = length_chain - 1;
+          var length_chain = list_gadgets_chain.length;
+          if(gadget_id != ending_position){
+            if(gadget_id > ending_position){
+                var store_actual_count = count;
+                count = ending_position + 1;
+                console.log(count)
+                remove();
+                add_block_to_chain(list_gadgets_chain[gadget_id]);
+                //while() disegna quelli dopo... Modifica list_chain e classi
+                count = store_actual_count;
+            }
+          }
         }
       }
 
