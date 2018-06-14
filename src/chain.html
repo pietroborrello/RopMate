@@ -41,7 +41,6 @@
           rect_group.append("rect")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("count", count)
             .attr("rx", 4)
             .attr("ry", 4)
             .attr("width", 150)
@@ -111,31 +110,45 @@
           if(ending_position < 0) ending_position = 0;
           var length_chain = list_gadgets_chain.length;
           if(ending_position > (length_chain - 1)) ending_position = length_chain - 1;
-          if(gadget_id != ending_position){
-            if(gadget_id > ending_position){
-                var store_actual_count = count;
-                dragging = 1;
-                count = ending_position + 1;
+          if(gadget_id >= ending_position){
+              var store_actual_count = count;
+              dragging = 1;
+              count = ending_position + 1;
+              remove();
+              add_block_to_chain(list_gadgets_chain[gadget_id]);
+              for(var i = ending_position; i < gadget_id; i++){
+                count++
                 remove();
-                add_block_to_chain(list_gadgets_chain[gadget_id]);
-                //while() disegna quelli dopo... Modifica list_chain e classi
-                for(var i = ending_position; i < gadget_id; i++){
-                  count++
-                  remove();
-                  add_block_to_chain(list_gadgets_chain[i]);
-                }
-                var moved_gadget = list_gadgets_chain[gadget_id]
-                for(var i = gadget_id; i > ending_position; i--){
-                  list_gadgets_chain[i] = list_gadgets_chain[i-1]
-                  d3.select(".rect"+(i)).classed("rect"+(i+1), true)
-                  d3.select(".rect"+(i)).classed("rect"+(i), false)
-                }
-                list_gadgets_chain[i] = moved_gadget
-                list_gadgets_chain.slice(0, length_chain)
+                add_block_to_chain(list_gadgets_chain[i]);
+              }
+              var moved_gadget = list_gadgets_chain[gadget_id]
+              for(var i = gadget_id; i > ending_position; i--){
+                list_gadgets_chain[i] = list_gadgets_chain[i-1]
+              }
+              list_gadgets_chain[i] = moved_gadget
+              count = store_actual_count;
+              dragging = 0
+          }
 
-                count = store_actual_count;
-                dragging = 0
+          else{
+            var store_actual_count = count;
+            dragging = 1;
+            count = ending_position + 1;
+            remove();
+            add_block_to_chain(list_gadgets_chain[gadget_id]);
+            for(var i = ending_position; i > gadget_id; i--){
+              count--;
+              remove();
+              add_block_to_chain(list_gadgets_chain[i]);
             }
+            var moved_gadget = list_gadgets_chain[gadget_id]
+            for(var i = gadget_id; i < ending_position; i++){
+              list_gadgets_chain[i] = list_gadgets_chain[i+1]
+            }
+            list_gadgets_chain[i] = moved_gadget
+            console.log(list_gadgets_chain.length)
+            count = store_actual_count;
+            dragging = 0
           }
         }
       }
