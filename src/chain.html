@@ -19,6 +19,7 @@
       var count = 0;
       var duration = 200;
       var list_gadgets_chain = []
+      var dragging = 0
 
       var svgContainer = d3.select("body").append("svg")
         .attr("width", 20000)
@@ -27,7 +28,7 @@
       function add_block_to_chain(selectedGadget){
         if(selectedGadget.data.type != ""){
           count = count + 1;
-          list_gadgets_chain.push(selectedGadget)
+          if (dragging == 0) list_gadgets_chain.push(selectedGadget)
 
           var rect_group = svgContainer.append("g")
             .classed("rect" + count, true)
@@ -113,8 +114,8 @@
           if(gadget_id != ending_position){
             if(gadget_id > ending_position){
                 var store_actual_count = count;
+                dragging = 1;
                 count = ending_position + 1;
-                console.log(count)
                 remove();
                 add_block_to_chain(list_gadgets_chain[gadget_id]);
                 //while() disegna quelli dopo... Modifica list_chain e classi
@@ -122,18 +123,18 @@
                   count++
                   remove();
                   add_block_to_chain(list_gadgets_chain[i]);
-                  console.log(count + " ~~~ " + i)
                 }
-                console.log(gadget_id + " ~~~ " + ending_position)
                 var moved_gadget = list_gadgets_chain[gadget_id]
                 for(var i = gadget_id; i > ending_position; i--){
                   list_gadgets_chain[i] = list_gadgets_chain[i-1]
-                  d3.select(".rect"+(i-1)).classed("rect"+(i), true)
-                  d3.select(".rect"+(i-1)).classed("rect"+(i-1), false)
+                  d3.select(".rect"+(i)).classed("rect"+(i+1), true)
+                  d3.select(".rect"+(i)).classed("rect"+(i), false)
                 }
                 list_gadgets_chain[i] = moved_gadget
+                list_gadgets_chain.slice(0, length_chain)
 
                 count = store_actual_count;
+                dragging = 0
             }
           }
         }
@@ -182,6 +183,7 @@
           .tween("uniquetweenname", scrollRightTween(180 * count - 540, true))
           .remove();
         count = 0;
+        list_gadgets_chain = []
       }
 
       function remove(){
