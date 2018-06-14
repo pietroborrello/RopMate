@@ -88,7 +88,7 @@
             .delay(count <= 3? 0:duration)
             .style("opacity", "1")
 
-          if(selectedGadget.data.dest) {
+          if(selectedGadget.data.dest && dragging == 0) {
             parent.frames["controls"].document.getElementById(selectedGadget.data.dest).checked = true;
             add_preserved_reg(selectedGadget.data.dest)
           } 
