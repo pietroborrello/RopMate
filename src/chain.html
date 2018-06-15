@@ -107,7 +107,13 @@
 
         function dragended() {
           dragging = 1;
-          ending_position = Math.floor((d3.event.x +130)/180 + 0.5) - 1
+          ending_position = (d3.event.x + 75)/180
+          if((ending_position - 1) > gadget_id){
+            ending_position = Math.floor(ending_position - 0.15) - 1
+          }
+          else{
+            ending_position = Math.floor(ending_position + 0.85) - 1
+          }
           if(ending_position < 0) ending_position = 0;
           var length_chain = list_gadgets_chain.length;
           
