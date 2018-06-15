@@ -33,6 +33,7 @@
           var rect_group = svgContainer.append("g")
             .classed("rect" + count, true)
             .style("opacity", "0")
+            .attr("transform", "translate(" + [-130 + (count * 180), 60] + ")")
             .call(d3.drag()
               .on("start", dragstarted)
               .on("drag", dragged)
@@ -45,7 +46,6 @@
             .attr("ry", 4)
             .attr("width", 150)
             .attr("height", 50)
-            .attr("transform", "translate(" + [-130 + (count*180), 60] + ")")
             .on("click", function(d){
               d3.select(this).transition()
                         .duration(50)
@@ -64,19 +64,18 @@
               .attr("dy", 0)
               .attr("text-anchor", "middle")
               .attr("dominant-baseline", "central")
-              .attr("transform", "translate(" + [-55 + (count*180), 85] + ")")
+              .attr("transform", "translate(" + [75, 25] + ")")
               .text(trim(selectedGadget.data.params));
               
 
-          if(count > 1){
-            rect_group.append("svg:path")
-              .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
-              .style("stroke-width", 1)
-              .style("stroke", "black")
-              .attr("fill", "#66c2a4")
-              .attr("transform", "translate(" + (-157 + count * 180) + "," + 72.5 + ")");
-          }
-
+          rect_group.append("svg:path")
+            .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
+            .style("stroke-width", 1)
+            .style("stroke", "black")
+            .style("opacity", count>1?"1":"0")
+            .attr("fill", "#66c2a4")
+            .attr("transform", "translate(" + (-27) + "," + 12.5 + ")");
+        
           if (dragging == 0) 
             rect_group
               .transition()
@@ -102,7 +101,7 @@
 
         function dragged(d) {
           d3.select(this).attr("transform", function(d,i){
-            return "translate(" + [d3.event.x - (gadget_id + 1)*120 - gadget_id*60 , d3.event.y - 80] + ")"
+            return "translate(" + [d3.event.x -75, d3.event.y - 25] + ")"
           })
         }
 
@@ -111,13 +110,37 @@
           ending_position = Math.floor((d3.event.x +130)/180 + 0.5) - 1
           if(ending_position < 0) ending_position = 0;
           var length_chain = list_gadgets_chain.length;
+          
+          //create classes array
+          var list_class_chain = new Array(length_chain)
+          for(var i = 0; i < length_chain; i++) list_class_chain[i] = "rect"+(i+1)
+
           if(ending_position > (length_chain - 1)) ending_position = length_chain - 1;
           var moved_gadget = list_gadgets_chain.splice(gadget_id, 1)[0] // returns a list of removed elements
           list_gadgets_chain.splice(ending_position, 0, moved_gadget) // yes splice also adds elements at position
-          remove_all()
+
+          // also move classes array
+          var moved_class = list_class_chain.splice(gadget_id, 1)[0] 
+          list_class_chain.splice(ending_position, 0, moved_class)
+          
           for (var i = 0; i < length_chain; i++) {
-            add_block_to_chain(list_gadgets_chain[i]);
+            // assign new class and translate
+            svgContainer.select("g."+ list_class_chain[i])
+            .attr('new_class', "rect"+(i+1))
+            .transition()
+            .duration(duration)
+            .attr("transform", "translate(" + [-130 + (i+1) * 180, 60] + ")")
+            // draw or hide the arrow
+            svgContainer.select("g." + list_class_chain[i])
+              .select('path')
+              .style("opacity", i > 0 ? "1" : "0")
           }
+
+          // set new classes
+          svgContainer.selectAll("g")
+            .attr("class", function(d,i) {
+              return d3.select(this).attr('new_class')
+            })
           dragging = 0;
           }
       }
