@@ -19,7 +19,7 @@
               .attr("width", "100%")
               .attr("height", "70%");
 
-            var selectedGadget = {data: {type:'', address:'0', disasm:"Click on a gadget to display it"}};
+            var selectedGadget = {data: {type:'', address:'0', disasm:"Click on a gadget to display it", mem:['undefined','']}};
             add_gadget_info_window()
 
             function add_gadget_info_window()
@@ -38,7 +38,7 @@
                     .attr("rx", 4)
                     .attr("ry", 4)
                     .attr("width", "70%")
-                    .attr("height", "90%")
+                    .attr("height", "95%")
                     .attr("fill", "#e6f3ff")
                     .style("stroke","black")
                     .on("click", function(d){
@@ -58,12 +58,49 @@
                     .attr("y", "15%")
                     .attr("dy", 0)
                     .style("opacity", "0")
-                    .text(selectedGadget.data.type + " 0x" + selectedGadget.data.address.toString(16))
+                    .style("font-weight", 'bold')
+                    .text(selectedGadget.data.type)
+                    .append("tspan")
+                    .style("font-weight", 'normal')
+                    .text(" 0x" + selectedGadget.data.address.toString(16))
+
+                chosen_group.append("text")
+                    .attr("x", "20%")
+                    .attr("y", "15%")
+                    .attr("dy", "2.2em")
+                    .style("opacity", "0")
+                    .style("font-weight", 'bold')
+                    .text("Modified: ")
+                    .append("tspan")
+                    .style("font-weight", 'normal')
+                    .text("" + selectedGadget.data.modified_regs)
+
+                chosen_group.append("text")
+                    .attr("x", "20%")
+                    .attr("y", "15%")
+                    .attr("dy", "3.3em")
+                    .style("opacity", "0")
+                    .style("font-weight", 'bold')
+                    .text("Dereferenced: ")
+                    .append("tspan")
+                    .style("font-weight", 'normal')
+                    .text("" + selectedGadget.data.mem[0])
+
+                chosen_group.append("text")
+                    .attr("x", "20%")
+                    .attr("y", "15%")
+                    .attr("dy", "4.4em")
+                    .style("opacity", "0")
+                    .style("font-weight", 'bold')
+                    .text("Stack Fix: ")
+                    .append("tspan")
+                    .style("font-weight", 'normal')
+                    .text("" + selectedGadget.data.stack_fix)
 
                 chosen_group.append("text")
                     .attr("x","20%")
-                    .attr("y", "20%")
-                    .attr("dy", 0)
+                    .attr("y", "15%")
+                    .attr("dy", "5.5em")
                     .style("opacity", "0")
                     .text(selectedGadget.data.disasm)
                     .call(split_lines);
