@@ -96,7 +96,7 @@
         
         var gadget_id;
         function dragstarted() {
-          gadget_id = d3.select(this).raise().attr("class").charAt(4) - 1
+          gadget_id = d3.select(this).raise().attr("class").slice(4) - 1
         }
 
         function dragged(d) {
@@ -112,7 +112,7 @@
             ending_position = Math.floor(ending_position - 0.15) - 1
           }
           else{
-            ending_position = Math.floor(ending_position + 0.85) - 1
+            ending_position = Math.floor(ending_position + 0.9) - 1
           }
           if(ending_position < 0) ending_position = 0;
           var length_chain = list_gadgets_chain.length;
