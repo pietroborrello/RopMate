@@ -143,6 +143,8 @@
               return d3.select(this).attr('new_class')
             })
           dragging = 0;
+          parent.choices.selectedGadget = moved_gadget;
+          parent.choices.add_gadget_info_window();
           }
       }
 
