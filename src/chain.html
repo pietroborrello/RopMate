@@ -96,7 +96,7 @@
         
         var gadget_id;
         function dragstarted() {
-          gadget_id = d3.select(this).attr("class").charAt(4) - 1
+          gadget_id = d3.select(this).raise().attr("class").charAt(4) - 1
         }
 
         function dragged(d) {
