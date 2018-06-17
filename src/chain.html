@@ -11,6 +11,7 @@
           Result<br>
           <button type="button" onclick="return remove_all();"> Remove all </button>
           <button type="button" onclick="return remove();"> Remove</button>
+          <button type="button" onclick="return dump(list_gadgets_chain);"> DUMP</button>
         </div>
       </form>
 
@@ -222,6 +223,19 @@
           if (dragging == 0) list_gadgets_chain.pop()
           count = count - 1;
         }
+      }
+
+      function dump(chain) {
+        var windowWidth = 400
+        var windowHeight = 500
+        var centerLeft = (screen.width / 2) - (windowWidth / 2);
+        var centerTop = (screen.height / 2) - (windowHeight / 2);
+        var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, scrollbars=no, resizable=no, ';
+        chain_str = "rop = ''"
+        for(g of chain) {
+          chain_str += "<br>rop += p" + g.data.arch + "(0x" + g.data.address.toString(16) + ") &num;" + g.data.disasm
+        }
+        return window.open('dump_chain.html?'+ chain_str, 'Dump', windowFeatures + ' width=' + windowWidth + ', height=' + windowHeight + ', top=' + centerTop + ', left=' + centerLeft);
       }
 
     </script>
