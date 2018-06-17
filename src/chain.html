@@ -226,14 +226,20 @@
       }
 
       function dump(chain) {
+        if(chain.length == 0) return;
         var windowWidth = 400
         var windowHeight = 500
         var centerLeft = (screen.width / 2) - (windowWidth / 2);
         var centerTop = (screen.height / 2) - (windowHeight / 2);
         var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, scrollbars=no, resizable=no, ';
-        chain_str = "rop = ''"
+        chain_str = ''
+        chain_str += "<br>IMAGE_BASE =  0x0"
+        chain_str += "<br>rebase = lambda x : p" + chain[0].data.arch + "(x + IMAGE_BASE)"
+        chain_str += "<br><br>rop = ''"
         for(g of chain) {
-          chain_str += "<br>rop += p" + g.data.arch + "(0x" + g.data.address.toString(16) + ") &num;" + g.data.disasm
+          chain_str += "<br>rop += rebase(0x" + g.data.address.toString(16) + ") &num;" + g.data.disasm
+          for(var i = (g.data.arch/8); i < g.data.stack_fix; i+= (g.data.arch / 8))
+            chain_str += "<br>rop += p" + g.data.arch + "(0x0)"
         }
         return window.open('dump_chain.html?'+ chain_str, 'Dump', windowFeatures + ' width=' + windowWidth + ', height=' + windowHeight + ', top=' + centerTop + ', left=' + centerLeft);
       }
