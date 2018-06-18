@@ -1,6 +1,7 @@
 node_modules/
 build/*
 .ipynb_checkpoints/
+*.pyc
 
 # exception to the rule
 !build/.gitkeep 
