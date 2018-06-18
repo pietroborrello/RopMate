@@ -2,14 +2,20 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="../build/d3.min.js"></script>
+        <script src="../build/jquery-3.3.1.min.js"></script>
+        <script src="../build/spin.min.js"></script>
     </head>
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
         <div id="gadget_chosen"></div>
-        <div id="mds_view"></div>
+        <form action="" method="post" name="reload">
+            <button type="button" onclick="draw_mds()"> MDS </button>
+        </form>
+        <div id="mds_view" style="position: relative"></div>
 
         <script>
             var duration = 200;
+            var mds_running = false;
             
             var svgGadgetContainer = d3.select("div#gadget_chosen").append("svg")
               .attr("width", "100%")
@@ -198,7 +204,7 @@
                 return s;
             };
 
-            d3scatterplot = function(svg,X,cities) {
+            d3scatterplot = function(svg,X,labels) {
                 var nPix= 0.7*parseInt(window.innerWidth),n=X.length,mar = [40,40,40,40];
 
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
@@ -230,7 +236,7 @@
                 .attr("class", "label")
                 .attr("x",function(d) {return xScale(d.x);})
                 .attr("y",function(d) {return yScale(d.y);})
-                .text(function(d,i) {return cities[i];})
+                .text(function(d,i) {return labels[i];})
                 .attr("font-size",10)
                 .attr("id",function(d,i) {return "label" + i});
 
@@ -274,9 +280,24 @@
 
             }
 
-            d3.json("data.json").then(function(data) {
-                d3scatterplot(svgMDSContainer,data.X,data.cities);
-            });
+            function draw_mds() {
+                if(mds_running) return;
+                mds_running = true;
+                svgMDSContainer.html("")
+                var target = document.getElementById('mds_view')
+                var spinner = new Spinner().spin(target);
+                $.ajax({
+                    type: "POST",
+                    url: "/mds",
+                    data: {}
+                }).done(function (data) {
+                    json_data = JSON.parse(data)
+                    d3scatterplot(svgMDSContainer, json_data.X, json_data.labels);
+                }).always(function () {
+                        spinner.stop()
+                        mds_running = false;
+                });
+            }
         </script>
     </body>
 </html>

@@ -4,3 +4,5 @@ build/*
 
 # exception to the rule
 !build/.gitkeep 
+!build/jquery-3.3.1.min.js
+!build/spin.min.js
