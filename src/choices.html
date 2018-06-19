@@ -6,13 +6,13 @@
         <script src="../build/spin.min.js"></script>
     </head>
 
-    <body style="overflow-y:hidden; overflow-x:hidden;">
+    <body style="overflow-y:hidden; overflow-x:hidden;" >
         <div id="gadget_chosen"></div>
-        <form action="" method="post" name="reload" style="margin-top: 1.1em;    margin-bottom: 0px;">
-            <button type="button" onclick="draw_mds()"> Similar Gadgets </button>
-            Modified Register
-        </form>
-        <div id="mds_view" style="position: relative"></div>
+        <div id="mds_view" style="position: relative">
+            <form action="" method="post" name="reload" style="margin-bottom: 0px; right:1.1em; z-index: 99; position: absolute;">
+                <button type="button" onclick="draw_mds()"> Similar Gadgets </button>
+            </form>
+        </div>
 
         <script>
             var duration = 200;
@@ -206,7 +206,7 @@
             };
 
             d3scatterplot = function(svg,X,labels) {
-                var nPix= 0.7*parseInt(window.innerWidth),n=X.length,mar = [40,40,40,40];
+                var nPix= Math.min(parseInt(document.getElementById("mds_view").offsetHeight), parseInt(document.getElementById("mds_view").offsetWidth))-80,n=X.length,mar = [40,40,40,40];
 
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
                 var yv = X.map(function(e) { return e.y;}),yRange=expand(yv.range());
