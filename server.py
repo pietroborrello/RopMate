@@ -17,14 +17,21 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/mds", methods=['POST','GET'])
+@app.route("/mds", methods=['POST'])
 def mds():
     DISSIMILARITY = 'modified_regs'
-    with open('./files/ls.json') as f:
-        data_file = json.load(f)
+    try:
+        if not request.form['type'] or not request.form['params']:
+            return json.dumps({'X': [], 'labels': []})
 
-    data_filter = filter(lambda d: d['type'] == 'LoadConst' and d['params'] == 'edi', data_file)
-    _data = []
+        with open('./files/ls.json') as f:
+            data_file = json.load(f)
+
+        data_filter = filter(
+            lambda d: d['type'] == request.form['type'] and d['params'] == request.form['params'], data_file)
+        _data = []
+    except KeyError:
+        return json.dumps({'X': [], 'labels': []})
 
     added = set()
     for d in data_filter:

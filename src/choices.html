@@ -8,8 +8,9 @@
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
         <div id="gadget_chosen"></div>
-        <form action="" method="post" name="reload">
+        <form action="" method="post" name="reload" style="margin-top: 1.1em;    margin-bottom: 0px;">
             <button type="button" onclick="draw_mds()"> Similar Gadgets </button>
+            Modified Register
         </form>
         <div id="mds_view" style="position: relative"></div>
 
@@ -289,7 +290,7 @@
                 $.ajax({
                     type: "POST",
                     url: "/mds",
-                    data: {}
+                    data: {params: selectedGadget.data.params, type: selectedGadget.data.type }
                 }).done(function (data) {
                     json_data = JSON.parse(data)
                     d3scatterplot(svgMDSContainer, json_data.X, json_data.labels);
