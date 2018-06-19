@@ -13,14 +13,8 @@
                 <input type ="checkbox" name ="Memory" size ='3' value = 'yes' onchange="set_avoid_mem(this)"><br><br>
 
                 Preserved Registers<br><br>
-                EAX <input type ="checkbox" name ="eax" id ="eax" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-                EBX <input type ="checkbox" name ="ebx" id ="ebx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-                ECX <input type ="checkbox" name ="ecx" id ="ecx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-                EDX <input type ="checkbox" name ="edx" id ="edx" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-                EBP <input type ="checkbox" name ="ebp" id ="ebp" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-                ESI <input type ="checkbox" name ="esi" id ="esi" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-                EDI <input type ="checkbox" name ="edi" id ="edi" size ='3' value = 'yes' onchange="add_preserved_reg(this)"><br>
-
+                <div id="regs">
+                </div>
 
                 <br>
                 <input type ="reset" class="reset" value ="Reset" onclick="clear_preserved_regs()"><br>
@@ -30,6 +24,14 @@
         </form>
 
         <script>
+            function setup_regs(regs) {
+                var regs_div = document.getElementById('regs');
+                for(reg of regs)
+                {
+                    regs_div.innerHTML += reg + ' <input type ="checkbox" name ="' + reg + '" id ="'+ reg + '" size ="3" value = "yes" onchange="add_preserved_reg(this)"><br>'
+                }
+            }
+
             function add_preserved_reg(checkbox) {
                 if(checkbox.checked)
                 {
