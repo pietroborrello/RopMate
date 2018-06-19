@@ -125,3 +125,21 @@ rect {
     fill: #66c2a4;
     fill-opacity: .5;
     }
+
+    button, .reset {
+    background-color: #f7fcfd; 
+    border: 1px solid black;
+    border-radius: 3px;
+    color: black;
+    padding: 3px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+}
+
+button:hover, .reset:hover {
+    background-color: #dbdbdb; 
+    border: 1px solid black;
+    text-decoration: none;
+}

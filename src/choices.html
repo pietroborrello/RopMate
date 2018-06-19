@@ -6,10 +6,10 @@
         <script src="../build/spin.min.js"></script>
     </head>
 
-    <body style="overflow-y:hidden; overflow-x:hidden;" >
+    <body style="overflow-y:hidden; overflow-x:hidden;" onload="draw_mds()">
         <div id="gadget_chosen"></div>
         <div id="mds_view" style="position: relative">
-            <form action="" method="post" name="reload" style="margin-bottom: 0px; right:1.1em; z-index: 99; position: absolute;">
+            <form action="" method="post" name="reload" style="margin-bottom: 0px; top:0.5em; right:1.1em; z-index: 99; position: absolute;">
                 <button type="button" onclick="draw_mds()"> Similar Gadgets </button>
             </form>
         </div>
