@@ -210,16 +210,11 @@
 
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
                 var yv = X.map(function(e) { return e.y;}),yRange=expand(yv.range());
-                
-
 
                 var sg = svg.append("g")
-                .attr("transform", "translate("
+                    .attr("transform", "translate("
                     + mar[0] + ","
                     + mar[1] + ")");
-
-
-
 
                 var xScale = d3.scaleLinear()
                 .range([0, nPix])
@@ -229,19 +224,6 @@
                 .range([nPix, 0])
                 .domain(yRange);
 
-
-                var labels = sg.selectAll(".labels")
-                .data(X).enter()
-                .append("text")
-                .attr("class", "label")
-                .attr("x",function(d) {return xScale(d.x);})
-                .attr("y",function(d) {return yScale(d.y);})
-                .text(function(d,i) {return labels[i];})
-                .attr("font-size",10)
-                .attr("id",function(d,i) {return "label" + i});
-
-
-
                 var dots = sg.selectAll(".datapoint")
                 .data(X).enter()
                 .append("circle")
@@ -249,16 +231,29 @@
                 .attr("cx",function(d) {return xScale(d.x);})
                 .attr("cy",function(d) {return yScale(d.y);})
                 .attr("id",function(d,i) {return "point" + i})
-                .attr("r",2);
+                .attr("label", function (d, i) { return labels[i] })
 
-                var ghosts = sg.selectAll(".ghost")
-                .data(X).enter()
-                .append("circle")
-                .attr("class", "ghost")
-                .attr("cx",function(d) {return xScale(d.x);})
-                .attr("cy",function(d) {return yScale(d.y);})
-                .attr("r",8);
+                dots.on('mouseover', function(d) {
+                    d3.select(this).style("r", 10);
+                })
 
+                dots.on('mouseout', function (d) {
+                    d3.select(this).style("r", 5);
+                })
+
+                svg.on("mouseout", function (d) {
+                    d3.selectAll("circle").style("r", 5);
+                })
+
+                var labels = sg.selectAll(".labels")
+                    .data(X).enter()
+                    .append("text")
+                    .attr("class", "label")
+                    .attr("x", function (d) { return xScale(d.x); })
+                    .attr("y", function (d) { return yScale(d.y); })
+                    .text(function (d, i) { return labels[i]; })
+                    .attr("font-size", 10)
+                    .attr("id", function (d, i) { return "label" + i });
 
                 var xAxis = d3.axisBottom(xScale).ticks(4);
                 svg.append("g").call(xAxis)
@@ -270,13 +265,9 @@
                 .attr("class", "axis")  //Assign "axis" class
                 .attr("transform","translate(" + mar[0] + "," + (mar[3])  + ")");
 
-
-                reset = function(el)
-                {
-                labels.data(X)
-                    .attr("x",function(d) {return xScale(d.x);})
-                    .attr("y",function(d) {return yScale(d.y);});
-                }
+                dots.on('click', function (d) {
+                    console.log(d3.select(this).attr("label").split(','))
+                })
 
             }
 
