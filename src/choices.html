@@ -206,7 +206,7 @@
             };
 
             d3scatterplot = function(svg,X,labels) {
-                var nPix= Math.min(parseInt(document.getElementById("mds_view").offsetHeight), parseInt(document.getElementById("mds_view").offsetWidth))-80,n=X.length,mar = [40,40,40,40];
+                var nPix= Math.min(parseInt(document.getElementById("mds_view").offsetHeight), parseInt(document.getElementById("mds_view").offsetWidth))-100,n=X.length,mar = [50,50,50,50];
 
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
                 var yv = X.map(function(e) { return e.y;}),yRange=expand(yv.range());
@@ -249,8 +249,8 @@
                     .data(X).enter()
                     .append("text")
                     .attr("class", "label")
-                    .attr("x", function (d) { return xScale(d.x); })
-                    .attr("y", function (d) { return yScale(d.y); })
+                    .attr("x", function (d) { return xScale(d.x)+5; })
+                    .attr("y", function (d) { return yScale(d.y)-5; })
                     .text(function (d, i) { return labels[i]; })
                     .attr("font-size", 10)
                     .attr("id", function (d, i) { return "label" + i });
@@ -265,7 +265,22 @@
                 .attr("class", "axis")  //Assign "axis" class
                 .attr("transform","translate(" + mar[0] + "," + (mar[3])  + ")");
 
+                // text label for the x axis
+                svg.append("text")
+                    .attr("class", "label")
+                    .style("font-size", "15px")
+                    .attr("transform",
+                        "translate(" + (nPix + mar[0]) / 2 + " ," +
+                        (nPix + mar[0] + 25) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Modified Registers");
+
+
                 dots.on('click', function (d) {
+                    // set click feedback
+                    d3.selectAll("circle").style("stroke-width", "0px")
+                    d3.select(this).style("stroke-width", "2px")
+
                     modifiable_regs = d3.select(this).attr("label").split(',')
                     parent.controls.document.getElementById('controls').reset();
                     // reset current filter

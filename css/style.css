@@ -118,6 +118,8 @@ rect {
     r: 5;
     fill: #66c2a4;
     fill-opacity: 0.9;
+    stroke: #ffffff;
+    stroke-width: 0px;
     }
 
     button, .reset {
