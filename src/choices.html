@@ -266,7 +266,26 @@
                 .attr("transform","translate(" + mar[0] + "," + (mar[3])  + ")");
 
                 dots.on('click', function (d) {
-                    console.log(d3.select(this).attr("label").split(','))
+                    modifiable_regs = d3.select(this).attr("label").split(',')
+                    parent.controls.document.getElementById('controls').reset();
+                    // reset current filter
+                    parent.tree.filter.preserved_regs.length = 0;
+                    parent.tree.filter.avoid_mem = false
+                    parent.tree.filter.type = svgMDSContainer.attr("gadget_type")
+                    parent.tree.filter.params = svgMDSContainer.attr("gadget_params")
+                    parent.title.document.getElementById('filter').value = ''
+
+                    // TODO: naive implementation -> not precise
+                    // "mod_regs = a,b" will match "mod_regs = a or mod_regs = b" since b is not preserved in the first so may be modified or not
+                    for(reg of parent.tree.regs)
+                    {
+                        if(!modifiable_regs.includes(reg))
+                        {
+                            parent.frames["controls"].document.getElementById(reg).checked = true;
+                            parent.tree.filter.preserved_regs.push(reg)
+                        }
+                    }
+                    parent.tree.reload()
                 })
 
             }
@@ -275,6 +294,8 @@
                 if(mds_running) return;
                 mds_running = true;
                 svgMDSContainer.html("")
+                svgMDSContainer.attr("gadget_params", selectedGadget.data.params)
+                svgMDSContainer.attr("gadget_type", selectedGadget.data.type)
                 var target = document.getElementById('mds_view')
                 var spinner = new Spinner().spin(target);
                 $.ajax({

@@ -65,6 +65,7 @@ function reload() {
                     switch (key) {
                         // TODO: filter management
                         case 'type':
+                            if (gadget.type != val) return false;
                             break;
                         case 'params':
                             if(gadget.params != val && gadget.dest != val) return false;

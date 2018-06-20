@@ -7,7 +7,7 @@
     </head>
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
-        <form action="" method ="post" name ="register">
+        <form action="" method ="post" name ="controls" id="controls">
             <div align="center">
                 Avoid Memory
                 <input type ="checkbox" name ="Memory" size ='3' value = 'yes' onchange="set_avoid_mem(this)"><br><br>
@@ -56,6 +56,9 @@
                 // yes, this works
                 parent.tree.filter.preserved_regs.length = 0; 
                 parent.tree.filter.avoid_mem = false
+                parent.tree.filter.type = ''
+                parent.tree.filter.params = ''
+                parent.title.document.getElementById('filter').value = ''
                 parent.tree.reload()
             }
         </script>
