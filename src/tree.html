@@ -173,7 +173,7 @@ function update(source) {
       .style("opacity", 0);
 
   var formatTime = d3.timeFormat("%e %B");
-
+  var current_depth = 0;
 
   // Enter any new nodes at the parent's previous position.
   nodeEnter.append("rect")
@@ -182,12 +182,18 @@ function update(source) {
       .attr("hist", function(d){
         //collect the data for the histogram
         if(d.depth == 1 || d.depth == 2){
-            var length_value = 0;
-            if(d._children != null) length_value += d._children.length
-            if(d.children != null) length_value += d.children.length
-            var gadget_data = {"area": d.data.name, "value": length_value, "position_y": d.x}
-            data_histogram.unshift(gadget_data) 
-            sum_elem_histogram += length_value
+            if(current_depth == 0) current_depth = d.depth
+            if(d.depth > current_depth){
+                current_depth = d.depth
+                data_histogram = []
+            }
+            if(d.depth == current_depth){
+                var length_value = 0;
+                if(d._children != null) length_value += d._children.length
+                var gadget_data = {"area": d.data.name, "value": length_value, "position_y": d.x}
+                data_histogram.unshift(gadget_data) 
+                sum_elem_histogram += length_value
+            }
           }
         return 1;
       })
@@ -262,33 +268,29 @@ function update(source) {
   link.transition()
       .duration(duration)
       .attr("d", diagonal);
-
+  var wrong_closure = 0
   // Transition exiting nodes to the parent's new position.
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
-        /*if(d.source.depth == 1 || d.source.depth == 2){
-            if(d.source.parent._children != null){
-                for(var gadg of d.source.parent._children){
-                    var length_value = 0;
-                    if(gadg._children != null) length_value += gadg._children.length
-                    if(gadg.children != null) length_value += gadg.children.length
-                    var gadget_data = {"area": gadg.data.name, "value": length_value, "position_y": gadg.x}
-                    data_histogram.unshift(gadget_data) 
-                    sum_elem_histogram += length_value
+        if (d.source.depth == 0){
+            data_histogram = []
+            wrong_closure = 1
+        }
+        if(wrong_closure != 1){
+            if(d.source.depth == 1 || d.source.depth == 2){
+                if(d.source.parent.children != null){
+                    for(var gadg of d.source.parent.children){
+                        var length_value = 0;
+                        if(gadg._children != null) length_value += gadg._children.length
+                        if(gadg.children != null) length_value += gadg.children.length
+                        var gadget_data = {"area": gadg.data.name, "value": length_value, "position_y": gadg.x}
+                        data_histogram.unshift(gadget_data) 
+                        sum_elem_histogram += length_value
+                    }
                 }
             }
-            if(d.source.parent.children != null){
-                for(var gadg of d.source.parent.children){
-                    var length_value = 0;
-                    if(gadg._children != null) length_value += gadg._children.length
-                    if(gadg.children != null) length_value += gadg.children.length
-                    var gadget_data = {"area": gadg.data.name, "value": length_value, "position_y": gadg.x}
-                    data_histogram.unshift(gadget_data) 
-                    sum_elem_histogram += length_value
-                }
-            }
-        }*/
+        }
         var o = {x: source.x, y: source.y};
         return diagonal({source: o, target: o});
       })
@@ -347,8 +349,7 @@ function add_histogram(){
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
     var max_size_histogram = 15
-    console.log(width)
-  
+    
     var x = d3.scaleLinear().range([width, 0]);
     var x_width = d3.scaleLinear().range([width/3, 0]);
     var y = d3.scaleBand().range([height, 0]);
