@@ -37,6 +37,9 @@ var filter = {
 var gadgets;
 var arch = 32;
 var regs = []
+var data_histogram = []
+var sum_elem_histogram = 0
+var show_histogram = 0
 
 d3.json("/files/ls.json").then(load_setup);
 
@@ -84,7 +87,6 @@ function reload() {
         }
         return true;
     })
-    console.log( '' + filtered_gadgets.length + ' gadgets')
     data = d3.nest()
     .key(function(d) {
         return d.type;
@@ -142,6 +144,9 @@ function update(source) {
   var nodes = root.descendants();
 
   var height = Math.max(500, nodes.length * barHeight + margin.top + margin.bottom);
+  
+  //reset the histogram that will be recomputed
+  remove_histogram()
 
   d3.select("svg").transition()
       .duration(duration)
@@ -174,6 +179,18 @@ function update(source) {
   nodeEnter.append("rect")
       .attr("y", -barHeight / 2)
       .attr("height", barHeight)
+      .attr("hist", function(d){
+        //collect the data for the histogram
+        if(d.depth == 1 || d.depth == 2){
+            var length_value = 0;
+            if(d._children != null) length_value += d._children.length
+            if(d.children != null) length_value += d.children.length
+            var gadget_data = {"area": d.data.name, "value": length_value, "position_y": d.x}
+            data_histogram.unshift(gadget_data) 
+            sum_elem_histogram += length_value
+          }
+        return 1;
+      })
       .attr("width", function(d) {
           if(d.children == null && d._children == null) return barWidth;
           else if(d._children == null) return barWidth;// + d.children.length;
@@ -225,7 +242,7 @@ function update(source) {
       .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
       .style("opacity", 0)
       .remove();
-
+  
   // Update the links…
   var link = svg.selectAll(".link")
     .data(root.links(), function(d) { return d.target.id; });
@@ -250,6 +267,28 @@ function update(source) {
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
+        /*if(d.source.depth == 1 || d.source.depth == 2){
+            if(d.source.parent._children != null){
+                for(var gadg of d.source.parent._children){
+                    var length_value = 0;
+                    if(gadg._children != null) length_value += gadg._children.length
+                    if(gadg.children != null) length_value += gadg.children.length
+                    var gadget_data = {"area": gadg.data.name, "value": length_value, "position_y": gadg.x}
+                    data_histogram.unshift(gadget_data) 
+                    sum_elem_histogram += length_value
+                }
+            }
+            if(d.source.parent.children != null){
+                for(var gadg of d.source.parent.children){
+                    var length_value = 0;
+                    if(gadg._children != null) length_value += gadg._children.length
+                    if(gadg.children != null) length_value += gadg.children.length
+                    var gadget_data = {"area": gadg.data.name, "value": length_value, "position_y": gadg.x}
+                    data_histogram.unshift(gadget_data) 
+                    sum_elem_histogram += length_value
+                }
+            }
+        }*/
         var o = {x: source.x, y: source.y};
         return diagonal({source: o, target: o});
       })
@@ -260,6 +299,9 @@ function update(source) {
     d.x0 = d.x;
     d.y0 = d.y;
   });
+
+  //show the histogram with the collected data
+  if(show_histogram == 1) add_histogram()
 }
 
 // Toggle children on click.
@@ -299,4 +341,45 @@ function color(d) {
   return color_(d.depth*2 + 1);
 }
 
+function add_histogram(){
+    var svg = d3.select("svg"),
+    margin = {top: 17, right: 700, bottom: 30, left: 80},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
+    var max_size_histogram = 15
+    console.log(width)
+  
+    var x = d3.scaleLinear().range([width, 0]);
+    var x_width = d3.scaleLinear().range([width/3, 0]);
+    var y = d3.scaleBand().range([height, 0]);
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    x.domain([0, d3.max(data_histogram, function(d) { return d.value*3; })]);
+    y.domain(data_histogram.map(function(d) { return d.area; })).padding(0.1);
+
+    var bars = g.selectAll(".bar");
+    bars.data(data_histogram)
+    .enter().append("rect")
+    .attr("class", "switch_rect")
+    .attr("x", function(d){
+        return x(d.value); })
+    .attr("height", 25)
+    .attr("y", function(d) {
+        return d.position_y})
+    .attr("width", function(d) { 
+        console.log(x(d.value) + " ~~~ " + x_width(d.value))
+        return x(0) - x(d.value); });
+   
+
+}
+
+
+function remove_histogram(){
+    var svg = d3.select("svg")
+    svg.selectAll(".switch_rect").remove()
+    sum_elem_histogram = 0
+    data_histogram = []
+}
 </script>
