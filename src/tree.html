@@ -268,16 +268,11 @@ function update(source) {
   link.transition()
       .duration(duration)
       .attr("d", diagonal);
-  var wrong_closure = 0
+  
   // Transition exiting nodes to the parent's new position.
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
-        if (d.source.depth == 0){
-            data_histogram = []
-            wrong_closure = 1
-        }
-        if(wrong_closure != 1){
             if(d.source.depth == 1 || d.source.depth == 2){
                 if(d.source.parent.children != null){
                     for(var gadg of d.source.parent.children){
@@ -290,7 +285,7 @@ function update(source) {
                     }
                 }
             }
-        }
+        
         var o = {x: source.x, y: source.y};
         return diagonal({source: o, target: o});
       })
@@ -370,7 +365,6 @@ function add_histogram(){
     .attr("y", function(d) {
         return d.position_y})
     .attr("width", function(d) { 
-        console.log(x(d.value) + " ~~~ " + x_width(d.value))
         return x(0) - x(d.value); });
    
 
