@@ -117,11 +117,11 @@ function reload() {
                     return merged;
                 })
             }
-        })
+        }).sort(function (a, b) { return b.children.length - a.children.length })
     }
     });
 
-    root = d3.hierarchy({name: "Gadgets", children: data})
+    root = d3.hierarchy({name: "Gadgets", children: data.sort(function (a, b) { return b.children.length - a.children.length })})
     root.x0 = 0;
     root.y0 = 0;
     //load whole tree
