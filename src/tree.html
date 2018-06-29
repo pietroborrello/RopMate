@@ -269,6 +269,7 @@ function update(source) {
       .attr("d", diagonal);
   
   var opened_child = 0
+  current_paren = null
   // Transition exiting nodes to the parent's new position.
   link.exit().transition()
       .duration(duration)
@@ -280,8 +281,10 @@ function update(source) {
                             opened_child = 1
                             sum_elem_histogram = 0
                             data_histogram = []
+                            current_paren = gadg.data.name
+                            console.log(gadg.data.name)
                         }
-                        if(gadg.children != null && opened_child == 1){ 
+                        if(gadg.children != null && opened_child == 1 && (current_paren == null || gadg.data.name == current_paren)){ 
                             console.log(gadg.data.name)
                             for(var gadg_ of gadg.children) add_element_list_histogram(gadg_)
                         }
