@@ -283,41 +283,31 @@ function update(source) {
   
   //check if the histogram list is not yet filled 
   var empty_list = 0
-  opened_child = 0
+  var histogram_done = 0
   if(data_histogram.length == 0) empty_list = 1
+  opened_child = 0
 
   // Transition exiting nodes to the parent's new position.
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .attr("hist", function(d){
         //collect the data for the histogram 
-        if(d.source.depth == 1 || d.source.depth == 2){
-            if(d.source.parent.children != null){
+        if(empty_list != 0 && histogram_done == 0 && opened_child == 0){
+            if(d.source.parent != null){
                 for(var gadg of d.source.parent.children){
-                    if(gadg.children != null && opened_child == 0){ 
-                        opened_child = 1
-                        data_histogram = []
-                    }
-                    if(gadg.children != null && opened_child == 1){ 
-                        for(var gadg_ of gadg.children){
-                            if(gadg_.children != null) {
-                                data_histogram = []
-                                opened_child = 2
-                            }
-                            if(opened_child != 2){
-                                add_element_list_histogram(gadg_)
-                            }
-                        }
-                    }
-                    if(opened_child == 0) add_element_list_histogram(gadg)
+                    if(gadg.children != null) opened_child = 1
+                    add_element_list_histogram(gadg)
+                    histogram_done = 1
                 }
             }
         }
         //ensure that the histogram is drawn only once 
         if(data_histogram.length != 0) empty_list = 0
-
-        var o = {x: source.x, y: source.y};
-        return diagonal({source: o, target: o});
+        if(opened_child == 1) remove_histogram()
       })
       .remove();
 
