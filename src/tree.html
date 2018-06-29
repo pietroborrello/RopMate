@@ -37,8 +37,9 @@ var filter = {
 var gadgets;
 var arch = 32;
 var regs = []
+
+//
 var data_histogram = []
-var sum_elem_histogram = 0
 var show_histogram = 0
 
 d3.json("/files/ls.json").then(load_setup);
@@ -177,6 +178,7 @@ function update(source) {
   var current_depth = 0;
   var current_paren = null;
   var opened_child = 0
+  data_histogram = []
 
   // Enter any new nodes at the parent's previous position.
   nodeEnter.append("rect")
@@ -185,14 +187,18 @@ function update(source) {
       .attr("hist", function(d){
         //collect the data for the histogram
         if(d.depth == 1 || d.depth == 2){
+            //save the current depth
             if(current_depth == 0) current_depth = d.depth
+            
+            //check if there is a sublevel opened
             if(d.depth > current_depth){
                 current_depth = d.depth
                 data_histogram = []
-                sum_elem_histogram = 0
+                //show only the first opened child 
                 current_paren = d.parent.data.name
                 opened_child = 0
             }
+
             if(d.depth == current_depth && (current_paren == null || d.parent.data.name == current_paren)){
                 if (d.children != null) opened_child = 1
                 add_element_list_histogram(d)
@@ -200,7 +206,6 @@ function update(source) {
         }
         if(opened_child == 1){
             data_histogram = []
-            sum_elem_histogram = 0
         }
         return 1;
       })
@@ -276,34 +281,27 @@ function update(source) {
       .duration(duration)
       .attr("d", diagonal);
   
-  opened_child = 0
-  current_paren = null
+  //check if the histogram list is not yet filled 
+  var empty_list = 0
+  if(data_histogram.length == 0) empty_list = 1
+
   // Transition exiting nodes to the parent's new position.
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
-            if(d.source.depth == 1 || d.source.depth == 2){
-                if(d.source.parent.children != null){
-                    for(var gadg of d.source.parent.children){
-                        if(gadg.children != null && opened_child != 1){
-                            opened_child = 1
-                            sum_elem_histogram = 0
-                            data_histogram = []
-                            current_paren = gadg.data.name
-                            console.log(gadg.data.name)
-                        }
-                        if(gadg.children != null && opened_child == 1 && (current_paren == null || gadg.data.name == current_paren)){ 
-                            console.log(gadg.data.name)
-                            for(var gadg_ of gadg.children) add_element_list_histogram(gadg_)
-                        }
-                        if(opened_child == 0) add_element_list_histogram(gadg)
-                        else{
-                            
-                        }
-                    }
+        //collect the data for the histogram 
+        if((d.source.depth == 1 || d.source.depth == 2) && empty_list == 1){
+            //access to the siblings of the current node
+            if(d.source.parent.children != null){
+                for(var gadg of d.source.parent.children){
+                    //add each siblings
+                    add_element_list_histogram(gadg)
                 }
             }
-        
+        }
+        //ensure that the histogram is drawn only once 
+        if(data_histogram.length != 0) empty_list = 0
+
         var o = {x: source.x, y: source.y};
         return diagonal({source: o, target: o});
       })
@@ -332,11 +330,6 @@ function click(d) {
   if(d.children == null && d._children == null && d.data.disasm){
     parent.choices.selectedGadget = d;
     parent.choices.add_gadget_info_window();
-    //var add = window.confirm("Do you want to add this gadget to your chain?");
-    //if (add == true){
-      //aggiungi alla catena
-      //parent.chain.add();
-    //}
   }
 }
 
@@ -388,17 +381,20 @@ function add_histogram(){
 }
 
 function add_element_list_histogram(gadg){
+    //count the number of children 
     var length_value = 0;
     if(gadg._children != null) length_value += gadg._children.length
+
+    //create the entry for the histogram list
     var gadget_data = {"area": gadg.data.name, "value": length_value, "position_y": gadg.x}
-    data_histogram.unshift(gadget_data) 
-    sum_elem_histogram += length_value
+
+    //add to the list
+    data_histogram.unshift(gadget_data)
 }
 
 function remove_histogram(){
     var svg = d3.select("svg")
     svg.selectAll(".switch_rect").remove()
-    sum_elem_histogram = 0
     data_histogram = []
 }
 </script>
