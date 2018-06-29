@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body>
+<body style="overflow-x:hidden;">
 <script src="../build/d3.min.js"></script>
 <script>
 
@@ -353,7 +353,6 @@ function add_histogram(){
     margin = {top: 17, right: 700, bottom: 30, left: 80},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
-    var max_size_histogram = 15
     
     var x = d3.scaleLinear().range([width, 0]);
     var x_width = d3.scaleLinear().range([width/3, 0]);
