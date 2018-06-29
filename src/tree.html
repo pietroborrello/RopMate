@@ -173,7 +173,9 @@ function update(source) {
       .style("opacity", 0);
 
   var formatTime = d3.timeFormat("%e %B");
+
   var current_depth = 0;
+  var current_paren = null;
 
   // Enter any new nodes at the parent's previous position.
   nodeEnter.append("rect")
@@ -186,8 +188,9 @@ function update(source) {
             if(d.depth > current_depth){
                 current_depth = d.depth
                 data_histogram = []
+                current_paren = d.parent.data.name
             }
-            if(d.depth == current_depth){
+            if(d.depth == current_depth && (current_paren == null || d.parent.data.name == current_paren)){
                 add_element_list_histogram(d)
             }
           }
@@ -273,12 +276,13 @@ function update(source) {
             if(d.source.depth == 1 || d.source.depth == 2){
                 if(d.source.parent.children != null){
                     for(var gadg of d.source.parent.children){
-                        if(gadg.children != null && opened_child != 1){ 
+                        if(gadg.children != null && opened_child != 1){
                             opened_child = 1
                             sum_elem_histogram = 0
                             data_histogram = []
                         }
                         if(gadg.children != null && opened_child == 1){ 
+                            console.log(gadg.data.name)
                             for(var gadg_ of gadg.children) add_element_list_histogram(gadg_)
                         }
                         if(opened_child == 0) add_element_list_histogram(gadg)
