@@ -21,7 +21,7 @@
 \maketitle
 
 \begin{abstract}
-ROPChain based exploits are increasingly present in the scenery of advanced attack techniques. 
+ROPChain based exploits are increasingly present in the scenario of advanced attack techniques. 
 Being able to test software against such types of attacks is fundamental to any RedTeam hacker. Automatic tool that try to create ROPChains exists and are well known, but they often fail with non usual binaries. 
 
 In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, since the existing state of the art, only propose text based approach with, less or more, informative lists of the gadgets found by the tool.
@@ -106,17 +106,17 @@ Clicking on a gadget will show its features (that will be encoded with additiona
 \bigskip
 Each gadget has a specific type, between:
 
-\bigskip\noindent
-\texttt{LoadConst, SetZero, IncReg, CopyReg, }
+\begin{center}
+\noindent\texttt{LoadConst, SetZero, IncReg, CopyReg, }
 \noindent\texttt{BinOp, ReadMem, WriteMem,}
-
 \noindent\texttt{OpEsp, Lahf, ReadMemOp, WriteMemOp}
+\end{center}
 
 \bigskip
-The gadgets in the main view are hierarchically ordered by class, and then by parameters. The size of each node in the main view encodes the number of gadgets of that class, to quickly give an hint on the overall view.
+The gadgets in the main view are hierarchically ordered by class, and then by parameters. The histogram, on the right of the main view, represents the number of gadgets of each class, to quickly give an hint on the overall view.
 
 \bigskip
-Once clicked on a gadget the user can add it to the chain view in which is displayed the ROPChain that is building. This will trigger the recomputation for the registers the user has successfully set with the chain, and by default the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
+Once clicked on a gadget the user can add it to the chain view in which is displayed the ROPChain that is building. This will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
 
 Inside a gadget class the user can additionally trigger a cluster view, in which similar gadgets are displayed near each other to be able to quickly discriminate the possibilities from which it has to chose.
 
