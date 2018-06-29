@@ -283,6 +283,7 @@ function update(source) {
   
   //check if the histogram list is not yet filled 
   var empty_list = 0
+  opened_child = 0
   if(data_histogram.length == 0) empty_list = 1
 
   // Transition exiting nodes to the parent's new position.
@@ -290,12 +291,25 @@ function update(source) {
       .duration(duration)
       .attr("d", function(d) {
         //collect the data for the histogram 
-        if((d.source.depth == 1 || d.source.depth == 2) && empty_list == 1){
-            //access to the siblings of the current node
+        if(d.source.depth == 1 || d.source.depth == 2){
             if(d.source.parent.children != null){
                 for(var gadg of d.source.parent.children){
-                    //add each siblings
-                    add_element_list_histogram(gadg)
+                    if(gadg.children != null && opened_child == 0){ 
+                        opened_child = 1
+                        data_histogram = []
+                    }
+                    if(gadg.children != null && opened_child == 1){ 
+                        for(var gadg_ of gadg.children){
+                            if(gadg_.children != null) {
+                                data_histogram = []
+                                opened_child = 2
+                            }
+                            if(opened_child != 2){
+                                add_element_list_histogram(gadg_)
+                            }
+                        }
+                    }
+                    if(opened_child == 0) add_element_list_histogram(gadg)
                 }
             }
         }
