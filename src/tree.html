@@ -176,6 +176,7 @@ function update(source) {
 
   var current_depth = 0;
   var current_paren = null;
+  var opened_child = 0
 
   // Enter any new nodes at the parent's previous position.
   nodeEnter.append("rect")
@@ -188,12 +189,19 @@ function update(source) {
             if(d.depth > current_depth){
                 current_depth = d.depth
                 data_histogram = []
+                sum_elem_histogram = 0
                 current_paren = d.parent.data.name
+                opened_child = 0
             }
             if(d.depth == current_depth && (current_paren == null || d.parent.data.name == current_paren)){
+                if (d.children != null) opened_child = 1
                 add_element_list_histogram(d)
             }
-          }
+        }
+        if(opened_child == 1){
+            data_histogram = []
+            sum_elem_histogram = 0
+        }
         return 1;
       })
       .attr("width", function(d) {
@@ -268,7 +276,7 @@ function update(source) {
       .duration(duration)
       .attr("d", diagonal);
   
-  var opened_child = 0
+  opened_child = 0
   current_paren = null
   // Transition exiting nodes to the parent's new position.
   link.exit().transition()
