@@ -163,7 +163,7 @@ Once the user selects a gadget, more information are displayed in the \textit{An
 
 The analysis view offers an insight of the selected gadget, it shows gadget attributes and offers the user to possibility to add the gadget to the chain or to search for similar gadgets. This is done by collecting all the gadget in the tree with the same semantics, and plotting them in a graph based their different modified register when executing. This allows the user to search for gadgets with the same effect but that clobber different registers. Clicking on a displayed point will show the class of gadget in the tree view to visualize them.
 
-The gadget placement in the scatterplot is based on Multidimensional Scaling where the dissimilarity function is simply the size of the modified registers that two gadgets have not in common.
+The gadget placement in the scatterplot is based on Multidimensional Scaling where the dissimilarity function is simply the size of the modified registers that two gadgets have not in common. Therefore similar gadgets are displayed near each other, so that the user is able to quickly discriminate the possibilities from which it has to chose.
 
 \subsubsection{Chain View}
 (Figure~\ref{fig:ropmate}C)
@@ -191,18 +191,10 @@ rop += rebase(0x4016ea) #pop rax; ret
 rop += p64(0x0)
 \end{lstlisting}
 
+\subsubsection{Control Panel}
+(Figure~\ref{fig:ropmate}D)
 
-
-
-
-\iffalse
-\bigskip
-
-\bigskip
-Once clicked on a gadget the user can add it to the chain view in which is displayed the ROPChain that is building.
-
-Inside a gadget class the user can additionally trigger a cluster view, in which similar gadgets are displayed near each other to be able to quickly discriminate the possibilities from which it has to chose.
-\fi
+The control panel allows the user to perform additional filtering on the gadget displayed. He is able to select which registers should be preserved in the gadget listing, to let the user safely choose gadget without clobbering registers set in the chain. The user has also the possibility to ask the system to display only gadgets that don't access memory (apart from the stack obviously) to be able to choose simpler gadgets first. 
 
 
 
