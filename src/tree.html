@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body style="overflow-x:hidden;">
+<body style="overflow-x:auto;">
 <script src="../build/d3.min.js"></script>
 <script>
 
@@ -361,9 +361,6 @@ function add_histogram(){
     x.domain([0, d3.max(data_histogram, function(d) { return d.value*3; })]);
     y.domain(data_histogram.map(function(d) { return d.area; })).padding(0.1);
 
-    var y1 = undefined;
-    var y2 = undefined;
-
     var bars = g.selectAll(".bar");
     bars.data(data_histogram)
     .enter().append("rect")
@@ -372,21 +369,23 @@ function add_histogram(){
         return x(d.value); })
     .attr("height", 25)
     .attr("y", function(d) {
-        if(!y1 || y1 <  d.position_y) y1 = d.position_y
-        if(!y2 || y2 > d.position_y) y2 = d.position_y
         return d.position_y})
     .attr("width", function(d) { 
         return x(0) - x(d.value); });
+
    
     // add line for histogram
-    svg.append("line")
+    var y1 = d3.min(data_histogram, function (d) { return d.position_y; });
+    var y2 = d3.max(data_histogram, function (d) { return d.position_y; });
+    var pad = 17
+    g.append("line")
         .attr("class", "switch_rect")
-        .attr("x1", 750)
-        .attr("y1", y1)
-        .attr("x2", 750)
-        .attr("y2", y2)
-        .style("stroke-width", 2)
-        .style("stroke", "white") // change color here
+        .attr("x1", x(0))
+        .attr("y1", y1 - pad)  // insert padding
+        .attr("x2", x(0))
+        .attr("y2", y2 + 25 + pad) // add the height of the last rect and padding
+        .style("stroke-width", 1)
+        .style("stroke", "black") // change color here
         .style("fill", "none");
     console.log(y1)
     console.log(y2)
