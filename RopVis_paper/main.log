@@ -1,13 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.23)  29 JUN 2018 22:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.24)  30 JUN 2018 19:34
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/serenaferracci/Documents/Università/Magistrale/I anno/II semestre/V
-isual Analytics/RopVis/RopVis_paper/main"
-
-(/Users/serenaferracci/Documents/Università/Magistrale/I anno/II semestre/Vis
-ual Analytics/RopVis/RopVis_paper/main.tex
+**main.tex
+(./main.tex
 LaTeX2e <2017-04-15>
 Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls
@@ -215,20 +211,20 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -262,7 +258,7 @@ e
 ))
 \c@lstlisting=\count113
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 19.
+Package hyperref Info: Link coloring OFF on input line 22.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -272,68 +268,95 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count114
 )
-LaTeX Info: Redefining \ref on input line 19.
-LaTeX Info: Redefining \pageref on input line 19.
-LaTeX Info: Redefining \nameref on input line 19.
+LaTeX Info: Redefining \ref on input line 22.
+LaTeX Info: Redefining \pageref on input line 22.
+LaTeX Info: Redefining \nameref on input line 22.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 22.
+(Font)              <12> on input line 37.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 22.
+(Font)              <8> on input line 37.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 22.
+(Font)              <6> on input line 37.
+ <ropmate-screen.png, id=28, 1686.3pt x 1053.9375pt>
+File: ropmate-screen.png Graphic file (type png)
 
-Underfull \hbox (badness 5578) in paragraph at lines 24--26
-\OT1/cmr/m/n/10.95 ROPChain based ex-ploits are in-creas-ingly
- []
-
-[1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+<use ropmate-screen.png>
+Package pdftex.def Info: ropmate-screen.png used on input line 42.
+(pdftex.def)             Requested size: 422.09714pt x 263.80536pt.
+ [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-Underfull \hbox (badness 2197) in paragraph at lines 42--43
+Underfull \hbox (badness 2197) in paragraph at lines 58--59
 []\OT1/cmr/m/n/10.95 This is an ex-am-ple of the most sim-ple
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 47.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 63.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 47.
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 63.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
+Underfull \vbox (badness 4739) has occurred while \output is active []
+
+ [2 <./ropmate-screen.png>]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 79.
+ (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 63.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 90.
- [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 141.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 141.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 79.
 
-(./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 141.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 141.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FEA0156D224B51AC0EFC3D95043D23B1;145.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 141.
+Underfull \hbox (badness 6047) in paragraph at lines 96--97
+ []\OT1/cmr/bx/n/10.95 ROP Gad-get Find-ers.[] \OT1/cmr/m/n/10.95 There ex-ists
+ a
+ []
+
+[3]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 117.
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--175
+[][]$\OT1/cmtt/m/n/10.95 https : / / github . com / sashs / Ropper$[]\OT1/cmr/m
+/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--179
+[][]$\OT1/cmtt/m/n/10.95 https : / / github . com / JonathanSalwan /
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
+[4] [5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
+ (./main.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 259D08431BE555AD83C543AEFA890CD0;298
+(rerunfilecheck)             After:  DDC5DCA201A4A9B3B3B0A5ADA34B78E3;299.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 6753 strings out of 492995
- 100203 string characters out of 6132703
- 283632 words of memory out of 5000000
- 10230 multiletter control sequences out of 15000+600000
- 9325 words of font info for 33 fonts, out of 8000000 for 9000
+ 6779 strings out of 492995
+ 100217 string characters out of 6132704
+ 229762 words of memory out of 5000000
+ 10244 multiletter control sequences out of 15000+600000
+ 9801 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,8n,32p,618b,1112s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,32p,1032b,1631s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
@@ -342,10 +365,10 @@ sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
 ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (3 pages, 104383 bytes).
+Output written on main.pdf (5 pages, 288986 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
- 29 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 138 PDF objects out of 1000 (max. 8388607)
+ 119 compressed objects within 2 object streams
+ 40 named destinations out of 1000 (max. 500000)
+ 54 words of extra memory for PDF output out of 10000 (max. 10000000)
 
