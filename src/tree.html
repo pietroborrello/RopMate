@@ -309,8 +309,14 @@ function update(source) {
 // Toggle children on click.
 function click(d) {
   if (d.children) {
-    d._children = d.children;
-    d.children = null;
+    // post-order traversal
+    d.eachAfter(function(n) {
+        // close if opened child
+        if (n.children) {
+            n._children = n.children;
+            n.children = null;
+        }
+    })
   } else {
     d.children = d._children;
     d._children = null;
