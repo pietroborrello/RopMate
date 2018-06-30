@@ -355,6 +355,7 @@ function add_histogram(){
     var y = d3.scaleBand().range([height, 0]);
 
     var g = svg.append("g")
+        .attr("class", "switch_rect")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     x.domain([0, d3.max(data_histogram, function(d) { return d.value*3; })]);
