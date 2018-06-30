@@ -390,7 +390,7 @@ function add_histogram(){
     // transition to make it visible
     g.selectAll("rect.switch_rect")
     .transition()
-        .duration(duration*2)
+        .duration(duration*1.5)
         .attr("x", function (d) {
                 return x(d.value);
             })
