@@ -219,12 +219,32 @@ function update(source) {
             d3.selectAll(".tooltip").remove();
         });
 
-  nodeEnter.append("text")
+  /*nodeEnter.append("text")
       .attr("dy", 3.5)
       .attr("dx", 5.5)
       .text(function(d) {
           return (d.data.name.length > crop_len)? d.data.name.substring(0, crop_len-2)+"...": d.data.name;
-          });
+          });*/
+
+    // TODO: logaritmic time instead of linear
+    function wrap(d) {
+        var self = d3.select(this),
+            textLength = self.node().getComputedTextLength(),
+            text = self.text();
+        while ((textLength > self.attr('width') - 10) && text.length > 0) {
+            text = text.slice(0, -1);
+            self.text(text + '...');
+            textLength = self.node().getComputedTextLength();
+        }
+    }
+
+    nodeEnter.append("text")
+        .attr("dy", 3.5)
+        .attr("dx", 5.5)
+        .append('tspan')
+        .text(function (d) { return d.data.name; })
+        .attr('width', barWidth)
+        .each(wrap);
 
   // Transition nodes to their new position.
   nodeEnter.transition()
