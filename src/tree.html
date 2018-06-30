@@ -386,4 +386,9 @@ function remove_histogram(){
     svg.selectAll(".switch_rect").remove()
     data_histogram = []
 }
+
+function hidden_histogram(){
+    var svg = d3.select("svg")
+    svg.selectAll(".switch_rect").remove()
+}
 </script>
