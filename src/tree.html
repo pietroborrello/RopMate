@@ -192,7 +192,7 @@ function update(source) {
                 histogram_done = 1
             }
         }
-        if(opened_child == 1) remove_histogram()
+        if(opened_child == 1) data_histogram = []
       })
       .attr("width", function(d) {
           if(d.children == null && d._children == null) return barWidth;
@@ -292,7 +292,7 @@ function update(source) {
         }
         //ensure that the histogram is drawn only once 
         if(data_histogram.length != 0) empty_list = 0
-        if(opened_child == 1) remove_histogram()
+        if(opened_child == 1) data_histogram = []
       })
       .remove();
 
@@ -384,11 +384,6 @@ function add_element_list_histogram(gadg){
 function remove_histogram(){
     var svg = d3.select("svg")
     svg.selectAll(".switch_rect").remove()
-    data_histogram = []
 }
 
-function hidden_histogram(){
-    var svg = d3.select("svg")
-    svg.selectAll(".switch_rect").remove()
-}
 </script>
