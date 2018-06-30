@@ -202,7 +202,7 @@ function update(source) {
       .style("fill", color)
       .on("click", click)
       .on("mouseover", function(d) {
-          if(d.children == null && d._children == null && d.data.name.length > crop_len){
+          if(d.children == null && d._children == null && d.need_tooltip){
 
             d3.selectAll(".tooltip").remove();
 
@@ -219,22 +219,16 @@ function update(source) {
             d3.selectAll(".tooltip").remove();
         });
 
-  /*nodeEnter.append("text")
-      .attr("dy", 3.5)
-      .attr("dx", 5.5)
-      .text(function(d) {
-          return (d.data.name.length > crop_len)? d.data.name.substring(0, crop_len-2)+"...": d.data.name;
-          });*/
-
-    // TODO: logaritmic time instead of linear
     function wrap(d) {
         var self = d3.select(this),
             textLength = self.node().getComputedTextLength(),
             text = self.text();
+        d.need_tooltip = false;
         while ((textLength > self.attr('width') - 10) && text.length > 0) {
             text = text.slice(0, -1);
             self.text(text + '...');
             textLength = self.node().getComputedTextLength();
+            d.need_tooltip = true;
         }
     }
 
@@ -397,16 +391,17 @@ function add_histogram(){
     var y1 = d3.min(data_histogram, function (d) { return d.position_y; });
     var y2 = d3.max(data_histogram, function (d) { return d.position_y; });
     var pad = 17
-    g.append("line")
-        .attr("class", "switch_rect")
-        .attr("x1", x(0))
-        .attr("y1", y1 - pad)  // insert padding
-        .attr("x2", x(0))
-        .attr("y2", y2 + 25 + pad) // add the height of the last rect and padding
-        .style("stroke-width", 1)
-        .style("stroke", "black") // change color here
-        .style("fill", "none");
-    
+    if(y1 && y2)
+        g.append("line")
+            .attr("class", "switch_rect")
+            .attr("x1", x(0))
+            .attr("y1", y1 - pad)  // insert padding
+            .attr("x2", x(0))
+            .attr("y2", y2 + 25 + pad) // add the height of the last rect and padding
+            .style("stroke-width", 1)
+            .style("stroke", "black") // change color here
+            .style("fill", "none");
+        
     // transition to make it visible
     g.selectAll("rect.switch_rect")
     .transition()
