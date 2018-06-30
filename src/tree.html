@@ -8,9 +8,9 @@
 <script>
 
 var margin = {top: 30, right: 20, bottom: 30, left: 20},
-    width = Math.max(1400,parseInt(window.innerWidth));
+    width = parseInt(window.innerWidth);
     barHeight = 25,
-    barWidth = (width - margin.left - margin.right) * 0.3;
+    barWidth = (width - margin.left - margin.right) * 0.5;
 
 var crop_len = 65;
 
@@ -346,7 +346,7 @@ function color(d) {
 
 function add_histogram(){
     var svg = d3.select("svg"),
-    margin = {top: 17, right: 650, bottom: 30, left: 80},
+    margin = {top: 17, right: 50, bottom: 30, left: 80},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
     
