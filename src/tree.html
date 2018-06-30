@@ -365,14 +365,12 @@ function add_histogram(){
     bars.data(data_histogram)
     .enter().append("rect")
     .attr("class", "switch_rect")
-    .style('opacity', 0)
-    .attr("x", function(d){
-        return x(d.value); })
+    .style('opacity', 1)
+    .attr("x", x(0))
     .attr("height", 25)
     .attr("y", function(d) {
         return d.position_y})
-    .attr("width", function(d) { 
-        return x(0) - x(d.value); });
+    .attr("width", 0);
 
    
     // add line for histogram
@@ -392,8 +390,13 @@ function add_histogram(){
     // transition to make it visible
     g.selectAll("rect.switch_rect")
     .transition()
-    .duration(duration*2)
-    .style('opacity', 1)
+        .duration(duration*2)
+        .attr("x", function (d) {
+                return x(d.value);
+            })
+        .attr("width", function (d) {
+            return x(0) - x(d.value);
+        });
 
 }
 
