@@ -175,8 +175,7 @@ function update(source) {
 
   var formatTime = d3.timeFormat("%e %B");
 
-  var current_depth = 0;
-  var current_paren = null;
+  var histogram_done = 0
   var opened_child = 0
   data_histogram = []
 
@@ -186,28 +185,14 @@ function update(source) {
       .attr("height", barHeight)
       .attr("hist", function(d){
         //collect the data for the histogram
-        if(d.depth == 1 || d.depth == 2){
-            //save the current depth
-            if(current_depth == 0) current_depth = d.depth
-            
-            //check if there is a sublevel opened
-            if(d.depth > current_depth){
-                current_depth = d.depth
-                data_histogram = []
-                //show only the first opened child 
-                current_paren = d.parent.data.name
-                opened_child = 0
-            }
-
-            if(d.depth == current_depth && (current_paren == null || d.parent.data.name == current_paren)){
-                if (d.children != null) opened_child = 1
-                add_element_list_histogram(d)
+        if(d.parent != null && d.depth != 3 && histogram_done == 0){
+            for(var gadg of d.parent.children){
+                if(gadg.children != null) opened_child = 1
+                add_element_list_histogram(gadg)
+                histogram_done = 1
             }
         }
-        if(opened_child == 1){
-            data_histogram = []
-        }
-        return 1;
+        if(opened_child == 1) remove_histogram()
       })
       .attr("width", function(d) {
           if(d.children == null && d._children == null) return barWidth;
@@ -283,7 +268,7 @@ function update(source) {
   
   //check if the histogram list is not yet filled 
   var empty_list = 0
-  var histogram_done = 0
+  histogram_done = 0
   if(data_histogram.length == 0) empty_list = 1
   opened_child = 0
 
@@ -297,7 +282,7 @@ function update(source) {
       .attr("hist", function(d){
         //collect the data for the histogram 
         if(empty_list != 0 && histogram_done == 0 && opened_child == 0){
-            if(d.source.parent != null){
+            if(d.source.parent != null && d.source.parent.children != null){
                 for(var gadg of d.source.parent.children){
                     if(gadg.children != null) opened_child = 1
                     add_element_list_histogram(gadg)
