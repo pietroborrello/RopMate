@@ -346,7 +346,7 @@ function color(d) {
 
 function add_histogram(){
     var svg = d3.select("svg"),
-    margin = {top: 17, right: 700, bottom: 30, left: 80},
+    margin = {top: 17, right: 650, bottom: 30, left: 80},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
     
@@ -361,6 +361,9 @@ function add_histogram(){
     x.domain([0, d3.max(data_histogram, function(d) { return d.value*3; })]);
     y.domain(data_histogram.map(function(d) { return d.area; })).padding(0.1);
 
+    var y1 = undefined;
+    var y2 = undefined;
+
     var bars = g.selectAll(".bar");
     bars.data(data_histogram)
     .enter().append("rect")
@@ -369,10 +372,24 @@ function add_histogram(){
         return x(d.value); })
     .attr("height", 25)
     .attr("y", function(d) {
+        if(!y1 || y1 <  d.position_y) y1 = d.position_y
+        if(!y2 || y2 > d.position_y) y2 = d.position_y
         return d.position_y})
     .attr("width", function(d) { 
         return x(0) - x(d.value); });
    
+    // add line for histogram
+    svg.append("line")
+        .attr("class", "switch_rect")
+        .attr("x1", 750)
+        .attr("y1", y1)
+        .attr("x2", 750)
+        .attr("y2", y2)
+        .style("stroke-width", 2)
+        .style("stroke", "white") // change color here
+        .style("fill", "none");
+    console.log(y1)
+    console.log(y2)
 
 }
 
