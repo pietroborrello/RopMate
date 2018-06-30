@@ -150,13 +150,46 @@ ROPMate is divided into five main views as shown in Figure~\ref{fig:ropmate}: th
 The user will search for the wanted gadget in the \textit{Tree View}, while inspecting the selected one and searching similar in the \textit{Analysis View}. Once added, a gadget, will show up in the \textit{Chain View}, and it can be further moved or removed from the chain. Filters in the \textit{Control Panel} and \textit{Filter View} can be user to restrict the search to useful gadgets.
 
 \subsubsection{Tree View}
-The tree view can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets are presented in a tree, divided by category and semantic meaning. The list of categories reported in the previous section. In the last level of the tree the gadgets are presented, displaying the assembly code of each gadget. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
+(Figure~\ref{fig:ropmate}A)
 
-Near an opened category, an histogram is displayed, indicating to the user how many gadgets of that subtype are present. Our first design choice of integrating the histogram in the tree, just lead to an ugly and unclear interface, therefore we chose to divide them.
+The tree view can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets in the main view are hierarchically ordered by class, and then by parameters that represents their semantic meaning. The list of categories reported in the previous section. In the last level of the tree the gadgets are presented, displaying the assembly code of each gadget. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
+
+Near an opened category, an histogram is displayed, indicating to the user the number of gadgets of each class, to quickly give an hint on the overall view. Our first design choice of integrating the histogram in the tree, just lead to an ugly and unclear interface, therefore we chose to divide them.
 
 Once the user selects a gadget, more information are displayed in the \textit{Analysis View}.
 
+\subsubsection{Analysis View}
+(Figure~\ref{fig:ropmate}B)
 
+The analysis view offers an insight of the selected gadget, it shows gadget attributes and offers the user to possibility to add the gadget to the chain or to search for similar gadgets. This is done by collecting all the gadget in the tree with the same semantics, and plotting them in a graph based their different modified register when executing. This allows the user to search for gadgets with the same effect but that clobber different registers. Clicking on a displayed point will show the class of gadget in the tree view to visualize them.
+
+The gadget placement in the scatterplot is based on Multidimensional Scaling where the dissimilarity function is simply the size of the modified registers that two gadgets have not in common.
+
+\subsubsection{Chain View}
+(Figure~\ref{fig:ropmate}C)
+
+The chain view presents the current state of the builded chain. Adding a gadget to the chain will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
+
+It offers the possibility to move gadgets in the chain by dragging and dropping, and to remove them. Once the user is happy with the chain builded clicking {\tt Dump} the system will generate a python script to integrate with current exploit technologies that will generate the byte-code of the chain, for example:
+
+
+\begin{lstlisting}
+IMAGE_BASE = 0x0
+rebase = lambda x : p64(x + IMAGE_BASE)
+
+rop = ''
+rop += rebase(0x4016ea) #pop rax; ret
+rop += p64(0x0)
+rop += rebase(0x470931) #pop rdi; or byte ptr [rax + 0x39], cl; ret
+rop += p64(0x0)
+rop += rebase(0x4016ea) #pop rax; ret
+rop += p64(0x0)
+rop += rebase(0x456499) #mov qword ptr [rdi], rax; ret
+rop += rebase(0x46defd) #pop rsi; ret
+rop += p64(0x0)
+rop += rebase(0x4016ea) #pop rax; ret
+rop += p64(0x0)
+\end{lstlisting}
 
 
 
@@ -164,10 +197,9 @@ Once the user selects a gadget, more information are displayed in the \textit{An
 
 \iffalse
 \bigskip
-The gadgets in the main view are hierarchically ordered by class, and then by parameters. The histogram, on the right of the main view, represents the number of gadgets of each class, to quickly give an hint on the overall view.
 
 \bigskip
-Once clicked on a gadget the user can add it to the chain view in which is displayed the ROPChain that is building. This will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
+Once clicked on a gadget the user can add it to the chain view in which is displayed the ROPChain that is building.
 
 Inside a gadget class the user can additionally trigger a cluster view, in which similar gadgets are displayed near each other to be able to quickly discriminate the possibilities from which it has to chose.
 \fi

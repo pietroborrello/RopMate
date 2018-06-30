@@ -150,11 +150,21 @@ ROPMate is divided into five main views as shown in Figure~\ref{fig:ropmate}: th
 The user will search for the wanted gadget in the \textit{Tree View}, while inspecting the selected one and searching similar in the \textit{Analysis View}. Once added, a gadget, will show up in the \textit{Chain View}, and it can be further moved or removed from the chain. Filters in the \textit{Control Panel} and \textit{Filter View} can be user to restrict the search to useful gadgets.
 
 \subsubsection{Tree View}
+(Figure~\ref{fig:ropmate}A)
+
 The tree view can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets are presented in a tree, divided by category and semantic meaning. The list of categories reported in the previous section. In the last level of the tree the gadgets are presented, displaying the assembly code of each gadget. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
 
 Near an opened category, an histogram is displayed, indicating to the user how many gadgets of that subtype are present. Our first design choice of integrating the histogram in the tree, just lead to an ugly and unclear interface, therefore we chose to divide them.
 
 Once the user selects a gadget, more information are displayed in the \textit{Analysis View}.
+
+\subsubsection{Analysis View}
+(Figure~\ref{fig:ropmate}B)
+
+The analysis view offers an insight of the selected gadget, it shows gadget attributes and offers the user to possibility to search for similar gadgets. This is done by collecting all the gadget in the tree with the same semantics, and plotting them in a graph based their different modified register when executing. This allows the user to search for gadgets with the same effect but that clobber different registers. Clicking on a displayed point will show the class of gadget in the tree view to visualize them.
+
+The gadget placement in the scatterplot is based on Multidimensional Scaling where the dissimilarity function is simply the size of the modified registers that two gadgets have not in common.
+
 
 
 
