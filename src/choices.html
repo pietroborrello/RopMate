@@ -11,10 +11,6 @@
         <div id="mds_view" style="position: relative">
             <form action="" method="post" name="reload" style="margin-bottom: 0px; top:0.5em; right:1.1em; z-index: 99; position: absolute;">
                 <button type="button" onclick="draw_mds()"> Similar Gadgets </button>
-                <label class="switch">
-                    <input type="checkbox" id="switch" onclick="return histogram_tree_frame();">
-                    <span class="slider round"></span>
-                  </label>
             </form>
         </div>
 
@@ -33,17 +29,6 @@
             var selectedGadget = {data: {params:'', type:'', address:'0', disasm:"Click on a gadget to show the info; Click on the gadget displayed; to add to the chain", mem:['undefined','']}};
             add_gadget_info_window()
 
-            function histogram_tree_frame(){
-                var switch_value = document.getElementById("switch").checked
-                if (switch_value == true){
-                    parent.tree.show_histogram = 1;
-                    parent.tree.add_histogram();
-                }
-                else{
-                    parent.tree.show_histogram = 0;
-                    parent.tree.remove_histogram();
-                }
-            }
 
             function add_gadget_info_window()
             {
