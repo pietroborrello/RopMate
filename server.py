@@ -24,7 +24,7 @@ def mds():
         if not request.form['type'] or not request.form['params']:
             return json.dumps({'X': [], 'labels': []})
 
-        with open('./files/ls.json') as f:
+        with open('./files/baby_stack.json') as f:
             data_file = json.load(f)
 
         data_filter = filter(
