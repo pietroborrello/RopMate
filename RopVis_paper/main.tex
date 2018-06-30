@@ -14,7 +14,7 @@
 
 \title{{\Large \bf The Rop Mate \\ \large Visually Assisting the Creation of ROPChain based Exploits}  \\{\medskip\normalfont\normalsize  Visual Analytics -  Sapienza}}
 \author{
-{\rm Pietro Borrello} 
+{\rm Pietro Borrello}
 \and
 {\rm Serena Ferracci}}
 \date{}
@@ -24,14 +24,14 @@
 \twocolumn[
   \begin{@twocolumnfalse}
     \maketitle
-   
+
 
 \begin{abstract}
 
-ROPChain based exploits are increasingly present in the scenario of advanced attack techniques. 
-Being able to test software against such types of attacks is fundamental to any RedTeam hacker. Automatic tool that try to create ROPChains exists and are well known, but they often fail with non usual binaries. 
+ROPChain based exploits are increasingly present in the scenario of advanced attack techniques.
+Being able to test software against such types of attacks is fundamental to any RedTeam hacker. Automatic tool that try to create ROPChains exists and are well known, but they often fail with non usual binaries.
 In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, since the existing state of the art, only propose text based approach with, less or more, informative lists of the gadgets founded.
-RopMate presents the builder with a clear interface of available gadgets, in which he is able to choose which of them to add to the building ROPChain, and, once selected, to filter the list accodring to wanted guarantees on preserved registers and accessed memory. The user is also able to find similar gadget in respect with the one choosen.
+RopMate presents the builder with a clear interface of available gadgets, in which he is able to choose which of them to add to the building ROPChain, and, once selected, to filter the list according to wanted guarantees on preserved registers and accessed memory. The user is also able to find similar gadget in respect with the one chosen.
 \end{abstract}
   \end{@twocolumnfalse}
 ]
@@ -42,15 +42,15 @@ RopMate presents the builder with a clear interface of available gadgets, in whi
   \includegraphics[width=0.9\textwidth]{ropmate-screen}
   \caption{ROPMate}\label{fig:ropmate}
 \end{figure*}
-Return-oriented programming (ROP) is an exploiting technique that allows an attacker to induce arbitrary behaviour in a vulnerable program without actually injecting any code, but through a chain of redirections in the program memory itself. \cite{rop}
+Return-oriented programming (ROP) is an exploiting technique that allows an attacker to induce arbitrary behavior in a vulnerable program without actually injecting any code, but through a chain of redirections in the program memory itself. \cite{rop}
 
 The attack scenario is based on a controlled stack frame, where the return address can be overwritten. This is an advanced version of the ``return to libc attack'' \cite{libc} where multiple pieces of code are called in sequence to provide the needed code semantics execution: the attack combines a large number of short instruction sequences (called \textit{gadgets} from now on) that allow arbitrary computation. This is resilient to mitigation as non executable memory areas.
 
 Each gadget is in the form of a couple of instruction followed by a return. This allows the attacker to place a sequence of gadget addresses on the stack (called \textit{ROPChain}) from the return address on, that will be executed thanks to the semantics of the ret instruction.
 
-In this paper we aim to present a first step toward the acceptance that automatic tools will never be perfect, therefore human intervention will always be needed. Our tool is meant to give an help to any human ROPChain builder, in order to ease the creation of part or the totality of the chain.   
+In this paper we aim to present a first step toward the acceptance that automatic tools will never be perfect, therefore human intervention will always be needed. Our tool is meant to give an help to any human ROPChain builder, in order to ease the creation of part or the totality of the chain.
 
-While previous tools like, ropper \cite{ropper} or ROPGadget \cite{ROPGadget}, do an extraordinary job in finding useful gadgets, they lack totally of user friendlyness. They present the chain builder with a plain text dump of gadget found, that is meant to be parsed by and or scripting. While this is useful for other automatic tools, presenting the users with thousands of lines of gadgets doesn't help him in any way on the choice of the right gadget. Our work focuses on making the life of the exploiter easier.
+While previous tools like, ropper \cite{ropper} or ROPGadget \cite{ROPGadget}, do an extraordinary job in finding useful gadgets, they lack totally of user friendliness. They present the chain builder with a plain text dump of gadget found, that is meant to be parsed by and or scripting. While this is useful for other automatic tools, presenting the users with thousands of lines of gadgets doesn't help him in any way on the choice of the right gadget. Our work focuses on making the life of the exploiter easier.
 
 \section{The Problem}
 There exists automatic tools to find the suitable gadgets to create the final chain, but all of these tools present the attacker with a textual list of all the found gadgets. Then the attacker has to filter that list on the terminal with \texttt{grep} or similar commands. This becomes frustrating and infeasible with the growing of the complexity of the needed chain.
@@ -87,17 +87,17 @@ The problem is that it never happens that the gadget are so simple and clear. Mi
 Moreover the number of gadget available in a binary is huge (from 1.500 for a middle sized binary to more than 15.000 for a standard library) so naively searching for useful and correct gadgets between them is impossible.
 
  Automatic tools that generate the chain exist but usually they fail and leave the attacker alone. So there is a lack of an effective tool to help developing the exploit.
- 
+
 \section{Related Works}
 \label{se:related}
-\paragraph{Code Reuse Attacks.} 
+\paragraph{Code Reuse Attacks.}
 Memory corruption bugs for memory unsafe languages are one of the oldest problems in software security. Historically, attackers have exploited buffer overflows caused by coding errors to inject their own code into the application and have the instruction pointer jump to it. Data Execution Prevention techniques that are deployed on modern systems try to mitigate execution of malicious payloads that can be inserted. Therefore Attackers have switched their attention to create attacks reusing code already present in the binary, calling functions present in the linked standard library or chaining together short instruction sequences to carry out the desired computation. Return Oriented Programming is the most famous embodiment of the latter approach: by arranging the addresses of the code sequences to be executed on the stack along with their operands as part of a ROP chain, the {\tt ret} instruction present at the end of each gadget instructs the CPU to follow the flow entailed by the chain.
 
-\paragraph{ROP Gadget Finders.} There exists a plethora of tools to find executable gadgets (sequence of executable and correct instructions that ends with a {\tt ret} instruction): all of them provide the attacker with a list of gadgets among wich to choose \cite{ropper} \cite{ROPGadget}. 
+\paragraph{ROP Gadget Finders.} There exists a plethora of tools to find executable gadgets (sequence of executable and correct instructions that ends with a {\tt ret} instruction): all of them provide the attacker with a list of gadgets among which to choose \cite{ropper} \cite{ROPGadget}.
 
 \paragraph{Automatic ROPChain Builders.} Most of the tools that provide some functionality to find gadgets, also try to automatically build a chain with some predefined desired effects. While they usually succeed with standard binaries (as {\tt libc}) or standard chains, they often fail on unusual binaries, and don't provide any help to build custom chains.
 
-\paragraph{Visual ROPChain Builder.} At the time of the paper we weren't able to find any visual or textual tool, that would help an attacker to build his ROPChain. Current tecniques just rely on python scripting.
+\paragraph{Visual ROPChain Builder.} At the time of the paper we weren't able to find any visual or textual tool, that would help an attacker to build his ROPChain. Current techniques just rely on python scripting.
 
 \section{Proposed Solution}
 
@@ -142,7 +142,25 @@ Each gadget has a specific type, between:
 \section{ROPMate}
 In this section we describe ROPMate, a prototype visual ROPChain builder, that assists the attacker in composing the chain with the desired semantics. ROPMate lets the user to filter and select gadgets to add to his chain, while presenting to him only the gadgets that fits the semantics and guarantees he wants. The user is also able to search for similar gadgets with respect to the selected one, needing the same semantics, but different guarantees.
 
-\subsection{Gadgets Dataset} The system takes ad input a dataset of semantically analysed gadgets, provided by a backend server. The backend server essentially takes the original binary collects the gadget through some existing gadged finding tool, and performs a semantic analysis on each found gadget to set the tyoe and the attributes described in Table~\ref{tab:gad_attr}.
+\subsection{Gadgets Dataset} The system takes ad input a dataset of semantically analyzed gadgets, provided by a backend server. The backend server essentially takes the original binary collects the gadget through some existing gadget finding tool, and performs a semantic analysis on each found gadget to set the type and the attributes described in Table~\ref{tab:gad_attr}.
+
+\subsection{User Interface}
+ROPMate is divided into five main views as shown in Figure~\ref{fig:ropmate}: the \textit{Tree View} (Figure~\ref{fig:ropmate}A), the \textit{Chain View}(Figure~\ref{fig:ropmate}C), the \textit{Analysis View}(Figure~\ref{fig:ropmate}B), the \textit{Control Panel} (Figure~\ref{fig:ropmate}D) and the \textit{Filter View} (Figure~\ref{fig:ropmate}E).
+
+The user will search for the wanted gadget in the \textit{Tree View}, while inspecting the selected one and searching similar in the \textit{Analysis View}. Once added, a gadget, will show up in the \textit{Chain View}, and it can be further moved or removed from the chain. Filters in the \textit{Control Panel} and \textit{Filter View} can be user to restrict the search to useful gadgets.
+
+\subsubsection{Tree View}
+The tree view can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets are presented in a tree, divided by category and semantic meaning. The list of categories reported in the previous section. In the last level of the tree the gadgets are presented, displaying the assembly code of each gadget. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
+
+Near an opened category, an histogram is displayed, indicating to the user how many gadgets of that subtype are present. Our first design choice of integrating the histogram in the tree, just lead to an ugly and unclear interface, therefore we chose to divide them.
+
+Once the user selects a gadget, more information are displayed in the \textit{Analysis View}.
+
+
+
+
+
+
 
 \iffalse
 \bigskip
@@ -168,11 +186,11 @@ Inside a gadget class the user can additionally trigger a cluster view, in which
     The advanced return-into-lib(c) exploits (PaX case study),
     Phrack Magazine 58(4),
     Dec. 2001.
-    
+
     \bibitem{ropper}
      \url{https://github.com/sashs/Ropper},
     2018.
-    
+
     \bibitem{ROPGadget}
     \url{https://github.com/JonathanSalwan/ROPgadget},
     2017.
