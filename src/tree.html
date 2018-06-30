@@ -365,6 +365,7 @@ function add_histogram(){
     bars.data(data_histogram)
     .enter().append("rect")
     .attr("class", "switch_rect")
+    .style('opacity', 0)
     .attr("x", function(d){
         return x(d.value); })
     .attr("height", 25)
@@ -387,8 +388,12 @@ function add_histogram(){
         .style("stroke-width", 1)
         .style("stroke", "black") // change color here
         .style("fill", "none");
-    console.log(y1)
-    console.log(y2)
+    
+    // transition to make it visible
+    g.selectAll("rect.switch_rect")
+    .transition()
+    .duration(duration*2)
+    .style('opacity', 1)
 
 }
 
