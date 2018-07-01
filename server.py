@@ -26,12 +26,26 @@ def allowed_file(filename):
 @app.route('/upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
-        file = request.files['files[]']
+        file = request.files.get("files[]", None)
         if file and allowed_file(file.filename):
             filename = os.path.join(
                 app.config['UPLOAD_FOLDER'], "default.json")
             file.save(filename)
             return redirect(url_for('index'))
+
+
+@app.context_processor
+def override_url_for_PATH():
+    """
+    Generate a new token on every request to prevent the browser from
+    caching static files.
+    """
+    return dict(unique_url_for_PATH=dated_url_for_PATH)
+
+
+def dated_url_for_PATH(endpoint, **values):
+    date = str(os.stat(PATH).st_mtime)
+    return PATH[1:] + '?q=' + date
 
 
 @app.route("/mds", methods=['POST'])

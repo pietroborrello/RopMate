@@ -1,8 +1,8 @@
 <html>
     <head>
       <script>
-        // flask parameter
-        path = "{{ path }}"
+        // flask parameter: change it to unique, to not let browser cache the file
+        path = "{{ unique_url_for_PATH(path) }}"
       </script>
 
       <frameset rows = "7%, *" border="1">
