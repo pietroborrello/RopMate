@@ -7,3 +7,4 @@ build/*
 !build/.gitkeep 
 !build/jquery-3.3.1.min.js
 !build/spin.min.js
+!build/d3.min.js

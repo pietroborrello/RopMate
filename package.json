@@ -1,5 +1,5 @@
 {
-  "name": "ropvis",
+  "name": "ropmate",
   "version": "1.0.0",
   "description": "ropchain graphical builder",
   "main": "index.html",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/pietroborrello/RopVis.git"
   },
   "keywords": [
-    "ropvis"
+    "ropmate"
   ],
   "author": "Pietro Borrello, Serena Ferracci",
   "license": "BSD-2-Clause",

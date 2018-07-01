@@ -201,7 +201,7 @@ The control panel allows the user to perform additional filtering on the gadget 
 
 The filter view, jointly with the control panel, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the filter using a proper language. He is able to select all and only the gadgets that modify a particular register or have a given instruction.
 
-\subsection{Find Similar Gadgets}
+\subsection{Finding Similar Gadgets}
 The \textit{Similar Gadgets Finder} is triggered by the \texttt{Similar Gadgets} button in the \textit{Analysis View}. The module takes the \texttt{type} and \texttt{parameters} of the selected gadget to analyze only the semantically equivalent gadgets in the list. For each possible combination of gadgets it computes a dissimilarity function $f$. Where $f$ is:
 $$
 f(g_1, g_2) = |(M_1 \cup M_2) - (M_1 \cap M_2)|
@@ -210,11 +210,22 @@ with $M_i$ being the set of modified registers by gadget $i$.
 
 Then $MDS$ is applied to the dissimilarity matrix to compute a pair of coordinates for each gadget that will reflect the dissimilarity between gadgets in the relative distances. This shows the user a scatterplot in which similar gadgets are displayed near each other, allowing him to find semantically equivalent gadgets, but with different side effects. Figure~\ref{fig:mds} shows and example of the user searching different gadgets for the same semantical meaning (\texttt{[rbx] = rbp}).
 
-\begin{figure*}[htb]
+It is important to note that it is possible that more than one gadget will have the same modified registers, therefore a single point in the scatterplot will possibly represent a set of gadgets, and clicking on it, the tree will display that set.
+
+\section{User Evaluation}
+
+\section{Discussion and Limitations}
+
+\section{Conclusion}
+Building a ROPChain is not an easy task. Understanding the semantics of each gadget, and finding the right one is increasingly difficult with the dimension of the set in which to choose. Current solutions support only the possibility to automatically build a chain and, if failed, they leave the attacker alone with a huge textual list of gadgets made by assembly instructions.
+We presented \texttt{ROPMate} a prototype visual ROPChain builder, that assists the attacker in composing the chain with the desired semantics. Our tool makes the life of exploit creation easier, and assists the builder along the creation of the chain, proposing only gadgets with the desired guarantees and side effects. Additionally our tool finds similar gadgets with respect to user needs and shows them to the user.
+
+
+\begin{figure}[htb]
 \centering
  \includegraphics[width=0.4\textwidth]{mds}
- \caption{ROPMate}\label{fig:mds}
-\end{figure*}
+ \caption{Similarity View}\label{fig:mds}
+\end{figure}
 
 
 

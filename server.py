@@ -8,7 +8,7 @@ import json
 from matplotlib import pyplot as plt
 from sklearn import manifold
 
-app = Flask("RopVis", static_folder="",
+app = Flask("ROPMate", static_folder="",
             template_folder="", static_url_path='')
 
 
