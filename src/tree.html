@@ -251,6 +251,8 @@ function update(source) {
         if(wrapped_text_cache[d.data.address])
         {
             self.text(wrapped_text_cache[d.data.address]);
+            // set d.need_tooltip if not set before
+            if(!d.need_tooltip && wrapped_text_cache[d.data.address].endsWith('...')) d.need_tooltip = true
         }
         else
         {
