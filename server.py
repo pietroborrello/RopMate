@@ -5,7 +5,6 @@ import os
 import numpy as np
 import pandas as pd
 import json
-from matplotlib import pyplot as plt
 from sklearn import manifold
 
 app = Flask("ROPMate", static_folder="",
