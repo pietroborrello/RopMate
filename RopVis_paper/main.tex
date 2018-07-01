@@ -211,13 +211,32 @@ It is important to note that it is possible that more than one gadget will have 
 \section{User Evaluation}
 It was conducted a session to gather preliminary user feedback from 4 participants that are experts in cyber security. The goal of the session was to obtain preliminary feedback on the general usability of the prototype system. Participants were first given a short description of how the prototype system works. They were then asked to use the prototype system and to think aloud throughout the entire session.
 
-All participants believed the visual approach to the problem was very useful and user friendly. P2 and P3 observed that ROPMate acted as an interactive recommender for the next gadget to add to the chain. P4 commented that this approach to create the ROPChain allowed him to not be overwhelmed by useless gadgets. All participants thought that the interaction technique of clicking and filtering gadgets in the tree was easy to understand and found the classification helpful for searching efficiently the right gadget.
+All participants believed the visual approach to the problem was very useful and user friendly, but they also said that a hacker does not need imaginative interfaces. P2 and P3 observed that ROPMate acted as an interactive recommender for the next gadget to add to the chain. P4 commented that this approach to create the ROPChain allowed him to not be overwhelmed by useless gadgets. All participants thought that the interaction technique of clicking and filtering gadgets in the tree was easy to understand and found the classification helpful for searching efficiently the right gadget.
 
 P1 and P2 appreciated that the histograms of the gadgets allowed them to have a visual representation of the number of registers modified and if the gadget access the memory or not. P3 expressed some frustration about about the dragging of gadgets in the presence of a long chain. P4 commented that it would have been nice to support advanced filters.
 
 Given this preliminary feedback from users, we discuss the implications in greater detail in the next section.
 
-\section{Discussion and Limitations}
+\section{Limitations \& Future Works}
+We present possible further work and open research challenges.
+
+\textbf{Advanced filtering.} Although our prototype shows promising results for filtering the gadgets, we do not support complex filters, indeed the language to express the filter is quite limited.
+
+\textbf{Select the gadget to remove.} When a new gadget is added to the chain, it is placed in the last position. We allow to delete this element or the entire chain through respectively the \textit{Remove} and the \textit{Remove all} button. The user can't delete any element of the chain. If he want to delete an element in the middle of the chain, he must drag it to the end of the chain and then click the \textit{Remove} button.
+
+In a future work we can consider the possibility to select the gadget that the user wants to delete, so as to make the interaction more user friendly.
+
+\textbf{Coordinate drag and scroll.} As evidenced by user experiences, if the chain becomes quite long, dragging the gadgets is difficult. The chain view does not move during the drag. So to drag a gadget in the presence of a long chain, the user must proceed by steps.
+
+A possible solution, to be integrated in a future work, could be to synchronize grad of the gadget and scroll of the view.
+
+\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest to the user additional chains to allow him to perform the operation he had selected through a single gadget or a filter. The additional chain can be added to the built chain or rejected.
+
+The guidance is not easy to implement because the system should analyze all the possible combinations of the gadgets. The problem would be exponential, therefore infeasible.
+
+
+
+
 
 \section{Conclusion}
 Building a ROPChain is not an easy task. Understanding the semantics of each gadget, and finding the right one is increasingly difficult with the dimension of the set in which to choose. Current solutions support only the possibility to automatically build a chain and, if failed, they leave the attacker alone with a huge textual list of gadgets made by assembly instructions.
