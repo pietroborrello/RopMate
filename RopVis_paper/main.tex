@@ -3,6 +3,7 @@
 % !TeX spellcheck = en-US
 
 \documentclass[twocolumn, 11pt]{article}
+\usepackage[margin=0.7in]{geometry} 
 
 \usepackage[english]{babel}
 \usepackage{graphicx}
@@ -17,7 +18,7 @@
 {\rm Pietro Borrello}
 \and
 {\rm Serena Ferracci}}
-\date{}
+\date{\includegraphics[width=0.9\textwidth]{ropmate-screen}
 
 \begin{document}
 
@@ -37,11 +38,6 @@ RopMate presents the builder with a clear interface of available gadgets, in whi
 ]
 
 \section{Introduction}
- \begin{figure*}[htb]
- \centering
-  \includegraphics[width=0.9\textwidth]{ropmate-screen}
-  \caption{ROPMate}\label{fig:ropmate}
-\end{figure*}
 Return-oriented programming (ROP) is an exploiting technique that allows an attacker to induce arbitrary behavior in a vulnerable program without actually injecting any code, but through a chain of redirections in the program memory itself. \cite{rop}
 
 The attack scenario is based on a controlled stack frame, where the return address can be overwritten. This is an advanced version of the ``return to libc attack'' \cite{libc} where multiple pieces of code are called in sequence to provide the needed code semantics execution: the attack combines a large number of short instruction sequences (called \textit{gadgets} from now on) that allow arbitrary computation. This is resilient to mitigation as non executable memory areas.
