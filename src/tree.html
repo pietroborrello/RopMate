@@ -292,6 +292,10 @@ function update(source) {
       .duration(duration)
       .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
       .style("opacity", 0)
+      .on("end", function() {
+          // remove tooltip when closing
+          d3.selectAll(".tooltip").remove();
+      })
       .remove();
   
   // Update the links…
