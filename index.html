@@ -1,7 +1,12 @@
 <html>
     <head>
+      <script>
+        // flask parameter
+        path = "{{ path }}"
+      </script>
+
       <frameset rows = "7%, *" border="1">
-        <frame name = "title" src="src/title.html" noresize="noresize">
+        <frame name = "title"  sandbox="allow-top-navigation" src="src/title.html" noresize="noresize">
         <frameset id="horizontal" cols="50%, 43%, *">
           <frameset rows="76%, *">
             <frame name = "tree" src="src/tree.html" >

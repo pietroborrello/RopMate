@@ -136,6 +136,23 @@ rect {
     font-size: 13px;
 }
 
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 1px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
 button:hover, .reset:hover {
     background-color: #dbdbdb; 
     border: 1px solid black;
