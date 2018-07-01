@@ -44,6 +44,7 @@ var show_histogram = 1
 
 var stack_occupation_scale;
 var wrapped_text_cache = {};
+var tooltips_enabled = true;
 
 d3.json("/files/baby_stack.json").then(load_setup);
 
@@ -206,7 +207,7 @@ function update(source) {
       .style("fill", color)
       .on("click", click)
       .on("mouseover", function(d) {
-          if(d.children == null && d._children == null && d.need_tooltip){
+          if(tooltips_enabled && d.children == null && d._children == null && d.need_tooltip){
 
             d3.selectAll(".tooltip").remove();
 
@@ -284,6 +285,12 @@ function update(source) {
       .duration(duration)
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
       .style("opacity", 1)
+      .on('start', function () {
+          tooltips_enabled = false;
+      })
+      .on("end", function () {
+          tooltips_enabled = true;
+      })
     .select("rect")
       .style("fill", color);
 
@@ -292,9 +299,13 @@ function update(source) {
       .duration(duration)
       .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
       .style("opacity", 0)
+      .on('start', function() {
+          tooltips_enabled = false;
+      })
       .on("end", function() {
           // remove tooltip when closing
           d3.selectAll(".tooltip").remove();
+          tooltips_enabled = true;
       })
       .remove();
   
@@ -356,9 +367,6 @@ function update(source) {
 
   //show the histogram with the collected data
   if(show_histogram == 1) add_histogram()
-
-  // safely remove all tooltip
-  d3.selectAll(".tooltip").remove();
 }
 
 // Toggle children on click.
