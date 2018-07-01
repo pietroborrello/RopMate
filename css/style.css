@@ -80,6 +80,7 @@ rect {
    text-overflow: ellipsis;
    border-style: none solid none none;
    border-width: 1px;
+   padding-right: 0.5em;
  }
 
  .filter_bar{
