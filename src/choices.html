@@ -252,7 +252,7 @@
                     .attr("class", "label")
                     .attr("x", function (d) { return xScale(d.x)+5; })
                     .attr("y", function (d) { return yScale(d.y)-5; })
-                    .text(function (d, i) { return labels[i]; })
+                    .text(function (d, i) {return labels[i].length? labels[i]:"none"; })
                     .attr("font-size", 10)
                     .attr("id", function (d, i) { return "label" + i });
 
@@ -274,7 +274,7 @@
                         "translate(" + (nPix + mar[0]) / 2 + " ," +
                         (nPix + mar[0] + 25) + ")")
                     .style("text-anchor", "middle")
-                    .text("Modified Registers");
+                    .text("Modified Registers for " + svgMDSContainer.attr("gadget_type") + ": " + svgMDSContainer.attr("gadget_params"));
 
 
                 dots.on('click', function (d) {
