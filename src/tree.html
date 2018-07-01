@@ -347,6 +347,9 @@ function update(source) {
 
   //show the histogram with the collected data
   if(show_histogram == 1) add_histogram()
+
+  // safely remove all tooltip
+  d3.selectAll(".tooltip").remove();
 }
 
 // Toggle children on click.
