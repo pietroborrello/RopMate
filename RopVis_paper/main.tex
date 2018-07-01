@@ -17,14 +17,16 @@
 {\rm Pietro Borrello}
 \and
 {\rm Serena Ferracci}}
-\date{\includegraphics[width=0.9\textwidth]{ropmate-screen}}
+\date{}
 
+\onecolumn
 \begin{document}
-
-\twocolumn[
-  \begin{@twocolumnfalse}
     \maketitle
-
+    \begin{figure}[htb]
+      \centering
+      \includegraphics[width=0.6\linewidth]{ropmate-screen}
+      \caption{ROPMate}\label{fig:ropmate}
+    \end{figure}
 
 \begin{abstract}
 
@@ -33,9 +35,8 @@ Being able to test software against such types of attacks is fundamental to any 
 In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, since the existing state of the art, only propose text based approach with, less or more, informative lists of the gadgets founded.
 RopMate presents the builder with a clear interface of available gadgets, in which he is able to choose which of them to add to the building ROPChain, and, once selected, to filter the list according to wanted guarantees on preserved registers and accessed memory. The user is also able to find similar gadget in respect with the one chosen.
 \end{abstract}
-  \end{@twocolumnfalse}
-]
 
+\twocolumn
 \section{Introduction}
 Return-oriented programming (ROP) is an exploiting technique that allows an attacker to induce arbitrary behavior in a vulnerable program without actually injecting any code, but through a chain of redirections in the program memory itself. \cite{rop}
 
