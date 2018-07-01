@@ -10,8 +10,9 @@
 \lstset{breaklines=true}
 \usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}
+\usepackage{titling}
 
-
+\setlength{\droptitle}{-10em}  
 \title{{\Large \bf The Rop Mate \\ \large Visually Assisting the Creation of ROPChain based Exploits}  \\{\medskip\normalfont\normalsize  Visual Analytics -  Sapienza}}
 \author{
 {\rm Pietro Borrello}
@@ -24,7 +25,7 @@
     \maketitle
     \begin{figure}[htb]
       \centering
-      \includegraphics[width=0.6\linewidth]{ropmate-screen}
+      \includegraphics[width=0.9\linewidth]{ropmate-screen}
       \caption{ROPMate}\label{fig:ropmate}
     \end{figure}
 
@@ -146,7 +147,10 @@ ROPMate is divided into five main views as shown in Figure~\ref{fig:ropmate}: th
 The user will search for the wanted gadget in the \textit{Tree View}, while inspecting the selected one and searching similar in the \textit{Analysis View}. Once added, a gadget, will show up in the \textit{Chain View}, and it can be further moved or removed from the chain. Filters in the \textit{Control Panel} and \textit{Filter View} can be user to restrict the search to useful gadgets.
 
 \subsubsection{Tree View}
-(Figure~\ref{fig:ropmate}A)
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.6\linewidth]{tree-view}
+\end{figure}
 
 The tree view can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets in the main view are hierarchically ordered by class, and then by parameters that represents their semantic meaning. The list of categories reported in the previous section. In the last level of the tree the gadgets are presented, displaying the assembly code of each gadget. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
 
@@ -155,14 +159,20 @@ Near an opened category, an histogram is displayed, indicating to the user the n
 Once the user selects a gadget, more information are displayed in the \textit{Analysis View}.
 
 \subsubsection{Analysis View}
-(Figure~\ref{fig:ropmate}B)
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.6\linewidth]{analysis-view}
+\end{figure}
 
 The analysis view offers an insight of the selected gadget, it shows gadget attributes and offers the user the possibility to add the gadget to the chain or to search for similar gadgets. This is done by collecting all the gadget in the tree with the same semantics, and plotting them in a graph based their different modified register when executing. This allows the user to search for gadgets with the same effect but that clobber different registers. Clicking on a displayed point will show the class of gadget in the tree view to visualize them.
 
 The gadget placement in the scatterplot is based on Multidimensional Scaling where the dissimilarity function is simply the size of the modified registers that two gadgets have not in common. Therefore similar gadgets are displayed near each other, so that the user is able to quickly discriminate the possibilities from which it has to chose.
 
 \subsubsection{Chain View}
-(Figure~\ref{fig:ropmate}C)
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\linewidth]{chain-view}
+\end{figure}
 
 The chain view presents the current state of the builded chain. Adding a gadget to the chain will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
 
@@ -188,12 +198,18 @@ rop += p64(0x0)
 \end{lstlisting}
 
 \subsubsection{Control Panel}
-(Figure~\ref{fig:ropmate}D)
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.15\linewidth]{control-panel}
+\end{figure}
 
 The control panel allows the user to perform additional filtering on the gadget displayed. He is able to select which registers should be preserved in the gadget listing, to let the user safely choose gadget without clobbering registers set in the chain. The user has also the possibility to ask the system to display only gadgets that don't access memory (apart from the stack obviously) to be able to choose simpler gadgets first.
 
 \subsubsection{Filter View}
-(Figure~\ref{fig:ropmate}E)
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\linewidth]{filter-view}
+\end{figure}
 
 The filter view, jointly with the control panel, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the filter using a proper language. He is able to select all and only the gadgets that modify a particular register or have a given instruction.
 
