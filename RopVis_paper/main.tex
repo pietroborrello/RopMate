@@ -102,7 +102,7 @@ Memory corruption bugs for memory unsafe languages are one of the oldest problem
 \section{Proposed Solution}
 
 We propose to apply Visual Analytics methods to the problem. The aim is to present an interface that will help the construction of the chain for the exploit.
-The binary that will be the source of the gadgets is analyzed by the backend server that produces a list of semantically meaningful gadgets. This means that only gadgets that have a clear effect are maintained.
+The binary that will be the source of the gadgets is analyzed by the back-end server that produces a list of semantically meaningful gadgets. This means that only gadgets that have a clear effect are maintained.
 
 The interface contains the list of all meaningful gadget, divided by class, and by effects on parameters, in which the user can make queries on the desired features and immediately visualize the gadgets that satisfy them.
 Queries may involve searching for gadgets that have a particular semantical meaning, but for example, don't modify some registers that have yet been set or access the memory only by some controlled registers, not to crash the program.
@@ -170,7 +170,7 @@ The gadget placement in the scatterplot is based on Multidimensional Scaling whe
 
 The chain view presents the current state of the builded chain. Adding a gadget to the chain will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
 
-It offers the possibility to move gadgets in the chain by dragging and dropping, and to remove them. Once the user is happy with the chain builded clicking {\tt Dump} the system will generate a python script to integrate with current exploit technologies that will generate the byte-code of the chain, for example:
+It offers the possibility to move gadgets in the chain by dragging and dropping, and to remove them. Once the user is happy with the built chain clicking {\tt Dump} the system will generate a python script to integrate with current exploit technologies that will generate the byte-code of the chain, for example:
 
 
 \begin{lstlisting}
@@ -196,7 +196,10 @@ rop += p64(0x0)
 
 The control panel allows the user to perform additional filtering on the gadget displayed. He is able to select which registers should be preserved in the gadget listing, to let the user safely choose gadget without clobbering registers set in the chain. The user has also the possibility to ask the system to display only gadgets that don't access memory (apart from the stack obviously) to be able to choose simpler gadgets first.
 
+\subsubsection{Filter View}
+(Figure~\ref{fig:ropmate}E)
 
+The filter view, jointly with the control panel, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the filter using a proper language. He is able to select all and only the gadgets that modify a particular register or have a given instruction. If the filter is wrong or is written in an incorrect way, the tree view will show an empty tree. 
 
 
 \begin{thebibliography}{99}
