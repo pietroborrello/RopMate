@@ -194,11 +194,7 @@ function update(source) {
         }
         if(opened_child == 1) data_histogram = []
       })
-      .attr("width", function(d) {
-          if(d.children == null && d._children == null) return barWidth;
-          else if(d._children == null) return barWidth;// + d.children.length;
-          else return barWidth;// + d._children.length;
-          })
+      .attr("width", barWidth)
       .style("fill", color)
       .on("click", click)
       .on("mouseover", function(d) {
