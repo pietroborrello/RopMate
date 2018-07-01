@@ -217,7 +217,24 @@ P1 and P2 appreciated that the histograms of the gadgets allowed them to have a 
 
 Given this preliminary feedback from users, we discuss the implications in greater detail in the next section.
 
-\section{Discussion and Limitations}
+\section{Limitations \& Future Works}
+We present possible further work and open research challenges.
+
+\textbf{Advanced filtering.} Although our prototype shows promising results for filtering the gadgets, we do not support complex filters.
+
+\textbf{Select the gadget to remove.} When a new gadget is added to the chain, it is placed in the last position. We allow to delete this element or the entire chain through respectively the \textit{Remove} and the \textit{Remove all} button. The user can't delete any element of the chain. If he want to delete an element in the middle of the chain, he must drag it to the end of the chain and then click the \textit{Remove} button.
+
+In a future work we can consider the possibility to select the gadget that the user wants to delete, so as to make the interaction more user friendly.
+
+\textbf{Coordinate drag and scroll.} As evidenced by user experiences, if the chain becomes quite long, dragging the gadgets is difficult. The chain view does not move during the drag. So to drag a gadget in the presence of a long chain, the user must proceed by steps.
+
+A possible solution, to be integrated in a future work, could be to synchronize grad of the gadget and scroll of the view.
+
+\textbf{Upload the file.}
+
+
+
+
 
 \section{Conclusion}
 Building a ROPChain is not an easy task. Understanding the semantics of each gadget, and finding the right one is increasingly difficult with the dimension of the set in which to choose. Current solutions support only the possibility to automatically build a chain and, if failed, they leave the attacker alone with a huge textual list of gadgets made by assembly instructions.
