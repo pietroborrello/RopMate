@@ -33,7 +33,7 @@
 
 ROPChain based exploits are increasingly present in the scenario of advanced attack techniques.
 Being able to test software against such types of attacks is fundamental to any RedTeam hacker. Automatic tool that try to create ROPChains exists and are well known, but they often fail with non usual binaries.
-In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, since the existing state of the art, only propose text based approach with, less or more, informative lists of the gadgets founded.
+In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, since the existing state of the art only propose text based approach with, less or more, informative lists of the gadgets founded.
 RopMate presents the builder with a clear interface of available gadgets, in which he is able to choose which of them to add to the building ROPChain, and, once selected, to filter the list according to wanted guarantees on preserved registers and accessed memory. The user is also able to find similar gadget in respect with the one chosen.
 \end{abstract}
 
@@ -47,7 +47,7 @@ Each gadget is in the form of a couple of instruction followed by a return. This
 
 In this paper we aim to present a first step toward the acceptance that automatic tools will never be perfect, therefore human intervention will always be needed. Our tool is meant to give an help to any human ROPChain builder, in order to ease the creation of part or the totality of the chain.
 
-While previous tools like, ropper \cite{ropper} or ROPGadget \cite{ROPGadget}, do an extraordinary job in finding useful gadgets, they lack totally of user friendliness. They present the chain builder with a plain text dump of gadget found, that is meant to be parsed by hand or scripting. While this is useful for other automatic tools, presenting the users with thousands of lines of gadgets doesn't help him in any way on the choice of the right gadget. Our work focuses on making the life of the exploiter easier.
+While previous tools like, ropper \cite{ropper} or ROPGadget \cite{ROPGadget}, do an extraordinary job in finding useful gadgets, but they lack totally of user friendliness. They present the chain builder with a plain text dump of gadgets found, that is meant to be parsed by hand or scripting. While this is useful for other automatic tools, presenting the users with thousands of lines of gadgets doesn't help him in any way on the choice of the right gadget. Our work focuses on making the life of the exploiter easier.
 
 \section{The Problem}
 There exists automatic tools to find the suitable gadgets to create the final chain, but all of these tools present the attacker with a textual list of all the found gadgets. Then the attacker has to filter that list on the terminal with \texttt{grep} or similar commands. This becomes frustrating and infeasible with the growing of the complexity of the needed chain.
@@ -81,32 +81,30 @@ The comment near each instruction represents the instructions in that gadget to 
 
 \bigskip
 The problem is that it never happens that the gadget are so simple and clear. Mixed with the instruction the attacker needs, there can be register modifications and memory accesses that can ruin the generated semantics, so choosing the next gadget to use is a delicate task. This becomes a pain, as the size of the chain grows and the number of constraints to maintain in mind increases.
-Moreover the number of gadget available in a binary is huge (from 1.500 for a middle sized binary to more than 15.000 for a standard library) so naively searching for useful and correct gadgets between them is impossible.
+Moreover the number of gadgets available in a binary is huge (from 1.500 for a middle sized binary to more than 15.000 for a standard library), so naively searching for useful and correct gadgets between them is impossible.
 
  Automatic tools that generate the chain exist but usually they fail and leave the attacker alone. So there is a lack of an effective tool to help developing the exploit.
 
 \section{Related Works}
 \label{se:related}
 \paragraph{Code Reuse Attacks.}
-Memory corruption bugs for memory unsafe languages are one of the oldest problems in software security. Historically, attackers have exploited buffer overflows caused by coding errors to inject their own code into the application and have the instruction pointer jump to it. Data Execution Prevention techniques that are deployed on modern systems try to mitigate execution of malicious payloads that can be inserted. Therefore Attackers have switched their attention to create attacks reusing code already present in the binary, calling functions present in the linked standard library or chaining together short instruction sequences to carry out the desired computation. Return Oriented Programming is the most famous embodiment of the latter approach: by arranging the addresses of the code sequences to be executed on the stack along with their operands as part of a ROP chain, the {\tt ret} instruction present at the end of each gadget instructs the CPU to follow the flow entailed by the chain.
+Memory corruption bugs for memory unsafe languages are one of the oldest problems in software security. Historically, attackers have exploited buffer overflows caused by coding errors to inject their own code into the application and have the instruction pointer jump to it. Data Execution Prevention techniques, that are deployed on modern systems, try to mitigate execution of malicious payloads that can be inserted. Therefore Attackers have switched their attention to create attacks reusing code already present in the binary, calling functions present in the linked standard library or chaining together short instruction sequences to carry out the desired computation. Return Oriented Programming is the most famous embodiment of the latter approach: by arranging the addresses of the code sequences to be executed on the stack along with their operands as part of a ROP chain, the {\tt ret} instruction, present at the end of each gadget, instructs the CPU to follow the flow entailed by the chain.
 
 \paragraph{ROP Gadget Finders.} There exists a plethora of tools to find executable gadgets (sequence of executable and correct instructions that ends with a {\tt ret} instruction): all of them provide the attacker with a list of gadgets among which to choose \cite{ropper} \cite{ROPGadget}.
 
-\paragraph{Automatic ROPChain Builders.} Most of the tools that provide some functionality to find gadgets, also try to automatically build a chain with some predefined desired effects. While they usually succeed with standard binaries (as {\tt libc}) or standard chains, they often fail on unusual binaries, and don't provide any help to build custom chains.
+\paragraph{Automatic ROPChain Builders.} Most of the tools, that provide some functionality to find gadgets, also try to automatically build a chain with some predefined desired effects. While they usually succeed with standard binaries (as {\tt libc}) or standard chains, they often fail on unusual binaries, and don't provide any help to build custom chains.
 
 \paragraph{Visual ROPChain Builder.} At the time of the paper we weren't able to find any visual or textual tool, that would help an attacker to build his ROPChain. Current techniques just rely on python scripting.
 
 \section{Proposed Solution}
 
 We propose to apply Visual Analytics methods to the problem. The aim is to present an interface that will help the construction of the chain for the exploit.
-The binary that will be the source of the gadgets is analyzed by the back-end server that produces a list of semantically meaningful gadgets. This means that only gadgets that have a clear effect are maintained.
+The binary, that will be the source of the gadgets, is analyzed by the back-end server that produces a list of semantically meaningful gadgets. This means that only gadgets that have a clear effect are maintained.
 
 The interface contains the list of all meaningful gadget, divided by class, and by effects on parameters, in which the user can make queries on the desired features and immediately visualize the gadgets that satisfy them.
 Queries may involve searching for gadgets that have a particular semantical meaning, but for example, don't modify some registers that have yet been set or access the memory only by some controlled registers, not to crash the program.
 
 Clicking on a gadget will show its features (that will be encoded with additional visual hints). Each class of gadget has a set of attributes listed in the Table~\ref{tab:gad_attr}.
-
-\bigskip
 
 \begin{table*}[htb]
 \caption{Gadget attributes}\label{tab:gad_attr}
@@ -152,7 +150,7 @@ The user will search for the wanted gadget in the \textit{Tree View}, while insp
   \includegraphics[width=0.6\linewidth]{tree-view}
 \end{figure}
 
-The tree view can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets in the main view are hierarchically ordered by class, and then by parameters that represents their semantic meaning. The list of categories reported in the previous section. In the last level of the tree the gadgets are presented, displaying the assembly code of each gadget. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
+The \textit{Tree View} can be considered the main view of the tool: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets in the main view are hierarchically ordered by class, and then by parameters that represents their semantic meaning (the list of categories reported in the previous section). In the last level of the tree the gadgets are presented displaying their assembly code. Since gadgets are aggregated by semantical meaning displaying the assembly code is the only way to distinguish them at first sight.
 
 Near an opened category, an histogram is displayed, indicating to the user the number of gadgets of each class, to quickly give an hint on the overall view. Our first design choice was to integrate the histogram in the tree, but it lead to an ugly and unclear interface, therefore we chose to divide them.
 
@@ -164,7 +162,7 @@ Once the user selects a gadget, more information are displayed in the \textit{An
   \includegraphics[width=0.6\linewidth]{analysis-view}
 \end{figure}
 
-The analysis view offers an insight of the selected gadget, it shows gadget attributes and offers the user the possibility to add the gadget to the chain or to search for similar gadgets. This is done by collecting all the gadget in the tree with the same semantics, and plotting them in a graph based their different modified register when executing. This allows the user to search for gadgets with the same effect but that clobber different registers. Clicking on a displayed point will show the class of gadget in the tree view to visualize them.
+The \textit{Analysis View} offers an insight of the selected gadget. It shows gadget attributes and offers the user the possibility to add the gadget to the chain or to search for similar gadgets. This is done by collecting all the gadget in the tree with the same semantics, and plotting them in a graph based their different modified register when executing. This allows the user to search for gadgets with the same effect, but that clobber different registers. Clicking on a displayed point will show the class of gadget in the \textit{Tree View} to visualize them.
 
 The gadget placement in the scatterplot is based on Multidimensional Scaling where the dissimilarity function is simply the size of the modified registers that two gadgets have not in common. Therefore similar gadgets are displayed near each other, so that the user is able to quickly discriminate the possibilities from which it has to chose.
 
@@ -174,28 +172,14 @@ The gadget placement in the scatterplot is based on Multidimensional Scaling whe
   \includegraphics[width=0.7\linewidth]{chain-view}
 \end{figure}
 
-The chain view presents the current state of the builded chain. Adding a gadget to the chain will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
+The \textit{Chain View} presents the current state of the built chain. Adding a gadget to the chain will trigger the recomputation for the registers the user has successfully set with the chain. By default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
 
 It offers the possibility to move gadgets in the chain by dragging and dropping, and to remove them. Once the user is happy with the built chain clicking {\tt Dump} the system will generate a python script to integrate with current exploit technologies that will generate the byte-code of the chain, for example:
 
-
-\begin{lstlisting}
-IMAGE_BASE = 0x0
-rebase = lambda x : p64(x + IMAGE_BASE)
-
-rop = ''
-rop += rebase(0x4016ea) #pop rax; ret
-rop += p64(0x0)
-rop += rebase(0x470931) #pop rdi; or byte ptr [rax + 0x39], cl; ret
-rop += p64(0x0)
-rop += rebase(0x4016ea) #pop rax; ret
-rop += p64(0x0)
-rop += rebase(0x456499) #mov qword ptr [rdi], rax; ret
-rop += rebase(0x46defd) #pop rsi; ret
-rop += p64(0x0)
-rop += rebase(0x4016ea) #pop rax; ret
-rop += p64(0x0)
-\end{lstlisting}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.6\linewidth]{dump}
+\end{figure}
 
 \subsubsection{Control Panel}
 \begin{figure}[htb]
@@ -203,7 +187,7 @@ rop += p64(0x0)
   \includegraphics[width=0.15\linewidth]{control-panel}
 \end{figure}
 
-The control panel allows the user to perform additional filtering on the gadget displayed. He is able to select which registers should be preserved in the gadget listing, to let the user safely choose gadget without clobbering registers set in the chain. The user has also the possibility to ask the system to display only gadgets that don't access memory (apart from the stack obviously) to be able to choose simpler gadgets first.
+The \textit{Control Panel} allows the user to perform additional filtering on the gadget displayed. He is able to select which registers should be preserved in the gadget listing, to let the user safely choose gadget without clobbering registers set in the chain. The user has also the possibility to ask the system to display only gadgets that don't access memory (apart from the stack obviously) to be able to choose simpler gadgets first.
 
 \subsubsection{Filter View}
 \begin{figure}[htb]
@@ -211,7 +195,7 @@ The control panel allows the user to perform additional filtering on the gadget 
   \includegraphics[width=0.8\linewidth]{filter-view}
 \end{figure}
 
-The filter view, jointly with the control panel, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the filter using a proper language. He is able to select all and only the gadgets that modify a particular register or have a given instruction.
+The \textit{Filter View}, jointly with the control panel, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the filter using a proper language. He is able to select all and only the gadgets that modify a particular register or have a given instruction.
 
 \subsection{Finding Similar Gadgets}
 The \textit{Similar Gadgets Finder} is triggered by the \texttt{Similar Gadgets} button in the \textit{Analysis View}. The module takes the \texttt{type} and \texttt{parameters} of the selected gadget to analyze only the semantically equivalent gadgets in the list. For each possible combination of gadgets it computes a dissimilarity function $f$. Where $f$ is:
@@ -220,9 +204,9 @@ f(g_1, g_2) = |(M_1 \cup M_2) - (M_1 \cap M_2)|
 $$
 with $M_i$ being the set of modified registers by gadget $i$.
 
-Then $MDS$ is applied to the dissimilarity matrix to compute a pair of coordinates for each gadget that will reflect the dissimilarity between gadgets in the relative distances. This shows the user a scatterplot in which similar gadgets are displayed near each other, allowing him to find semantically equivalent gadgets, but with different side effects. Figure~\ref{fig:mds} shows and example of the user searching different gadgets for the same semantical meaning (\texttt{[rbx] = rbp}).
+Then $MDS$ is applied to the dissimilarity matrix to compute a pair of coordinates for each gadget that will reflect the dissimilarity between gadgets in the relative distances. This shows the user a scatterplot in which similar gadgets are displayed near each other, allowing him to find semantically equivalent gadgets, but with different side effects. Figure~\ref{fig:mds} shows an example of the user searching different gadgets for the same semantical meaning (\texttt{[rbx] = rbp}).
 
-It is important to note that it is possible that more than one gadget will have the same modified registers, therefore a single point in the scatterplot will possibly represent a set of gadgets, and clicking on it, the tree will display that set.
+It is important to note that it is possible that more than one gadget will have the same modified registers, therefore a single point in the scatterplot will possibly represent a set of gadgets. Clicking on the single point, the tree will display that set.
 
 \section{User Evaluation}
 
