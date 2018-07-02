@@ -224,7 +224,7 @@ It is important to note that it is possible that more than one gadget will have 
 \section{User Evaluation}
 It was conducted a session to gather preliminary user feedback from 4 participants that are experts in Cyber Security. The goal of the session was to obtain preliminary feedback on the general usability of the prototype system. Participants were first given a short description of how the prototype system works. They were then asked to use the prototype system and to think aloud throughout the entire session.
 
-All participants believed the visual approach to the problem was very useful and user friendly, but they also said that a hacker does not need imaginative interfaces. P2 and P3 observed that ROPMate acted as an interactive recommender for the next gadget to add to the chain. P4 commented that this approach to create the ROPChain allowed him to not be overwhelmed by useless gadgets. All participants thought that the interaction technique of clicking and filtering gadgets in the tree was easy to understand and found the classification helpful for searching efficiently the right gadget.
+All participants believed the visual approach to the problem was very useful and user friendly. P2 and P3 observed that ROPMate acted as an interactive recommender for the next gadget to add to the chain. P4 commented that this approach to create the ROPChain allowed him to not be overwhelmed by useless gadgets. All participants thought that the interaction technique of clicking and filtering gadgets in the tree was easy to understand and found the classification helpful for searching efficiently the right gadget.
 
 P1 and P2 appreciated that the histograms of the gadgets allowed them to have a visual representation of the number of registers modified and if the gadget access the memory or not. P3 expressed some frustration about the dragging of gadgets in the presence of a long chain. P4 commented that it would have been nice to support advanced filters.
 
@@ -243,11 +243,10 @@ In a future work we can consider the possibility to select the gadget that the u
 
 A possible solution, to be integrated in a future work, could be to synchronize drag of the gadget and scroll of the view.
 
-\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest to the user additional chains to allow him to perform an operation. The operation can be derived from a single gadget, that the user select through the tree, or a filter, if the user has specified the searched operation or the register that he wants to modify. 
+\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest some combinations of gadgets to allow him to perform some specific operation that he had selected through the filter. This could allow the user to emulate the semantics of a single missing gadget, with the combination of some other. The additional chain would then be added to the built ROPChain and once added can be modified adding or removing gadgets.
 
-The additional chain can be added to the built ROPChain and once added can be modified adding or removing gadgets.
+The guidance is not easy to implement because the system should analyze all the possible combinations of the gadgets. The problem would be exponential, therefore infeasible. Future work will involve designing some additional heuristics to cope with the problem.
 
-The guidance is not easy to implement because the system should analyze all the possible combinations of the gadgets. The problem would be exponential, therefore infeasible.
 
 
 \section{Conclusion}
