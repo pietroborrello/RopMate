@@ -46,7 +46,7 @@ var stack_occupation_scale;
 var wrapped_text_cache = {};
 var tooltips_enabled = true;
 
-d3.json("/files/baby_stack.json").then(load_setup);
+d3.json(parent.path).then(load_setup);
 
 function set_regs() {
     if(arch == 32)

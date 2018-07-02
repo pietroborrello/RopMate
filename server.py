@@ -10,10 +10,42 @@ from sklearn import manifold
 app = Flask("ROPMate", static_folder="",
             template_folder="", static_url_path='')
 
+app.config['UPLOAD_FOLDER'] = './files'
+
+PATH = "./files/default.json"
+ALLOWED_EXTENSIONS = ['json']
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", path=PATH[1:])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    if request.method == 'POST':
+        file = request.files.get("files[]", None)
+        if file and allowed_file(file.filename):
+            filename = os.path.join(
+                app.config['UPLOAD_FOLDER'], "default.json")
+            file.save(filename)
+            return redirect(url_for('index'))
+
+
+@app.context_processor
+def override_url_for_PATH():
+    """
+    Generate a new token on every request to prevent the browser from
+    caching static files.
+    """
+    return dict(unique_url_for_PATH=dated_url_for_PATH)
+
+
+def dated_url_for_PATH(endpoint, **values):
+    date = str(os.stat(PATH).st_mtime)
+    return PATH[1:] + '?q=' + date
 
 
 @app.route("/mds", methods=['POST'])
@@ -23,13 +55,13 @@ def mds():
         if not request.form['type'] or not request.form['params']:
             return json.dumps({'X': [], 'labels': []})
 
-        with open('./files/baby_stack.json') as f:
+        with open(PATH) as f:
             data_file = json.load(f)
 
         data_filter = filter(
             lambda d: d['type'] == request.form['type'] and d['params'] == request.form['params'], data_file)
         _data = []
-    except KeyError:
+    except (KeyError, FileNotFoundError):
         return json.dumps({'X': [], 'labels': []})
 
     added = set()

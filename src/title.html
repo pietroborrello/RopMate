@@ -3,6 +3,7 @@
 
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="../build/d3.min.js"></script>
+        <script src="../build/jquery-3.3.1.min.js"></script>
 
         <script>
         function filter_tree(){
@@ -19,6 +20,14 @@
             <label for="filter">Filter:</label>
             <input type="text" id="filter" name="filter" class="filter_bar" style="margin-right: 10px;border-radius: 2px;border:solid 1px black;"
                 onchange="return filter_tree()">
+        </div>
+        <div style="display: table-cell; height: 100%; vertical-align: middle;">
+            <div class="fileUpload reset">
+                <form action="/upload" method="post" enctype="multipart/form-data" style="margin:0;" target="_parent">
+                    <span>Change file</span>
+                    <input type="file" class='upload' id='upload' name="files[]" data-url="/upload" accept=".json" onchange="javascript:this.form.submit();"/>
+                </form>
+            </div>
         </div>
           
         </div>
