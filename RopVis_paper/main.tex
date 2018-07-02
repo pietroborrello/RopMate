@@ -12,7 +12,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{titling}
 
-\setlength{\droptitle}{-10em}  
+\setlength{\droptitle}{-10em}
 \title{{\Large \bf The Rop Mate \\ \large Visually Assisting the Creation of ROPChain based Exploits}  \\{\medskip\normalfont\normalsize  Visual Analytics -  Sapienza}}
 \author{
 {\rm Pietro Borrello}
@@ -154,6 +154,13 @@ The \textit{Tree View} can be considered the main view of the tool: it provides 
 
 Near an opened category, an histogram is displayed, indicating to the user the number of gadgets of each class, to quickly give an hint on the overall view. Our first design choice was to integrate the histogram in the tree, but it lead to an ugly and unclear interface, therefore we chose to divide them.
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\linewidth]{tree-view_2}
+\end{figure}
+
+The last layer of the tree represents the gadgets. Each gadget is displayed in a line, and is coupled with a box on the side. The color of the box encodes the safety of the gadget with respect to memory, a lighter color indicates a low number of registers dereferenced to access memory, while a darker value encodes an high number, or an unknown access (on the stack but outside the gadget stack occupation). The length of the bar encodes the stack occupation of each gadget, therefore a longer bar will represent a gadget that needs more space on the stack.
+
 Once the user selects a gadget, more information are displayed in the \textit{Analysis View}.
 
 \subsubsection{Analysis View}
@@ -178,7 +185,7 @@ It offers the possibility to move gadgets in the chain by dragging and dropping,
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.6\linewidth]{dump}
+  \includegraphics[width=0.8\linewidth]{dump}
 \end{figure}
 
 \subsubsection{Control Panel}
@@ -206,12 +213,18 @@ with $M_i$ being the set of modified registers by gadget $i$.
 
 Then $MDS$ is applied to the dissimilarity matrix to compute a pair of coordinates for each gadget that will reflect the dissimilarity between gadgets in the relative distances. This shows the user a scatterplot in which similar gadgets are displayed near each other, allowing him to find semantically equivalent gadgets, but with different side effects. Figure~\ref{fig:mds} shows an example of the user searching different gadgets for the same semantical meaning (\texttt{[rbx] = rbp}).
 
+\begin{figure}[htb]
+\centering
+ \includegraphics[width=0.4\textwidth]{mds}
+ \caption{Similarity View}\label{fig:mds}
+\end{figure}
+
 It is important to note that it is possible that more than one gadget will have the same modified registers, therefore a single point in the scatterplot will possibly represent a set of gadgets. Clicking on the single point, the tree will display that set.
 
 \section{User Evaluation}
 It was conducted a session to gather preliminary user feedback from 4 participants that are experts in cyber security. The goal of the session was to obtain preliminary feedback on the general usability of the prototype system. Participants were first given a short description of how the prototype system works. They were then asked to use the prototype system and to think aloud throughout the entire session.
 
-All participants believed the visual approach to the problem was very useful and user friendly, but they also said that a hacker does not need imaginative interfaces. P2 and P3 observed that ROPMate acted as an interactive recommender for the next gadget to add to the chain. P4 commented that this approach to create the ROPChain allowed him to not be overwhelmed by useless gadgets. All participants thought that the interaction technique of clicking and filtering gadgets in the tree was easy to understand and found the classification helpful for searching efficiently the right gadget.
+All participants believed the visual approach to the problem was very useful and user friendly. P2 and P3 observed that ROPMate acted as an interactive recommender for the next gadget to add to the chain. P4 commented that this approach to create the ROPChain allowed him to not be overwhelmed by useless gadgets. All participants thought that the interaction technique of clicking and filtering gadgets in the tree was easy to understand and found the classification helpful for searching efficiently the right gadget.
 
 P1 and P2 appreciated that the histograms of the gadgets allowed them to have a visual representation of the number of registers modified and if the gadget access the memory or not. P3 expressed some frustration about about the dragging of gadgets in the presence of a long chain. P4 commented that it would have been nice to support advanced filters.
 
@@ -228,26 +241,16 @@ In a future work we can consider the possibility to select the gadget that the u
 
 \textbf{Coordinate drag and scroll.} As evidenced by user experiences, if the chain becomes quite long, dragging the gadgets is difficult. The chain view does not move during the drag. So to drag a gadget in the presence of a long chain, the user must proceed by steps.
 
-A possible solution, to be integrated in a future work, could be to synchronize grad of the gadget and scroll of the view.
+A possible solution, to be integrated in a future work, could be to synchronize drag of the gadget and scroll of the view.
 
-\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest to the user additional chains to allow him to perform the operation he had selected through a single gadget or a filter. The additional chain can be added to the built chain or rejected.
+\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest to the user some combinations of gadgets to allow him to perform some specific operation that he had selected through the filter. This could allow the user to emulate the semantics of a single missing gadget, with the combination of some other. The additional chain would then be added to the built chain.
 
-The guidance is not easy to implement because the system should analyze all the possible combinations of the gadgets. The problem would be exponential, therefore infeasible.
-
-
-
+The guidance is not easy to implement because the system should analyze all the possible combinations of the gadgets. The problem would be exponential, therefore infeasible. Future work will involve designing some additional heuristics to cope with the problem.
 
 
 \section{Conclusion}
 Building a ROPChain is not an easy task. Understanding the semantics of each gadget, and finding the right one is increasingly difficult with the dimension of the set in which to choose. Current solutions support only the possibility to automatically build a chain and, if failed, they leave the attacker alone with a huge textual list of gadgets made by assembly instructions.
 We presented \texttt{ROPMate} a prototype visual ROPChain builder, that assists the attacker in composing the chain with the desired semantics. Our tool makes the life of exploit creation easier, and assists the builder along the creation of the chain, proposing only gadgets with the desired guarantees and side effects. Additionally our tool finds similar gadgets with respect to user needs and shows them to the user.
-
-
-\begin{figure}[htb]
-\centering
- \includegraphics[width=0.4\textwidth]{mds}
- \caption{Similarity View}\label{fig:mds}
-\end{figure}
 
 
 
