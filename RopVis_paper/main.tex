@@ -25,7 +25,7 @@
     \maketitle
     \begin{figure}[htb]
       \centering
-      \includegraphics[width=0.9\linewidth]{ropmate-screen}
+      \includegraphics[width=0.85\linewidth]{ropmate-screen}
       \caption{ROPMate}\label{fig:ropmate}
     \end{figure}
 
@@ -33,15 +33,15 @@
 
 ROPChain based exploits are increasingly present in the scenario of advanced attack techniques.
 Being able to test software against such types of attacks is fundamental to any RedTeam hacker. Automatic tool that try to create ROPChains exists and are well known, but they often fail with non usual binaries.
-In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, since the existing state of the art only propose text based approach with, less or more, informative lists of the foundgadgets.
-RopMate presents the builder with a clear interface of available gadgets, in which he is able to choose which of them to add to the building ROPChain. Once selected the gadget, the list is filtered according to wanted guarantees on preserved registers and accessed memory. The user is also able to find similar gadget in respect with the one chosen.
+In this paper we propose \texttt{RopMate}, a visually aiding tool to help the human ROPChain builder to create its ROPChain. We strongly believe that there is the need of such a tool, as a first step toward the acceptance that automatic tools will hardly be perfect, and to contrast the existing state of the art that only proposes text based approach with, less or more, informative lists of the found gadgets.
+RopMate presents the builder with a clear interface of well defined and semantically meaningful gadgets, in which he is able to choose which of them to add to the building ROPChain. Once selected the gadget, the list is filtered according to wanted guarantees on preserved registers and accessed memory. The user is also able to find similar gadget in respect with the one chosen.
 \end{abstract}
 
 \twocolumn
 \section{Introduction}
 Return-oriented programming (ROP) is an exploiting technique that allows an attacker to induce arbitrary behavior in a vulnerable program without actually injecting any code, but through a chain of redirections in the program memory itself. \cite{rop}
 
-The attack scenario is based on a controlled stack frame, where the return address can be overwritten. This is an advanced version of the ``return to libc attack'' \cite{libc} where multiple pieces of code are called in sequence to provide the needed code semantics execution: the attack combines a large number of short instruction sequences (called \textit{gadgets} from now on) that allow arbitrary computation. This is resilient to mitigation as non executable memory areas.
+The attack scenario is based on a controlled stack frame, where the return address can be overwritten. This is an advanced version of the ``return to libc attack'' \cite{libc} where multiple pieces of code are called in sequence to provide the needed code semantics execution: the attack combines a large number of short instruction sequences (called \textit{gadgets} from now on) that allow arbitrary computation. This is resilient to mitigations as non executable memory areas.
 
 Each gadget is in the form of a couple of instructions followed by a return. This allows the attacker to place a sequence of gadget addresses on the stack (called \textit{ROPChain}) from the return address on, that will be executed thanks to the semantics of the ret instruction.
 
@@ -88,7 +88,7 @@ Moreover the number of gadgets available in a binary is huge (from 1.500 for a m
 \section{Related Works}
 \label{se:related}
 \paragraph{Code Reuse Attacks.}
-Memory corruption bugs for memory unsafe languages are one of the oldest problems in software security. Historically, attackers have exploited buffer overflows, caused by coding errors, to inject their own code into the application and have the instruction pointer jump to it. Data Execution Prevention techniques, that are deployed on modern systems, try to mitigate execution of malicious payloads that can be inserted. Therefore, attackers have switched their attention to create attacks reusing code already present in the binary, calling functions present in the linked standard library or chaining together short instruction sequences to carry out the desired computation. Return Oriented Programming is the most famous embodiment of the latter approach: by arranging the addresses of the code sequences, to be executed on the stack along with their operands as  part  of  a  ROP  chain, the ret instruction, present at the end of each gadget, instructs the CPU to follow the flow entailed by the chain.
+Memory corruption bugs for memory unsafe languages are one of the oldest problems in software security \cite{MemorySok13}. Historically, attackers have exploited buffer overflows, caused by coding errors, to inject their own code into the application and have the instruction pointer jump to it. Data Execution Prevention techniques, that are deployed on modern systems, try to mitigate execution of malicious payloads that can be inserted. Therefore, attackers have switched their attention to create attacks reusing code already present in the binary, calling functions present in the linked standard library or chaining together short instruction sequences to carry out the desired computation. Return Oriented Programming is the most famous embodiment of the latter approach: by arranging the addresses of the code sequences, to be executed on the stack along with their operands as  part  of  a  ROP  chain, the ret instruction, present at the end of each gadget, instructs the CPU to follow the flow entailed by the chain.
 
 \paragraph{ROP Gadget Finders.} There exists a plethora of tools to find executable gadgets (sequence of executable and correct instructions that ends with a {\tt ret} instruction): all of them provide the attacker with a list of gadgets among which to choose \cite{ropper} \cite{ROPGadget}.
 
@@ -243,7 +243,7 @@ In a future work we can consider the possibility to select the gadget that the u
 
 A possible solution, to be integrated in a future work, could be to synchronize drag of the gadget and scroll of the view.
 
-\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest some combinations of gadgets to allow him to perform some specific operation that he had selected through the filter. This could allow the user to emulate the semantics of a single missing gadget, with the combination of some other. The additional chain would then be added to the built ROPChain and once added can be modified adding or removing gadgets.
+\textbf{Insert guidance.} An interesting future work is to insert some guidance. A very useful guidance is to suggest some combinations of gadgets to allow him to perform some specific operation that he had selected through the filter. This could allow the user to emulate the semantics of a single missing gadget, with the combination of some others. The additional chain would then be added to the built ROPChain and once added can be modified adding or removing gadgets.
 
 The guidance is not easy to implement because the system should analyze all the possible combinations of the gadgets. The problem would be exponential, therefore infeasible. Future work will involve designing some additional heuristics to cope with the problem.
 
@@ -274,6 +274,12 @@ We presented \texttt{ROPMate} a prototype visual ROPChain builder, that assists 
     \bibitem{ROPGadget}
     \url{https://github.com/JonathanSalwan/ROPgadget},
     2017.
+    
+    \bibitem{MemorySok13}
+    Szekeres, Laszlo and Payer, Mathias and Wei, Tao and Song, Dawn,
+    SoK: Eternal War in Memory,
+    2013,
+    IEEE Computer Society
 
 \end{thebibliography}
 
