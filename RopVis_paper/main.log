@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.23)  2 JUL 2018 10:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.23)  2 JUL 2018 18:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -347,7 +347,7 @@ File: tree-view_2.png Graphic file (type png)
 Package pdftex.def Info: tree-view_2.png used on input line 159.
 (pdftex.def)             Requested size: 183.6007pt x 147.58391pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 7186) has occurred while \output is active []
 
 
 <analysis-view.png, id=140, 333.245pt x 449.68pt>
@@ -367,7 +367,7 @@ File: dump.png Graphic file (type png)
 
 <use dump.png>
 Package pdftex.def Info: dump.png used on input line 188.
-(pdftex.def)             Requested size: 183.6007pt x 254.54115pt.
+(pdftex.def)             Requested size: 206.5486pt x 286.3588pt.
  <control-panel.png, id=148, 85.31876pt x 356.33125pt>
 File: control-panel.png Graphic file (type png)
 
@@ -379,7 +379,7 @@ Package pdftex.def Info: control-panel.png used on input line 194.
 File: filter-view.png Graphic file (type png)
  <use filter-view.png>
 Package pdftex.def Info: filter-view.png used on input line 202.
-(pdftex.def)             Requested size: 183.6007pt x 16.12108pt.
+(pdftex.def)             Requested size: 206.5486pt x 18.1358pt.
 
 <mds.png, id=159, 573.14125pt x 566.115pt>
 File: mds.png Graphic file (type png)
@@ -416,11 +416,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 281.
 Here is how much of TeX's memory you used:
  6905 strings out of 492995
  102450 string characters out of 6132703
- 243931 words of memory out of 5000000
+ 242931 words of memory out of 5000000
  10343 multiletter control sequences out of 15000+600000
  9801 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,8n,32p,1145b,1112s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,32p,1148b,1112s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
@@ -431,7 +431,7 @@ ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
 l/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (9 pages, 738386 bytes).
+Output written on main.pdf (9 pages, 738379 bytes).
 PDF statistics:
  231 PDF objects out of 1000 (max. 8388607)
  190 compressed objects within 2 object streams
