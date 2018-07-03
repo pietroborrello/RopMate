@@ -35,6 +35,7 @@ The filter view, jointly with the control panel, is used by the user to reduce t
 pip3 install flask
 pip3 install pandas
 pip3 install numpy
+pip3 install scipy
 pip3 install scikit-learn
 ```
 
