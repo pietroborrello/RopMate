@@ -7,10 +7,12 @@
 
       <frameset rows = "7%, *" border="1">
         <frame name = "title"  sandbox="allow-top-navigation" src="src/title.html" noresize="noresize">
-        <frameset id="horizontal" cols="7%, 50%, *">
-          <frame name="controls" src="src/controls.html" noresize="noresize">
+        <frameset id="horizontal" cols="57%, *">
           <frameset rows="76%, *">
-            <frame name = "tree" src="src/tree.html" >
+            <frameset cols="13%, *">
+              <frame name="controls" src="src/controls.html" noresize="noresize">
+              <frame name="tree" src="src/tree.html">
+            </frameset>
             <frame name = "chain" src="src/chain.html">
           </frameset>
           <frame name = "choices" src="src/choices.html">
