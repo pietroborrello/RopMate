@@ -20,11 +20,11 @@
             
             var svgGadgetContainer = d3.select("div#gadget_chosen").append("svg")
               .attr("width", "100%")
-              .attr("height", "30%");
+              .attr("height", "16em");
 
             var svgMDSContainer = d3.select("div#mds_view").append("svg")
               .attr("width", "100%")
-              .attr("height", "70%");
+              .attr("height", "calc(100% - 16em)");
 
             var selectedGadget = {data: {params:'', type:'', address:'0', disasm:"Click on a gadget to show the info; Click on the gadget displayed; to add to the chain", mem:['undefined','']}};
             add_gadget_info_window()
@@ -42,11 +42,11 @@
 
                 chosen_group.append("rect")
                     .attr("x", "15%")
-                    .attr("y", "5%")
+                    .attr("y", "0.7em")
                     .attr("rx", 4)
                     .attr("ry", 4)
                     .attr("width", "70%")
-                    .attr("height", "95%")
+                    .attr("height", "15em")
                     .attr("fill", "#e6f3ff")
                     .style("stroke","black")
                     .on("click", function(d){
@@ -63,7 +63,7 @@
 
                 chosen_group.append("text")
                     .attr("x","20%")
-                    .attr("y", "15%")
+                    .attr("y", "2.5em")
                     .attr("dy", 0)
                     .style("opacity", "0")
                     .style("font-weight", 'bold')
@@ -78,7 +78,7 @@
 
                 chosen_group.append("text")
                     .attr("x", "20%")
-                    .attr("y", "15%")
+                    .attr("y", "2.5em")
                     .attr("dy", "2.2em")
                     .style("opacity", "0")
                     .style("font-weight", 'bold')
@@ -89,7 +89,7 @@
 
                 chosen_group.append("text")
                     .attr("x", "20%")
-                    .attr("y", "15%")
+                    .attr("y", "2.5em")
                     .attr("dy", "3.3em")
                     .style("opacity", "0")
                     .style("font-weight", 'bold')
@@ -100,7 +100,7 @@
 
                 chosen_group.append("text")
                     .attr("x", "20%")
-                    .attr("y", "15%")
+                    .attr("y", "2.5em")
                     .attr("dy", "4.4em")
                     .style("opacity", "0")
                     .style("font-weight", 'bold')
@@ -111,7 +111,7 @@
 
                 chosen_group.append("text")
                     .attr("x","20%")
-                    .attr("y", "15%")
+                    .attr("y", "2.5em")
                     .attr("dy", "5.5em")
                     .style("opacity", "0")
                     .text(selectedGadget.data.disasm)
