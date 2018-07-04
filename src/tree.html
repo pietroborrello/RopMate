@@ -13,6 +13,7 @@ var margin = {top: 30, right: 20, bottom: 30, left: 20},
     barWidth = (width - margin.left - margin.right) * 0.5;
 
 var crop_len = 60;
+var min_crop_len;
 
 var i = 0,
     duration = 200,
@@ -265,12 +266,16 @@ function update(source) {
             d.need_tooltip = false;
             tail = ""
             while ((textLength > barWidth - 10) && text.length > 0) {
+                // set min_crop_len if never setted
+                if(!min_crop_len) min_crop_len = text.length;
+                min_crop_len--;
                 tail = '...'
-                text = text.slice(0, -1);
+                text = text.slice(0, min_crop_len);
                 self.text(text + '...');
                 textLength = self.node().getComputedTextLength();
                 d.need_tooltip = true;
             }
+            min_crop_len+=5;
             wrapped_text_cache[d.data.address] = text + tail
         }
     }
