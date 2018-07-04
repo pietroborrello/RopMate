@@ -205,7 +205,7 @@ The \textit{Control Panel} allows the user to perform additional filtering on th
 The \textit{Filter View}, jointly with the \textit{Control Panel}, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the filter using a proper language. He is able to select all and only the gadgets that modify a particular register or have a given semantics.
 
 \subsection{Finding Similar Gadgets}
-The \textit{Similar Gadgets Finder} is triggered by the \texttt{Similar Gadgets} button in the \textit{Analysis View}. The module takes \texttt{type} and \texttt{parameters} of the selected gadget to analyze only the semantically equivalent gadgets in the list. For each possible combination of gadgets it computes a dissimilarity function $f$. Where $f$ is:
+The \textit{Similar Gadgets Finder} is triggered each time a gadget is selected. The module takes \texttt{type} and \texttt{parameters} of the selected gadget to analyze only the semantically equivalent gadgets in the list. For each possible combination of gadgets it computes a dissimilarity function $f$. Where $f$ is:
 $$
 f(g_1, g_2) = |(M_1 \cup M_2) - (M_1 \cap M_2)|
 $$
