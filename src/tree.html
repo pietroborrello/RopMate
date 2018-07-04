@@ -233,7 +233,7 @@ function update(source) {
                 if(!len) return 0;
                 return len<3 ? 0.33 : 0.66;
             }
-            if(d.height == 0)
+            if(d.height == 0 && d.depth > 0)
             {
                 let w = 0.07; // bar width multiplier
                 d3.select(this.parentNode)
