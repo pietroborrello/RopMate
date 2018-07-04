@@ -1,4 +1,5 @@
 from flask import *
+import webbrowser
 import string
 import sys
 import os
@@ -81,7 +82,7 @@ def mds():
             #a = set(data['mem'][i][0])
             #b = set(data['mem'][j][0])
             dissM[i][j]= len((a | b) - (a & b))
-    
+
     mds = manifold.MDS(n_components=2, max_iter=3000, eps=1e-9,
                    dissimilarity="precomputed")
     pos = mds.fit(dissM).embedding_
@@ -96,6 +97,8 @@ def mds():
 
 
 if __name__ == "__main__":
-    app.debug = True
+    app.debug = False
+    url = 'http://127.0.0.1:5000'
+    webbrowser.open_new(url)
     app.run()
-
+    
