@@ -6,12 +6,10 @@
         <script src="../build/spin.min.js"></script>
     </head>
 
-    <body style="overflow-y:hidden; overflow-x:hidden;" onload="draw_mds()">
+    <body style="overflow-y:hidden; overflow-x:hidden;">
         <div id="gadget_chosen"></div>
         <div id="mds_view" style="position: relative">
-            <form action="" method="post" name="reload" style="margin-bottom: 0px; top:0.5em; right:1.1em; z-index: 99; position: absolute;">
-                <button type="button" onclick="draw_mds()"> Similar Gadgets </button>
-            </form>
+            
         </div>
 
         <script>
@@ -35,6 +33,8 @@
                 //parent.document.getElementsByTagName( 'frameset' )[ 0 ].cols="50%, *";
                 //document.register.btnadd.style = "visibility: visible";
                 svgGadgetContainer.selectAll(".gadget_chosen").remove();
+
+                draw_mds()
 
                 var chosen_group = svgGadgetContainer.append("g")
                     .classed("gadget_chosen", true)
