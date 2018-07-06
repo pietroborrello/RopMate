@@ -2,7 +2,7 @@
 
 ROPMate is a prototype visual ROPChain builder that assists the attacker in composing the chain with the desired semantics. ROPMate lets the user to filter and select gadgets to add to his chain, while presenting to him only the gadgets that fits the semantics and guarantees he wants. The user is also able to search for similar gadgets with respect to the selected one, needing the same semantics, but different guarantees.
 
-![alt text](/RopVis_paper/ropmate-screen.png "ROPMate Screenshot")
+![alt text](/RopMate_paper/ropmate-screen.png "ROPMate Screenshot")
 
 ### View A (Tree View)
 This is the Main View: it provides the whole list of analyzed gadgets. Filters and controls apply to such list to restrict the search space. The gadgets in the main view are hierarchically ordered by class, and then by parameters that represents their semantic meaning. 
