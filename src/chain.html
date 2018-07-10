@@ -26,7 +26,6 @@
 
       function setup_register_colorscale(regs) {
         register_scale = d3.scaleOrdinal(d3.schemeCategory10).domain(regs)
-        //d3.scaleLinear().domain([0, regs.length]).range([0, 1])
       }
 
       var svgContainer = d3.select("body").append("svg")
@@ -47,14 +46,18 @@
               .on("drag", dragged)
               .on("end", dragended));
 
-          gadget_group.append("circle")
-            .attr("cy", 27)
-            .attr("cx", 80)
+          gadget_group.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("rx", 4)
+            .attr("ry", 4)
+            .attr("width", 150)
+            .attr("height", 50)
             .style("fill", function(d) {
               if(!selectedGadget.data.dest) return "#66c2a4"
               return register_scale(selectedGadget.data.dest)
             })
-            .classed("chainpoint", true)
+            .style("fill-opacity", "0.8")
             .on("click", function(d){
               d3.select(this).transition()
                         .duration(50)
@@ -62,10 +65,48 @@
                         .transition()
                         .delay(51)
                         .duration(50)
-                        .style("fill-opacity", "1");
+                        .style("fill-opacity", "0.8");
               parent.choices.selectedGadget = selectedGadget;
               parent.choices.add_gadget_info_window();
               });
+
+          var i = 0;
+
+          // all possible sources fields
+          for(var src of [selectedGadget.data.src, selectedGadget.data.src1 , selectedGadget.data.src2])
+          {
+            if (src) {
+              gadget_group.append("rect")
+                .attr("x", 5 + i * 11)
+                .attr("y", 5)
+                .attr("rx", 4)
+                .attr("ry", 4)
+                .attr("width", 10)
+                .attr("height", 40)
+                .style("fill", function (d) {
+                  return register_scale(src)
+                })
+                .style("fill-opacity", "0.8")
+              i++;
+            }
+          }
+
+          for(var dereferenced_reg of selectedGadget.data.mem[0])
+          {
+            gadget_group.append("rect")
+              .attr("x", 5 + i*11)
+              .attr("y", 5)
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("width", 10)
+              .attr("height", 40)
+              .style("fill", function (d) {
+                return register_scale(dereferenced_reg)
+              })
+              .style("fill-opacity", "0.8")
+
+              i++;
+          }
 
           gadget_group.append("text")
               .attr("x", 0)
@@ -74,7 +115,7 @@
               .style("fill", "white")
               .attr("text-anchor", "middle")
               .attr("dominant-baseline", "central")
-              .attr("transform", "translate(" + [80, 25] + ")")
+              .attr("transform", "translate(" + [75, 25] + ")")
               .text(trim(selectedGadget.data.params));
               
 
@@ -101,8 +142,6 @@
           if(selectedGadget.data.dest && dragging == 0) {
             parent.frames["controls"].document.getElementById(selectedGadget.data.dest).checked = true;
             add_preserved_reg(selectedGadget.data.dest)
-
-            compute_dependencies()
           } 
         }
         
@@ -161,8 +200,6 @@
           dragging = 0;
           parent.choices.selectedGadget = moved_gadget;
           parent.choices.add_gadget_info_window();
-
-          compute_dependencies();
           }
       }
 
@@ -196,15 +233,6 @@
               parent.tree.reload()
         }
 
-      function compute_dependencies() {
-        sources = {}
-        destinations = {}
-        paths = []
-        for(var g of list_gadgets_chain)
-        {
-          console.log(g.data)
-        }
-      }
 
       function remove_all(){
         svgContainer.selectAll("g")
