@@ -72,7 +72,6 @@ function load_setup(_gadgets) {
 }
 
 function reload() {
-    console.log(filter)
     filtered_gadgets = gadgets.filter(function(gadget, index, array) {
         for (var key in filter) {
             if (filter.hasOwnProperty(key)) {
