@@ -72,6 +72,7 @@ function load_setup(_gadgets) {
 }
 
 function reload() {
+    console.log(filter)
     filtered_gadgets = gadgets.filter(function(gadget, index, array) {
         for (var key in filter) {
             if (filter.hasOwnProperty(key)) {
@@ -83,6 +84,9 @@ function reload() {
                             if (gadget.type != val) return false;
                             break;
                         case 'params':
+                            // search for dereferenced regs
+                            if(val[0] == '*' && gadget.addr_reg == val.slice(1)) continue
+
                             if(gadget.params != val && gadget.dest != val) return false;
                             break;
                         case 'preserved_regs':
