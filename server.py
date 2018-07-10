@@ -97,8 +97,8 @@ def mds():
 
 
 if __name__ == "__main__":
-    app.debug = False
+    app.debug = True
     url = 'http://127.0.0.1:5000'
-    webbrowser.open_new(url)
+    #webbrowser.open_new(url)
     app.run()
     

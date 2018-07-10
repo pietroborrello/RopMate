@@ -55,6 +55,7 @@ function set_regs() {
     else   
         regs = ['rax', 'rbx', 'rcx', 'rdx', 'rsi', 'rdi', 'rbp', 'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15']
     parent.controls.setup_regs(regs)
+    parent.chain.setup_register_colorscale(regs)
 }
 
 function load_setup(_gadgets) {

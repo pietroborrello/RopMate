@@ -22,6 +22,13 @@
       var list_gadgets_chain = []
       var dragging = 0
 
+      var register_scale;
+
+      function setup_register_colorscale(regs) {
+        register_scale = d3.scaleOrdinal(d3.schemeCategory10).domain(regs)
+        //d3.scaleLinear().domain([0, regs.length]).range([0, 1])
+      }
+
       var svgContainer = d3.select("body").append("svg")
         .attr("width", 20000)
         .attr("height", "100%");
@@ -31,8 +38,8 @@
           count = count + 1;
           if (dragging == 0) list_gadgets_chain.push(selectedGadget)
 
-          var rect_group = svgContainer.append("g")
-            .classed("rect" + count, true)
+          var gadget_group = svgContainer.append("g")
+            .classed("gadget" + count, true)
             .style("opacity", "0")
             .attr("transform", "translate(" + [-130 + (count * 180), 60] + ")")
             .call(d3.drag()
@@ -40,13 +47,14 @@
               .on("drag", dragged)
               .on("end", dragended));
 
-          rect_group.append("rect")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("rx", 4)
-            .attr("ry", 4)
-            .attr("width", 150)
-            .attr("height", 50)
+          gadget_group.append("circle")
+            .attr("cy", 27)
+            .attr("cx", 80)
+            .style("fill", function(d) {
+              if(!selectedGadget.data.dest) return "#66c2a4"
+              return register_scale(selectedGadget.data.dest)
+            })
+            .classed("chainpoint", true)
             .on("click", function(d){
               d3.select(this).transition()
                         .duration(50)
@@ -59,17 +67,18 @@
               parent.choices.add_gadget_info_window();
               });
 
-          rect_group.append("text")
+          gadget_group.append("text")
               .attr("x", 0)
               .attr("y", 0)
-              .attr("dy", 0)
+              .attr("dy", 50)
+              .style("fill", "white")
               .attr("text-anchor", "middle")
               .attr("dominant-baseline", "central")
-              .attr("transform", "translate(" + [75, 25] + ")")
+              .attr("transform", "translate(" + [80, 25] + ")")
               .text(trim(selectedGadget.data.params));
               
 
-          rect_group.append("svg:path")
+          gadget_group.append("svg:path")
             .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
             .style("stroke-width", 1)
             .style("stroke", "black")
@@ -78,12 +87,12 @@
             .attr("transform", "translate(" + (-27) + "," + 12.5 + ")");
         
           if (dragging == 0) 
-            rect_group
+            gadget_group
               .transition()
               .duration(duration)
               .tween("uniquetweenname", scrollLeftTween(180*count - 540));
 
-          rect_group
+          gadget_group
             .transition()
             .duration(duration)
             .delay(count <= 3? 0:duration)
@@ -92,12 +101,14 @@
           if(selectedGadget.data.dest && dragging == 0) {
             parent.frames["controls"].document.getElementById(selectedGadget.data.dest).checked = true;
             add_preserved_reg(selectedGadget.data.dest)
+
+            compute_dependencies()
           } 
         }
         
         var gadget_id;
         function dragstarted() {
-          gadget_id = d3.select(this).raise().attr("class").slice(4) - 1
+          gadget_id = d3.select(this).raise().attr("class").slice(6) - 1
         }
 
         function dragged(d) {
@@ -117,10 +128,9 @@
           }
           if (ending_position < 0) ending_position = 0;
           var length_chain = list_gadgets_chain.length;
-          
           //create classes array
           var list_class_chain = new Array(length_chain)
-          for(var i = 0; i < length_chain; i++) list_class_chain[i] = "rect"+(i+1)
+          for(var i = 0; i < length_chain; i++) list_class_chain[i] = "gadget"+(i+1)
 
           if(ending_position > (length_chain - 1)) ending_position = length_chain - 1;
           var moved_gadget = list_gadgets_chain.splice(gadget_id, 1)[0] // returns a list of removed elements
@@ -133,7 +143,7 @@
           for (var i = 0; i < length_chain; i++) {
             // assign new class and translate
             svgContainer.select("g."+ list_class_chain[i])
-            .attr('new_class', "rect"+(i+1))
+            .attr('new_class', "gadget"+(i+1))
             .transition()
             .duration(duration)
             .attr("transform", "translate(" + [-130 + (i+1) * 180, 60] + ")")
@@ -151,6 +161,8 @@
           dragging = 0;
           parent.choices.selectedGadget = moved_gadget;
           parent.choices.add_gadget_info_window();
+
+          compute_dependencies();
           }
       }
 
@@ -184,6 +196,16 @@
               parent.tree.reload()
         }
 
+      function compute_dependencies() {
+        sources = {}
+        destinations = {}
+        paths = []
+        for(var g of list_gadgets_chain)
+        {
+          console.log(g.data)
+        }
+      }
+
       function remove_all(){
         svgContainer.selectAll("g")
           .transition()
@@ -208,12 +230,12 @@
 
       function remove(){
         if(count > 0){
-          svgContainer.selectAll(".rect" + count)
+          svgContainer.selectAll(".gadget" + count)
             .transition()
             .duration(duration)
             .style("opacity", "0")
 
-          svgContainer.selectAll(".rect" + count)
+          svgContainer.selectAll(".gadget" + count)
             .transition()
             .duration(duration)
             .delay(duration)
