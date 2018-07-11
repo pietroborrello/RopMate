@@ -83,6 +83,21 @@ rect {
    padding-right: 0.5em;
  }
 
+ div.chain_tooltip
+ {
+    position: absolute;
+    display: none;
+    height: auto;
+    background: #f7fcfd;
+    color: black;
+    border: 1px solid #000000;
+    border-width: 1px;
+    border-radius: 2px;
+    padding: 3px;
+    text-align: center;
+    pointer-events: none;
+ }
+
  .filter_bar{
     width:50%;
     height:25px;

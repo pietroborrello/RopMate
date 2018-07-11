@@ -23,6 +23,7 @@
       var dragging = 0
 
       var register_scale;
+      var chain_tooltip = d3.select("body").append("div").attr("class", "chain_tooltip");
 
       function setup_register_colorscale(regs) {
         register_scale = d3.scaleOrdinal(d3.schemeCategory10).domain(regs)
@@ -87,6 +88,14 @@
               return register_scale(d)
             })
             .style("fill-opacity", "0.8")
+            .on('mousemove', function(d) {
+              chain_tooltip
+                .style("left", d3.event.pageX + "px")
+                .style("top", d3.event.pageY - 25 + "px")
+                .style("display", "inline-block")
+                .html(d);
+            })
+            .on("mouseout", function (d) { chain_tooltip.style("display", "none"); });
 
 
           gadget_group.append("text")
