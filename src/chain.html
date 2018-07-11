@@ -70,43 +70,24 @@
               parent.choices.add_gadget_info_window();
               });
 
-          var i = 0;
+          var dependencies = [selectedGadget.data.src, selectedGadget.data.src1, selectedGadget.data.src2].filter(src => src).concat(selectedGadget.data.mem[0])
+              
+          gadget_group.selectAll(".dependency")
+          .data(dependencies)
+          .enter()
+          .append("rect")
+            .attr("x", function(d, i){return 5 + i * 11})
+            .attr("y", 5)
+            .attr("rx", 4)
+            .attr("ry", 4)
+            .attr("width", 10)
+            .attr("height", 40)
+            .style("fill", function (d) {
+              console.log(d)
+              return register_scale(d)
+            })
+            .style("fill-opacity", "0.8")
 
-          // all possible sources fields
-          for(var src of [selectedGadget.data.src, selectedGadget.data.src1 , selectedGadget.data.src2])
-          {
-            if (src) {
-              gadget_group.append("rect")
-                .attr("x", 5 + i * 11)
-                .attr("y", 5)
-                .attr("rx", 4)
-                .attr("ry", 4)
-                .attr("width", 10)
-                .attr("height", 40)
-                .style("fill", function (d) {
-                  return register_scale(src)
-                })
-                .style("fill-opacity", "0.8")
-              i++;
-            }
-          }
-
-          for(var dereferenced_reg of selectedGadget.data.mem[0])
-          {
-            gadget_group.append("rect")
-              .attr("x", 5 + i*11)
-              .attr("y", 5)
-              .attr("rx", 4)
-              .attr("ry", 4)
-              .attr("width", 10)
-              .attr("height", 40)
-              .style("fill", function (d) {
-                return register_scale(dereferenced_reg)
-              })
-              .style("fill-opacity", "0.8")
-
-              i++;
-          }
 
           gadget_group.append("text")
               .attr("x", 0)
