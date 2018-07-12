@@ -19,7 +19,10 @@ This allows the user to search for gadgets with the same effect but that clobber
 ### View C (Chain View)
 The chain view presents the current state of the builded chain. Adding a gadget to the chain will trigger the recomputation for the registers the user has successfully set with the chain, and, by default, the view of the whole gadgets will display only the gadgets safe with respect to modified registers, that the user can choose.
 
-It offers the possibility to move gadgets in the chain by dragging and dropping, and to remove them. Once the user is happy with the built chain clicking {\tt Dump} the system will generate a python script to integrate with current exploit technologies that will generate the byte-code of the chain.
+Each gadget in the chain has a unique color based on the register it semantically sets.
+Additionally, for every gadget his dependencies are computed, and a slot on each gadget is displayed with the colors matching the register it depends on. The lenght of the slot encodes if the dependency is satisfied and set (short) or not (long) by previous gadgets. A dependency is a register that must be properly set to execute the gadget correctly, as a dereferenced or read register.
+
+The chain view offers the possibility to move gadgets in the chain by dragging and dropping, and to remove them. Once the user is happy with the built chain clicking Dump the system will generate a python script to integrate with current exploit technologies that will generate the byte-code of the chain.
 
 ### View D (Control Panel)
 
