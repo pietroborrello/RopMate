@@ -286,6 +286,9 @@
             .remove();
         count = 0;
         if (dragging == 0) list_gadgets_chain = []
+
+        // simluate click on reset button
+        parent.controls.document.getElementById("reset").click();
       }
 
       function remove(){
@@ -302,8 +305,9 @@
             .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
             .remove()
           
-          if (dragging == 0) list_gadgets_chain.pop()
+          if (dragging == 0) var last_gadget = list_gadgets_chain.pop()
           count = count - 1;
+          console.log(last_gadget)
         }
       }
 
