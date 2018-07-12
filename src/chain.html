@@ -30,9 +30,11 @@
 
         var _scale2 = ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f']
 
-        var _scale3 = d3.schemeCategory10
+        var _scale3 = d3.schemeCategory10//d3.schemeSet3, 
 
-        register_scale = d3.scaleOrdinal(_scale1).domain(regs)
+        var _scale4 = ["#01c472", /*"#e0d3b8",*/ "#e57da8", "#957206", "#453cc5", "#9a8ba2", "#20d8fd", "#a9e81a", "#e72fc2", "#dec651", "#851657", "#5b4138", "#016876", "#e2712e", "#0494fb", "#748d13", "#6524ff", "#9a2a06", "#2d5192"]
+
+        register_scale = d3.scaleOrdinal(_scale4).domain(regs)
       }
 
       var svgContainer = d3.select("body").append("svg")
@@ -61,10 +63,10 @@
             .attr("width", 150)
             .attr("height", 50)
             .style("fill", function(d) {
-              if(!selectedGadget.data.dest) return "#66c2a4"
+              if(!selectedGadget.data.dest) return "#f7fcfd"
               return register_scale(selectedGadget.data.dest)
             })
-            .style("fill-opacity", "0.9")
+            .style("fill-opacity", "1")
             .on("click", function(d){
               d3.select(this).transition()
                         .duration(50)
@@ -72,7 +74,7 @@
                         .transition()
                         .delay(51)
                         .duration(50)
-                        .style("fill-opacity", "0.9");
+                        .style("fill-opacity", "1");
               parent.choices.selectedGadget = selectedGadget;
               parent.choices.add_gadget_info_window();
               });
