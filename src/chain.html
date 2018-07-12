@@ -293,7 +293,6 @@
 
         // simluate click on reset button
         parent.controls.document.getElementById("reset").click();
-        console.log(parent.tree.filter.preserved_regs)
       }
 
       function remove(){
@@ -317,7 +316,6 @@
             parent.frames["controls"].document.getElementById(last_gadget.data.dest).checked = false;
             remove_preserved_reg(last_gadget.data.dest)
           }
-          console.log(parent.tree.filter.preserved_regs)
         }
       }
 
