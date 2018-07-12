@@ -26,7 +26,13 @@
       var chain_tooltip = d3.select("body").append("div").attr("class", "chain_tooltip");
 
       function setup_register_colorscale(regs) {
-        register_scale = d3.scaleOrdinal(d3.schemeCategory10).domain(regs)
+        var _scale1 = ['#e6194b', '#3cb44b', '#ffe119', '#0082c8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#d2f53c', '#fabebe', '#008080', '#e6beff', '#aa6e28', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000080', '#808080', '#FFFFFF', '#000000']
+
+        var _scale2 = ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f']
+
+        var _scale3 = d3.schemeCategory10
+
+        register_scale = d3.scaleOrdinal(_scale1).domain(regs)
       }
 
       var svgContainer = d3.select("body").append("svg")
