@@ -235,8 +235,19 @@
 
       function add_preserved_reg(reg) {
             if (!parent.tree.filter.preserved_regs.includes(reg))
-              parent.tree.filter.preserved_regs.push(reg)
+              {
+                parent.tree.filter.preserved_regs.push(reg)
+                parent.tree.reload()
+              }
+        }
+
+      function remove_preserved_reg(reg) {
+          if (parent.tree.filter.preserved_regs.includes(reg))
+            {
+              var _index = parent.tree.filter.preserved_regs.indexOf(reg)
+              parent.tree.filter.preserved_regs.splice(_index, 1);
               parent.tree.reload()
+            }
         }
 
       function compute_dependencies() {
@@ -282,6 +293,7 @@
 
         // simluate click on reset button
         parent.controls.document.getElementById("reset").click();
+        console.log(parent.tree.filter.preserved_regs)
       }
 
       function remove(){
@@ -300,7 +312,12 @@
           
           var last_gadget = list_gadgets_chain.pop()
           count = count - 1;
-          console.log(last_gadget)
+          if(last_gadget.data.dest)
+          {
+            parent.frames["controls"].document.getElementById(last_gadget.data.dest).checked = false;
+            remove_preserved_reg(last_gadget.data.dest)
+          }
+          console.log(parent.tree.filter.preserved_regs)
         }
       }
 
