@@ -44,7 +44,7 @@
       function add_block_to_chain(selectedGadget){
         if(selectedGadget.data.type != ""){
           count = count + 1;
-          if (dragging == 0) list_gadgets_chain.push(selectedGadget)
+          list_gadgets_chain.push(selectedGadget)
 
           var gadget_group = svgContainer.append("g")
             .classed("gadget" + count, true)
@@ -127,7 +127,7 @@
             .attr("fill", "#f7fcfd")
             .attr("transform", "translate(" + (-27) + "," + 12.5 + ")");
         
-          if (dragging == 0) 
+          
             gadget_group
               .transition()
               .duration(duration)
@@ -271,21 +271,14 @@
           .transition()
           .duration(duration)
           .style("opacity", "0")
-        if (dragging == 0) 
           svgContainer.selectAll("g")
             .transition()
             .duration(duration)
             .delay(duration)
             .tween("uniquetweenname", scrollRightTween(180 * count - 540, true))
             .remove();
-        else // just remove after delay without scrolling
-          svgContainer.selectAll("g")
-            .transition()
-            .duration(duration)
-            .delay(duration)
-            .remove();
         count = 0;
-        if (dragging == 0) list_gadgets_chain = []
+        list_gadgets_chain = []
 
         // simluate click on reset button
         parent.controls.document.getElementById("reset").click();
@@ -305,7 +298,7 @@
             .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
             .remove()
           
-          if (dragging == 0) var last_gadget = list_gadgets_chain.pop()
+          var last_gadget = list_gadgets_chain.pop()
           count = count - 1;
           console.log(last_gadget)
         }
