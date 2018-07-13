@@ -37,7 +37,11 @@
         register_scale = d3.scaleOrdinal(_scale4).domain(regs)
 
         // set legend for each register
-        
+        for(var reg of regs)
+        {
+          console.log(parent.controls.document.getElementById("_" + reg))
+          parent.controls.document.getElementById("_"+reg).style.background = register_scale(reg);
+        }
       }
 
       var svgContainer = d3.select("body").append("svg")

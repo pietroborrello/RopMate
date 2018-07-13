@@ -17,7 +17,7 @@
                 </div>
 
                 <br>
-                <input id="reset" type ="reset" class="reset" value ="Reset" onclick="clear_preserved_regs()"><br>
+                <input id="_reset" type ="reset" class="reset" value ="Reset" onclick="clear_preserved_regs()"><br>
 
             </div>
             <div id="gadget_chosen"></div>
@@ -28,7 +28,7 @@
                 var regs_div = document.getElementById('regs');
                 for(reg of regs)
                 {
-                    regs_div.innerHTML += reg + ' <input type ="checkbox" name ="' + reg + '" id ="'+ reg + '" size ="3" value = "yes" onchange="add_preserved_reg(this)"><br>'
+                    regs_div.innerHTML += reg + ' <div id="_' + reg + '" class="legend"></div><input type ="checkbox" name ="' + reg + '" id ="'+ reg + '" size ="3" value = "yes" onchange="add_preserved_reg(this)"><br>'
                 }
             }
 

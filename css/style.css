@@ -83,6 +83,16 @@ rect {
    padding-right: 0.5em;
  }
 
+ div.legend
+ {
+     width:10px; 
+     height:10px; 
+     border:1px solid #000; 
+     display:inline-block; 
+     vertical-align: middle;
+     border-radius: 1px;
+ }
+
  div.chain_tooltip
  {
     position: absolute;
