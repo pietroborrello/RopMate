@@ -35,6 +35,9 @@
         var _scale4 = ["#01c472", /*"#e0d3b8",*/ "#e57da8", "#957206", "#453cc5", "#9a8ba2", "#20d8fd", "#a9e81a", "#e72fc2", "#dec651", "#851657", "#5b4138", "#016876", "#e2712e", "#0494fb", "#748d13", "#6524ff", "#9a2a06", "#2d5192"]
 
         register_scale = d3.scaleOrdinal(_scale4).domain(regs)
+
+        // set legend for each register
+        
       }
 
       var svgContainer = d3.select("body").append("svg")
@@ -117,7 +120,32 @@
               .attr("dominant-baseline", "central")
               .attr("transform", "translate(" + [75, 25] + ")")
               .text(trim(selectedGadget.data.params));
-              
+
+          if(selectedGadget.data.dest)
+          {
+            gadget_group.append("foreignObject")
+            .attr("x", 10)
+            .attr("y", 90)
+            .attr("width", 140)
+            .attr("height", 40)
+              .append("xhtml:form")
+              .append("input")
+              .attr("value", "0x0")
+              .on("keypress", function () {
+              // IE fix
+              if (!d3.event)
+                d3.event = window.event;
+
+              var e = d3.event;
+              if (e.keyCode == 13) {
+                if (typeof (e.cancelBubble) !== 'undefined') // IE
+                  e.cancelBubble = true;
+                if (e.stopPropagation)
+                  e.stopPropagation();
+                e.preventDefault();
+              }
+            });
+          }
 
           gadget_group.append("svg:path")
             .attr("d", "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z")
@@ -292,7 +320,7 @@
         list_gadgets_chain = []
 
         // simluate click on reset button
-        parent.controls.document.getElementById("reset").click();
+        parent.controls.document.getElementById("_reset").click();
       }
 
       function remove(){
