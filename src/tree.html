@@ -268,12 +268,7 @@ function update(source) {
 					.attr("rx", 2)
 					.attr("ry", 2)
 					.attr("width", 10)
-					.attr("height", function (d) {
-						if (parent.chain.registers_set[d])
-							return barHeight/2;
-						else
-							return barHeight;
-					})
+					.attr("height", 0)
 					.attr("class", function (d) {
 						return d;
 					})
@@ -288,7 +283,16 @@ function update(source) {
 							.style("display", "inline-block")
 							.html(d);
 					})
-					.on("mouseout", function (d) { tree_tooltip.style("display", "none"); });
+					.on("mouseout", function (d) { tree_tooltip.style("display", "none"); })
+					.transition()
+					.delay(duration)
+					.duration(duration * 2)
+					.attr("height", function (d) {
+						if (parent.chain.registers_set[d])
+							return barHeight / 2;
+						else
+							return barHeight;
+					})
             }
         }
 
