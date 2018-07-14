@@ -256,12 +256,12 @@
                     .attr("font-size", 10)
                     .attr("id", function (d, i) { return "label" + i });
 
-                var xAxis = d3.axisBottom(xScale).ticks(4);
+                var xAxis = d3.axisBottom(xScale).ticks(0);
                 svg.append("g").call(xAxis)
                 .attr("class", "axis")  //Assign "axis" class
                 .attr("transform","translate(" + mar[0] + "," + (nPix+mar[1])  + ")");
 
-                var yAxis = d3.axisLeft(yScale).ticks(4);
+                var yAxis = d3.axisLeft(yScale).ticks(0);
                 svg.append("g").call(yAxis)
                 .attr("class", "axis")  //Assign "axis" class
                 .attr("transform","translate(" + mar[0] + "," + (mar[3])  + ")");
