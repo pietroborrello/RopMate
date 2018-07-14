@@ -233,6 +233,13 @@
                 .attr("cy",function(d) {return yScale(d.y);})
                 .attr("id",function(d,i) {return "point" + i})
                 .attr("label", function (d, i) { return labels[i] })
+                .style("fill", function(d, i) {
+                    if(labels[i].sort().toString() == selectedGadget.data.modified_regs.sort().toString())
+                        return "#66c2a4"
+                    else 
+                        return "#f7fcfd"
+
+                })
 
                 dots.on('mouseover', function(d) {
                     d3.select(this).style("r", 10);
