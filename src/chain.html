@@ -23,6 +23,7 @@
       var dragging = 0
 
       var register_scale;
+      var registers_set = {};
       var chain_tooltip = d3.select("body").append("div").attr("class", "chain_tooltip");
 
       function setup_register_colorscale(regs) {
@@ -32,7 +33,7 @@
 
         var _scale3 = d3.schemeCategory10//d3.schemeSet3, 
 
-        var _scale4 = ["#01c472", /*"#e0d3b8",*/ "#e57da8", "#957206", "#453cc5", "#9a8ba2", "#20d8fd", "#a9e81a", "#e72fc2", "#dec651", "#851657", "#5b4138", "#016876", "#e2712e", "#0494fb", "#748d13", "#6524ff", "#9a2a06", "#2d5192"]
+        var _scale4 = ["#01c472", /*"#e0d3b8",*/ "#0494fb", "#957206", "#453cc5", "#9a8ba2", "#20d8fd", "#a9e81a", "#e72fc2", "#dec651", "#851657", "#5b4138", "#016876", "#e2712e", "#9a2a06", "#748d13", "#6524ff", "#e57da8", "#2d5192"]
 
         register_scale = d3.scaleOrdinal(_scale4).domain(regs)
 
@@ -291,7 +292,7 @@
               .duration(duration)
               .delay(duration)
               .attr("height", function(d) {
-                if(registers_set[d3.select(this).attr('class')])
+                if(registers_set[d])
                   return 20;
                 else 
                   return 40;
