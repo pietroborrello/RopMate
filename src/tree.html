@@ -47,6 +47,8 @@ var stack_occupation_scale;
 var wrapped_text_cache = {};
 var tooltips_enabled = true;
 
+var tree_tooltip = d3.select("body").append("div").attr("class", "chain_tooltip");
+
 d3.json(parent.path).then(load_setup);
 
 function set_regs() {
@@ -239,6 +241,7 @@ function update(source) {
             }
             if(d.height == 0 && d.depth > 0)
             {
+                //bar
                 let w = 0.07; // bar width multiplier
                 d3.select(this.parentNode)
                     .append("rect")
@@ -251,6 +254,36 @@ function update(source) {
                     .delay(duration)
                     .duration(duration*2)
                     .attr("width", stack_occupation_scale(d.data.stack_fix) * w * barWidth)
+
+				// dependencies
+				var dependencies = d3.select(this.parentNode).data()[0].data.mem[0]
+				
+				d3.select(this.parentNode)
+					.append("g").classed("dependencies", true)
+					.selectAll(".dependency")
+					.data(dependencies)
+					.enter()
+					.append("rect")
+					.attr("y", -barHeight / 2)
+					.attr("rx", 4)
+					.attr("ry", 4)
+					.attr("width", 10)
+					.attr("height", barHeight)
+					.attr("class", function (d) {
+						return d;
+					})
+					.style("fill", function (d) {
+						return parent.chain.register_scale(d)
+					})
+					.attr("transform", function (d,i) { return "translate(" + (barWidth + 4 * w * barWidth + 11*i) + "," + 0 + ")"; })
+					.on('mousemove', function (d) {
+						tree_tooltip
+							.style("left", d3.event.pageX + "px")
+							.style("top", d3.event.pageY - 25 + "px")
+							.style("display", "inline-block")
+							.html(d);
+					})
+					.on("mouseout", function (d) { tree_tooltip.style("display", "none"); });
             }
         }
 
