@@ -176,7 +176,7 @@
             add_preserved_reg(selectedGadget.data.dest)
           } 
 
-          compute_dependencies();
+          update_dependencies();
         }
         
         var gadget_id;
@@ -237,7 +237,7 @@
           parent.choices.selectedGadget = moved_gadget;
           parent.choices.add_gadget_info_window();
 
-          compute_dependencies();
+          update_dependencies();
           }
       }
 
@@ -282,7 +282,7 @@
             }
         }
 
-      function compute_dependencies() {
+      function update_dependencies() {
           registers_set = {}
           for (var i in list_gadgets_chain) {
             gadget_dependencies = svgContainer.select("g.gadget" + ((+i) + 1)).select("g.dependencies")
@@ -305,8 +305,17 @@
             // (done after since destination will always be modified)
             if(list_gadgets_chain[i].data.dest)
               registers_set[list_gadgets_chain[i].data.dest] = 1;
-
           }
+          // also update visible dependencies in the tree with the dependencies set at the end of the chain
+          parent.tree.svg.selectAll('rect.dependency')
+          .transition()
+            .duration(duration * 2)
+            .attr("height", function (d) {
+              if (registers_set[d])
+                return parent.tree.barHeight / 2;
+              else
+                return parent.tree.barHeight;
+            })
         }
 
       function remove_all(){
@@ -325,6 +334,7 @@
 
         // simluate click on reset button
         parent.controls.document.getElementById("_reset").click();
+        update_dependencies();
       }
 
       function remove(){
@@ -348,6 +358,7 @@
             parent.frames["controls"].document.getElementById(last_gadget.data.dest).checked = false;
             remove_preserved_reg(last_gadget.data.dest)
           }
+          update_dependencies();
         }
       }
 

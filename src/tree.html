@@ -260,7 +260,7 @@ function update(source) {
 				
 				d3.select(this.parentNode)
 					.append("g").classed("dependencies", true)
-					.selectAll(".dependency")
+					.selectAll("._dependency")
 					.data(dependencies)
 					.enter()
 					.append("rect")
@@ -272,6 +272,7 @@ function update(source) {
 					.attr("class", function (d) {
 						return d;
 					})
+					.classed("dependency", true)
 					.style("fill", function (d) {
 						return parent.chain.register_scale(d)
 					})
