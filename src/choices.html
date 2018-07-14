@@ -206,7 +206,7 @@
                 return s;
             };
 
-            d3scatterplot = function(svg,X,labels) {
+            d3scatterplot = function(svg, X, labels, counts) {
                 var nPix= Math.min(parseInt(document.getElementById("mds_view").offsetHeight), parseInt(document.getElementById("mds_view").offsetWidth))-100,n=X.length,mar = [50,50,50,50];
 
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
@@ -225,6 +225,10 @@
                 .range([nPix, 0])
                 .domain(yRange);
 
+                var counts_Scale = d3.scaleLinear()
+                    .range([5, 15])
+                    .domain(d3.extent(counts));
+
                 var dots = sg.selectAll(".datapoint")
                 .data(X).enter()
                 .append("circle")
@@ -233,6 +237,7 @@
                 .attr("cy",function(d) {return yScale(d.y);})
                 .attr("id",function(d,i) {return "point" + i})
                 .attr("label", function (d, i) { return labels[i] })
+                .style("r", function (d, i) { return counts_Scale(counts[i]) })
                 .style("fill", function(d, i) {
                     if(labels[i].sort().toString() == selectedGadget.data.modified_regs.sort().toString())
                         return "#66c2a4"
@@ -241,24 +246,20 @@
 
                 })
 
-                dots.on('mouseover', function(d) {
-                    d3.select(this).style("r", 10);
+                dots.on('mouseover', function(d, i) {
+                    d3.select(this).style("r", counts_Scale(counts[i]) + 5);
                 })
 
-                dots.on('mouseout', function (d) {
-                    d3.select(this).style("r", 5);
+                dots.on('mouseout', function (d, i) {
+                    d3.select(this).style("r", counts_Scale(counts[i]));
                 })
-
-                svg.on("mouseout", function (d) {
-                    d3.selectAll("circle").style("r", 5);
-                })
-
+                
                 var labels = sg.selectAll(".labels")
                     .data(X).enter()
                     .append("text")
                     .attr("class", "label")
-                    .attr("x", function (d) { return xScale(d.x)+5; })
-                    .attr("y", function (d) { return yScale(d.y)-5; })
+                    .attr("x", function (d, i) { return xScale(d.x) + counts_Scale(counts[i]); })
+                    .attr("y", function (d, i) { return yScale(d.y) - counts_Scale(counts[i]); })
                     .text(function (d, i) {return labels[i].length? labels[i]:"none"; })
                     .attr("font-size", 10)
                     .attr("id", function (d, i) { return "label" + i });
@@ -327,7 +328,7 @@
                     data: {params: selectedGadget.data.params, type: selectedGadget.data.type }
                 }).done(function (data) {
                     json_data = JSON.parse(data)
-                    d3scatterplot(svgMDSContainer, json_data.X, json_data.labels);
+                    d3scatterplot(svgMDSContainer, json_data.X, json_data.labels, json_data.counts);
                 }).always(function () {
                         spinner.stop()
                         mds_running = false;

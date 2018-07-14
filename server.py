@@ -54,7 +54,7 @@ def mds():
     DISSIMILARITY = 'modified_regs'
     try:
         if not request.form['type'] or not request.form['params']:
-            return json.dumps({'X': [], 'labels': []})
+            return json.dumps({'X': [], 'labels': [], 'counts': []})
 
         with open(PATH) as f:
             data_file = json.load(f)
@@ -63,14 +63,15 @@ def mds():
             lambda d: d['type'] == request.form['type'] and d['params'] == request.form['params'], data_file)
         _data = []
     except (KeyError, FileNotFoundError):
-        return json.dumps({'X': [], 'labels': []})
+        return json.dumps({'X': [], 'labels': [], 'counts': []})
 
-    added = set()
+    added = {}
     for d in data_filter:
         dissimilar = frozenset(d[DISSIMILARITY])
         if dissimilar not in added:
             _data.append(d)
-            added.add(dissimilar)
+            added[dissimilar] = 0
+        added[dissimilar] += 1
 
     data = pd.io.json.read_json(json.dumps(_data))
     dissM=np.zeros((len(data),len(data))) #creates a zeros dissM
@@ -87,10 +88,11 @@ def mds():
                    dissimilarity="precomputed")
     pos = mds.fit(dissM).embedding_
 
-    res = {'X': [], 'labels': []}
+    res = {'X': [], 'labels': [], 'counts' : []}
     for label, x, y in zip(data[DISSIMILARITY], pos[:, 0], pos[:, 1]):
         res['X'].append({"x": x, "y": y})
         res['labels'].append(label)
+        res['counts'].append(added[frozenset(label)])
 
     return json.dumps(res)
 
