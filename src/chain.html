@@ -42,6 +42,8 @@
         {
           parent.controls.document.getElementById("_"+reg).style.background = register_scale(reg);
         }
+        parent.controls.document.getElementById("_unknown").style.background = register_scale("unknown");
+        parent.controls.document.getElementById("_stack").style.background = register_scale("stack");
       }
 
       var svgContainer = d3.select("body").append("svg")
@@ -193,7 +195,7 @@
 
         function dragended() {
           if (document.activeElement === d3.select(this).select(".loadconst_bar").node()) return;
-          
+
           dragging = 1;
           ending_position = (d3.event.x + 75) / 180 - 0.11
           if ((ending_position - 1) > gadget_id) {
