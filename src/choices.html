@@ -226,7 +226,7 @@
                 .domain(yRange);
 
                 var counts_Scale = d3.scaleLinear()
-                    .range([5, 15])
+                    .range([10, 20])
                     .domain(d3.extent(counts));
 
                 var dots = sg.selectAll(".datapoint")
@@ -246,13 +246,13 @@
 
                 })
 
-                dots.on('mouseover', function(d, i) {
+                /*dots.on('mouseover', function(d, i) {
                     d3.select(this).style("r", counts_Scale(counts[i]) + 5);
                 })
 
                 dots.on('mouseout', function (d, i) {
                     d3.select(this).style("r", counts_Scale(counts[i]));
-                })
+                })*/
                 
                 var labels = sg.selectAll(".labels")
                     .data(X).enter()

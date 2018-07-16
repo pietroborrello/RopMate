@@ -257,6 +257,18 @@ function update(source) {
 
 				// dependencies
 				var dependencies = d3.select(this.parentNode).data()[0].data.mem[0]
+
+				d3.select(this.parentNode)
+					.append("line")
+						.attr("x1", (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) - 11) )
+						.attr("y1", -barHeight / 2)
+						.attr("x2", (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) + 11 * (parent.tree.regs.length)))
+						.attr("y2", -barHeight / 2)
+						.attr("z-index", -99)
+						.style("stroke-width", 1)
+						.style("stroke", "white") // change color here
+						.style("fill", "none")
+						.style("opacity", 0.3)
 				
 				d3.select(this.parentNode)
 					.append("g").classed("dependencies", true)
@@ -276,7 +288,7 @@ function update(source) {
 					.style("fill", function (d) {
 						return parent.chain.register_scale(d)
 					})
-					.attr("transform", function (d,i) { return "translate(" + (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) /*position*/ + 11*i + 1) + "," + 0 + ")"; })
+					.attr("transform", function (d,i) { return "translate(" + (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) /*position*/ + 11*(parent.tree.regs.indexOf(d)) + 1) + "," + 0 + ")"; })
 					.on('mousemove', function (d) {
 						tree_tooltip
 							.style("left", d3.event.pageX + "px")

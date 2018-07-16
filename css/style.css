@@ -153,6 +153,7 @@ rect {
     fill-opacity: 1;
     stroke: #e33229;
     stroke-width: 0px;
+    cursor: pointer;
     }
 
     .chainpoint {
