@@ -64,7 +64,7 @@ function load_setup(_gadgets) {
     gadgets = _gadgets
 
     //initialize the scale for the witdh of enhanced info
-    stack_occupation_scale = d3.scaleLog().range([0.3, 3])
+    stack_occupation_scale = d3.scaleLog().base(2).range([0.3, 3])
     stack_occupation_scale.domain([d3.min(gadgets, function (d) { return d.stack_fix; }), d3.max(gadgets, function (d) { return d.stack_fix; })])
     
     if(gadgets[0])
