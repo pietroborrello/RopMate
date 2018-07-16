@@ -184,13 +184,16 @@
         }
 
         function dragged(d) {
-          if(d3.select(this).select(".loadconst_bar") && document.activeElement !== d3.select(this).select(".loadconst_bar").node())
+          if(document.activeElement === d3.select(this).select(".loadconst_bar").node()) return;
+
           d3.select(this).attr("transform", function(d,i){
             return "translate(" + [d3.event.x -75, d3.event.y - 25] + ")"
           })
         }
 
         function dragended() {
+          if (document.activeElement === d3.select(this).select(".loadconst_bar").node()) return;
+          
           dragging = 1;
           ending_position = (d3.event.x + 75) / 180 - 0.11
           if ((ending_position - 1) > gadget_id) {
