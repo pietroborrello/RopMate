@@ -125,16 +125,15 @@
               .attr("transform", "translate(" + [75, 25] + ")")
               .text(trim(selectedGadget.data.params));
 
-          if(selectedGadget.data.dest)
+          if(selectedGadget.data.dest && selectedGadget.data.type == "LoadConst")
           {
             gadget_group.append("foreignObject")
             .attr("x", 10)
             .attr("y", 90)
-            .attr("width", 140)
-            .attr("height", 40)
               .append("xhtml:form")
               .append("input")
               .attr("value", "0x0")
+              .classed("loadconst_bar", true)
               .on("keypress", function () {
               // IE fix
               if (!d3.event)
@@ -185,6 +184,7 @@
         }
 
         function dragged(d) {
+          if(d3.select(this).select(".loadconst_bar") && document.activeElement !== d3.select(this).select(".loadconst_bar").node())
           d3.select(this).attr("transform", function(d,i){
             return "translate(" + [d3.event.x -75, d3.event.y - 25] + ")"
           })

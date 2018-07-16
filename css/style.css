@@ -114,6 +114,12 @@ rect {
     font: 13px sans-serif;
  }
 
+ .loadconst_bar
+ {
+     border-radius: 2px;
+     border:solid 1px black;
+ }
+
  .axis,
     .frame {
     shape-rendering: crispEdges;
