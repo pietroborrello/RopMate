@@ -93,7 +93,7 @@ rect {
      border-radius: 1px;
  }
 
- div.chain_tooltip
+ div.chain_tooltip, div.mds_tooltip
  {
     position: absolute;
     display: none;
