@@ -307,10 +307,17 @@ function update(source) {
 					.style("fill", function (d) {
 						return parent.chain.register_scale(d)
 					})
-					.attr("transform", function (d,i) { return "translate(" + (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) /*position*/ + 11*(d != 'stack'? parent.tree.regs.indexOf(d): parent.tree.regs.length) + 1) + "," + 0 + ")"; })
+					.attr("transform", function (d,i) { 
+						var displacement;
+						if(d != 'stack' && d != 'unknown') 
+							displacement = parent.tree.regs.indexOf(d)
+						else
+							displacement = ['unknown', 'stack'].indexOf(d) + regs.length
+
+						return "translate(" + (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) /*position*/ + 11 * (displacement - 1) + 1) + "," + 0 + ")"; })
 					.on('mousemove', function (d) {
 						tree_tooltip
-							.style("left", d3.event.pageX + "px")
+							.style("left", d3.event.pageX -25 + "px")
 							.style("top", d3.event.pageY - 25 + "px")
 							.style("display", "inline-block")
 							.html(d);
