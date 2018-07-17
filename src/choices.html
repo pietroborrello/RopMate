@@ -210,7 +210,10 @@
 
             d3scatterplot = function(svg, X, labels, counts) {
                 var nPix= Math.min(parseInt(document.getElementById("mds_view").offsetHeight), parseInt(document.getElementById("mds_view").offsetWidth))-100,n=X.length,mar = [50,50,50,50];
-
+                svg.attr("width", nPix + mar[0] + mar[1])
+                    .style("margin", "auto")
+                    .style("display", "block")
+                    .style("overflow", "visible");
                 var xv = X.map(function(e) { return e.x;}),xRange=expand(xv.range());
                 var yv = X.map(function(e) { return e.y;}),yRange=expand(yv.range());
 
