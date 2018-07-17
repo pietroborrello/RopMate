@@ -23,26 +23,29 @@
     </head>
 
     <body style="overflow-y:hidden; overflow-x:hidden;">
-        <div align=right style="display: table; height: 100%; width: 100%;">
-        <span style="float:left;"><h1 style="margin:0px;">ROPMate</h1></span>
-        <div style="display: table-cell; height: 100%; vertical-align: middle;">
-            <label for="filter">Filter:</label>
-            <input type="text" id="filter" name="filter" class="filter_bar" style="margin-right: 10px;border-radius: 2px;border:solid 1px black;"
+        <div style="display: table; height: 100%; width: 57%; float: left">
+            <div style="display: table-cell; height: 100%; vertical-align: middle; text-align: left">
+                <h1 style="margin:0px;">ROPMate</h1>
+            </div>
+            <div style="display: table-cell; height: 100%; vertical-align: middle; text-align: right">
+                <label for="filter">Filter:</label>
+                <input type="text" id="filter" name="filter" class="filter_bar" style="margin-right: 10px;border-radius: 2px;border:solid 1px black;"
                 onchange="return filter_tree()">
-        </div>
-        <div style="display: table-cell; height: 100%; vertical-align: middle">
-            <label for="stack_treshold">Stack Treshold:</label>
-            <input type="text" id="stack_treshold" name="stack_treshold" class="stack_treshold" style="margin-right: 10px;border-radius: 2px;border:solid 1px black;" onchange="return update_stack_treshold()">
-        </div>
-        <div style="display: table-cell; height: 100%; vertical-align: middle; width: 11%">
-            <div class="fileUpload reset">
-                <form action="/upload" method="post" enctype="multipart/form-data" style="margin:0;" target="_parent">
-                    <span>Change file</span>
-                    <input type="file" class='upload' id='upload' name="files[]" data-url="/upload" accept=".json" onchange="load_file(this.form);"/>
-                </form>
+            </div>
+            <div style="display: table-cell; height: 100%; vertical-align: middle; text-align: right;">
+                <label for="stack_treshold">Stack Treshold:</label>
+                <input type="text" id="stack_treshold" name="stack_treshold" value="128" class="stack_treshold" style="margin-right: 10px;border-radius: 2px;border:solid 1px black;" onchange="return update_stack_treshold()">
             </div>
         </div>
-          
+        <div align=right style="display: table; height: 100%; width: 43%;">
+            <div style="display: table-cell; height: 100%; vertical-align: middle; width: 11%">
+                <div class="fileUpload reset">
+                    <form action="/upload" method="post" enctype="multipart/form-data" style="margin:0;" target="_parent">
+                        <span>Change file</span>
+                        <input type="file" class='upload' id='upload' name="files[]" data-url="/upload" accept=".json" onchange="load_file(this.form);"/>
+                    </form>
+                </div>
+            </div> 
         </div>
     </body>
 </html>
