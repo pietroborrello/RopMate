@@ -1,5 +1,6 @@
 .gadget_chosen {
     max-width: 100px;
+    cursor: pointer;
 }
 
 #gadget_chosen {
