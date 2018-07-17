@@ -235,29 +235,24 @@ function update(source) {
         .each(enhance_info);
         
         function enhance_info(d) {
-            function safeness(data) {
-				/*len = mem.length
-                if(mem.includes('unknown')) return 1;
-                if(!len) return 0;
-				return len<3 ? 0.33 : 0.66;*/
-				return data.stack_fix < stack_occupation_treshold ? 0.9 : 0.1;
-            }
             if(d.height == 0 && d.depth > 0)
             {
                 //bar
                 let w = 0.07; // bar width multiplier
                 d3.select(this.parentNode)
-                    .append("rect")
+					.append("rect")
+					.data([d])
                     .attr("y", -barHeight / 2)
                     .attr("height", barHeight)
-                    .attr("width", 0)
+					.attr("width", 0)
+					.classed("stack_occupation_bar", true)
                     .style("fill", d3.interpolateRdYlGn(safeness(d.data)))
                     .attr("transform", function (d) { return "translate(" + barWidth + "," + 0 + ")"; })
                     .transition()
                     .delay(duration)
                     .duration(duration*2)
-                    .attr("width", stack_occupation_scale(d.data.stack_fix) * w * barWidth)
-
+					.attr("width", stack_occupation_scale(d.data.stack_fix) * w * barWidth)
+					
 				// dependencies
 				var dependencies = d3.select(this.parentNode).data()[0].data.mem[0]
 
@@ -554,6 +549,23 @@ function add_element_list_histogram(gadg){
 function remove_histogram(){
     var svg = d3.select("svg")
     svg.selectAll(".switch_rect").remove()
+}
+
+function update_stack_treshold(value) {
+	stack_occupation_treshold = value
+	
+	d3.selectAll(".stack_occupation_bar")
+		.transition()
+		.duration(duration)
+		.style("fill", function(d){return d3.interpolateRdYlGn(safeness(d.data))})
+}
+
+function safeness(data) {
+	/*len = mem.length
+	if(mem.includes('unknown')) return 1;
+	if(!len) return 0;
+	return len<3 ? 0.33 : 0.66;*/
+	return data.stack_fix < stack_occupation_treshold ? 0.9 : 0.1;
 }
 
 </script>

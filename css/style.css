@@ -114,6 +114,11 @@ rect {
     font: 13px sans-serif;
  }
 
+ .stack_treshold{
+    height:25px;
+    font: 13px sans-serif;
+ }
+
  .loadconst_bar
  {
      border-radius: 2px;
