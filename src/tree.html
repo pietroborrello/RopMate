@@ -246,13 +246,20 @@ function update(source) {
                     .attr("height", barHeight)
 					.attr("width", 0)
 					.classed("stack_occupation_bar", true)
-                    .style("fill", d3.interpolateRdYlGn(safeness(d.data)))
-                    .attr("transform", function (d) { return "translate(" + barWidth + "," + 0 + ")"; })
+					.style("fill", d3.interpolateRdYlGn(safeness(d.data)))
+					.attr("transform", function (d) { return "translate(" + barWidth + "," + 0 + ")"; })
+					.on('mousemove', function (d) {
+						tree_tooltip
+							.style("left", d3.event.pageX + "px")
+							.style("top", d3.event.pageY - 25 + "px")
+							.style("display", "inline-block")
+							.html(d.data.stack_fix);
+					})
+					.on("mouseout", function (d) { tree_tooltip.style("display", "none"); })
                     .transition()
                     .delay(duration)
                     .duration(duration*2)
 					.attr("width", stack_occupation_scale(d.data.stack_fix) * w * barWidth)
-					
 				// dependencies
 				var dependencies = d3.select(this.parentNode).data()[0].data.mem[0]
 
@@ -565,7 +572,7 @@ function safeness(data) {
 	if(mem.includes('unknown')) return 1;
 	if(!len) return 0;
 	return len<3 ? 0.33 : 0.66;*/
-	return data.stack_fix < stack_occupation_treshold ? 0.9 : 0.1;
+	return data.stack_fix <= stack_occupation_treshold ? 0.9 : 0.1;
 }
 
 </script>
