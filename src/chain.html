@@ -88,14 +88,14 @@
               parent.choices.add_gadget_info_window();
               });
 
-          var dependencies = [selectedGadget.data.src, selectedGadget.data.src1, selectedGadget.data.src2].filter(src => src).concat(selectedGadget.data.mem[0])
+          var dependencies = selectedGadget.data.mem[0]
               
           gadget_group.append("g").classed("dependencies",true)
           .selectAll(".dependency")
           .data(dependencies)
           .enter()
           .append("rect")
-            .attr("x", function(d, i){return 5 + i * 11})
+            .attr("x", function (d, i) { return 5 + i * 11 })
             .attr("y", 5)
             .attr("rx", 4)
             .attr("ry", 4)
@@ -108,6 +108,34 @@
               return register_scale(d)
             })
             .on('mousemove', function(d) {
+              chain_tooltip
+                .style("left", d3.event.pageX + "px")
+                .style("top", d3.event.pageY - 25 + "px")
+                .style("display", "inline-block")
+                .html(d);
+            })
+            .on("mouseout", function (d) { chain_tooltip.style("display", "none"); });
+
+          dependencies = [selectedGadget.data.src, selectedGadget.data.src1, selectedGadget.data.src2].filter(src => src)
+
+          gadget_group.append("g").classed("dependencies", true)
+            .selectAll(".dependency")
+            .data(dependencies)
+            .enter()
+            .append("rect")
+            .attr("x", function (d, i) { return 130 - i * 11 })
+            .attr("y", 5)
+            .attr("rx", 4)
+            .attr("ry", 4)
+            .attr("width", 10)
+            .attr("height", 40)
+            .attr("class", function (d) {
+              return d;
+            })
+            .style("fill", function (d) {
+              return register_scale(d)
+            })
+            .on('mousemove', function (d) {
               chain_tooltip
                 .style("left", d3.event.pageX + "px")
                 .style("top", d3.event.pageY - 25 + "px")
