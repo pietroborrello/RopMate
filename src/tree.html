@@ -267,7 +267,7 @@ function update(source) {
 					.append("line")
 						.attr("x1", (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) - 11) )
 						.attr("y1", -barHeight / 2)
-						.attr("x2", (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) + 11 * (parent.tree.regs.length)))
+						.attr("x2", (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) + 11 * (parent.tree.regs.length+1)))
 						.attr("y2", -barHeight / 2)
 						.attr("z-index", -99)
 						.style("stroke-width", 1)
@@ -293,7 +293,7 @@ function update(source) {
 					.style("fill", function (d) {
 						return parent.chain.register_scale(d)
 					})
-					.attr("transform", function (d,i) { return "translate(" + (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) /*position*/ + 11*(parent.tree.regs.indexOf(d)) + 1) + "," + 0 + ")"; })
+					.attr("transform", function (d,i) { return "translate(" + (/*over tree*/barWidth + /*over red boxes*/(4 * w * barWidth) /*position*/ + 11*(d != 'stack'? parent.tree.regs.indexOf(d): parent.tree.regs.length) + 1) + "," + 0 + ")"; })
 					.on('mousemove', function (d) {
 						tree_tooltip
 							.style("left", d3.event.pageX + "px")
