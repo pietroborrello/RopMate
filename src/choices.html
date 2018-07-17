@@ -276,7 +276,8 @@
                     .attr("y", function (d, i) { return yScale(d.y) - counts_Scale(counts[i]); })
                     .text(function (d, i) {return labels[i].length? labels[i]:"none"; })
                     .attr("font-size", 10)
-                    .attr("id", function (d, i) { return "label" + i });
+                    .attr("id", function (d, i) { return "label" + i })
+                    .attr("text-anchor", "middle")
 
                 var xAxis = d3.axisBottom(xScale).ticks(0);
                 svg.append("g").call(xAxis)
