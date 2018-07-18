@@ -53,7 +53,7 @@
       function add_block_to_chain(selectedGadget){
         if(selectedGadget.data.type != ""){
           count = count + 1;
-          list_gadgets_chain.push(selectedGadget)
+          list_gadgets_chain.push({gadget: selectedGadget, value: "0x0"})
 
           var gadget_group = svgContainer.append("g")
             .classed("gadget" + count, true)
@@ -164,8 +164,13 @@
               .append("input")
               .attr("value", "0x0")
               .classed("loadconst_bar", true)
-              .on("keypress", function () {
-              // IE fix
+              .on("change", function (d, i) {
+                value = d3.select(this).node().value
+                value_id = d3.select(this.parentNode.parentNode.parentNode).attr("class").slice(6) - 1
+                list_gadgets_chain[value_id].value = value
+              })
+              .on("keypress", function (d, i) {
+              // IE and webkit fix
               if (!d3.event)
                 d3.event = window.event;
 
@@ -176,6 +181,10 @@
                 if (e.stopPropagation)
                   e.stopPropagation();
                 e.preventDefault();
+                value = d3.select(this).node().value
+                value_id = d3.select(this.parentNode.parentNode.parentNode).attr("class").slice(6) - 1
+                list_gadgets_chain[value_id].value = value
+                document.activeElement.blur();
               }
             });
           }
@@ -267,7 +276,7 @@
               return d3.select(this).attr('class')
             })
           dragging = 0;
-          parent.choices.selectedGadget = moved_gadget;
+          parent.choices.selectedGadget = moved_gadget.gadget;
           parent.choices.add_gadget_info_window();
 
           update_dependencies();
@@ -331,13 +340,13 @@
                   return 40;
               })
             // remove modified registers from set regs
-            for (reg of list_gadgets_chain[i].data.modified_regs)
+            for (reg of list_gadgets_chain[i].gadget.data.modified_regs)
               registers_set[reg] = 0;
 
             // add destination to set registers 
             // (done after since destination will always be modified)
-            if(list_gadgets_chain[i].data.dest)
-              registers_set[list_gadgets_chain[i].data.dest] = 1;
+            if(list_gadgets_chain[i].gadget.data.dest)
+              registers_set[list_gadgets_chain[i].gadget.data.dest] = 1;
           }
           // also update visible dependencies in the tree with the dependencies set at the end of the chain
           parent.tree.svg.selectAll('rect.dependency')
@@ -384,7 +393,7 @@
             .tween("uniquetweenname", scrollRightTween(180 * count - 540, false))
             .remove()
           
-          var last_gadget = list_gadgets_chain.pop()
+          var last_gadget = list_gadgets_chain.pop().gadget
           count = count - 1;
           if(last_gadget.data.dest)
           {
@@ -407,9 +416,9 @@
         chain_str += "<br>rebase = lambda x : p" + parent.tree.arch + "(x + IMAGE_BASE)"
         chain_str += "<br><br>rop = ''"
         for(g of chain) {
-          chain_str += "<br>rop += rebase(0x" + g.data.address.toString(16) + ") &num;" + g.data.disasm
-          for(var i = (parent.tree.arch/8); i < g.data.stack_fix; i+= (parent.tree.arch / 8))
-            chain_str += "<br>rop += p" + parent.tree.arch + "(0x0)"
+          chain_str += "<br>rop += rebase(0x" + g.gadget.data.address.toString(16) + ") &num;" + g.gadget.data.disasm
+          for(var i = (parent.tree.arch/8); i < g.gadget.data.stack_fix; i+= (parent.tree.arch / 8))
+            chain_str += "<br>rop += p" + parent.tree.arch + "(" + g.value + ")"
         }
         return window.open('dump_chain.html?'+ chain_str, 'Dump', windowFeatures + ' width=' + windowWidth + ', height=' + windowHeight + ', top=' + centerTop + ', left=' + centerLeft);
       }
