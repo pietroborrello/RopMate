@@ -112,7 +112,7 @@
                 .style("left", d3.event.pageX + "px")
                 .style("top", d3.event.pageY - 25 + "px")
                 .style("display", "inline-block")
-                .html(d);
+                .html(d + d3.select(this).attr('value'));
             })
             .on("mouseout", function (d) { chain_tooltip.style("display", "none"); });
 
@@ -129,6 +129,7 @@
             .attr("ry", 4)
             .attr("width", 10)
             .attr("height", 40)
+            .attr('value', '')
             .attr("class", function (d) {
               return d;
             })
@@ -140,7 +141,7 @@
                 .style("left", d3.event.pageX + "px")
                 .style("top", d3.event.pageY - 25 + "px")
                 .style("display", "inline-block")
-                .html(d);
+                .html(d + d3.select(this).attr('value'));
             })
             .on("mouseout", function (d) { chain_tooltip.style("display", "none"); });
 
@@ -168,6 +169,7 @@
                 value = d3.select(this).node().value
                 value_id = d3.select(this.parentNode.parentNode.parentNode).attr("class").slice(6) - 1
                 list_gadgets_chain[value_id].value = value
+                update_dependencies()
               })
               .on("keypress", function (d, i) {
               // IE and webkit fix
@@ -184,6 +186,7 @@
                 value = d3.select(this).node().value
                 value_id = d3.select(this.parentNode.parentNode.parentNode).attr("class").slice(6) - 1
                 list_gadgets_chain[value_id].value = value
+                update_dependencies()
                 document.activeElement.blur();
               }
             });
@@ -330,6 +333,9 @@
             gadget_dependencies = svgContainer.select("g.gadget" + ((+i) + 1)).select("g.dependencies")
 
             gadget_dependencies.selectAll("rect")
+            .attr("value", function(d) {
+              return (registers_set[d] ? (': ' + registers_set[d]) : '')
+            })
             .transition()
               .duration(duration)
               .delay(duration)
@@ -346,10 +352,13 @@
             // add destination to set registers 
             // (done after since destination will always be modified)
             if(list_gadgets_chain[i].gadget.data.dest)
-              registers_set[list_gadgets_chain[i].gadget.data.dest] = 1;
+              registers_set[list_gadgets_chain[i].gadget.data.dest] = list_gadgets_chain[i].value;
           }
           // also update visible dependencies in the tree with the dependencies set at the end of the chain
           parent.tree.svg.selectAll('rect.dependency')
+          .attr("value", function (d) {
+              return (registers_set[d] ? (': ' + registers_set[d]) : '')
+            })
           .transition()
             .duration(duration * 2)
             .attr("height", function (d) {

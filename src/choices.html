@@ -343,9 +343,11 @@
                 }).done(function (data) {
                     json_data = JSON.parse(data)
                     d3scatterplot(svgMDSContainer, json_data.X, json_data.labels, json_data.counts);
+                }).fail(function (data) {
+                        console.log(data.statusText);
                 }).always(function () {
-                        spinner.stop()
-                        mds_running = false;
+                    spinner.stop()
+                    mds_running = false;
                 });
             }
         </script>
