@@ -118,7 +118,7 @@
 
           dependencies = [selectedGadget.data.src, selectedGadget.data.src1, selectedGadget.data.src2].filter(src => src)
 
-          gadget_group.append("g").classed("dependencies", true)
+          gadget_group.select("g.dependencies")
             .selectAll(".dependency")
             .data(dependencies)
             .enter()
