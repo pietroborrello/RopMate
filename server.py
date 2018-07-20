@@ -69,7 +69,7 @@ def mds():
     for d in data_filter:
         dissimilar = frozenset(d[DISSIMILARITY])
         if dissimilar not in added:
-            _data.append(d)
+            _data.append({DISSIMILARITY: d[DISSIMILARITY]})
             added[dissimilar] = 0
         added[dissimilar] += 1
 
