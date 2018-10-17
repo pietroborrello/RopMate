@@ -116,7 +116,7 @@
             })
             .on("mouseout", function (d) { chain_tooltip.style("display", "none"); });
 
-          dependencies = [selectedGadget.data.src, selectedGadget.data.src1, selectedGadget.data.src2].filter(src => src)
+          dependencies = ([selectedGadget.data.src, selectedGadget.data.src1, selectedGadget.data.src2].concat(selectedGadget.data.srcs)).filter(src => src)
 
           gadget_group.select("g.dependencies")
             .selectAll(".dependency")
