@@ -46,7 +46,7 @@ The user has also the possibility to ask the system to display only gadgets that
 
 ### View A (Filter View)
 
-The filter view, jointly with the Registers Pane, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the exact gadgets semantics he is searching for, for example "rax++". Writing a plain register, as "rax", will show all the gadgets that semantically set such register. Writing a star before a plain register, as "*rax", will show all the gadgets that semantically write or read memory through such register.
+The filter view, jointly with the Registers Pane, is used by the user to reduce the number of gadgets displayed, therefore to further simplify the research. The user is allowed to explicitly define the exact gadgets semantics he is searching for, for example `rax++` or `rax = rax + rbx` (unfortunately need to pay attention to set spaces properly). Writing a plain register, as `rax`, will show all the gadgets that semantically set such register. Writing a star before a plain register, as `*rax`, will show all the gadgets that semantically write or read memory through such register. The query language is now limited and will be expanded in the future.
 
 
 ## Install
