@@ -1,6 +1,6 @@
 # ROPMate
 
-ROPMate is the first Visual Analytics system specifically designed to assist human in composing  ROP chains with a desired semantics.
+ROPMate is the first Visual Analytics system specifically designed to assist human in composing  ROP chains with the desired semantics.
 
 In contrast, previous ROP tools typically require users to inspect a puzzle of hundreds or thousands of lines of textual information, making it a daunting task. 
 
