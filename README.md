@@ -60,8 +60,11 @@ pip install scikit-learn
 
 ## Run
 
-The Tool is meant to be run locally, by default it opens a predetermined database of gadgets. Details on the back-end server that performs the gadget analysis will be released. You will be able to analyze your own binaries soon! Examples of analyzed binaries are included in the `files` folder
+The Tool is meant to be run locally, by default it opens a predetermined database of gadgets. Details on the back-end server that performs the gadget analysis will be released. You will be able to analyze your own binaries soon! Examples of analyzed binaries are included in the `files` folder.
 
 ```
 python server.py
 ```
+
+Will start the server that will provide the interface on `localhost:5000`
+ 
