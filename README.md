@@ -76,7 +76,7 @@ $ python3 setup.py install
 
 Generate the JSON database with:
 ``` shell
-$ ropd -cvej <binary>
+$ ropd -cvj <binary>
 ```
 
 It will create a `<binary>.json` file that can be loaded in `RopMate`.
