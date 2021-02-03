@@ -51,20 +51,32 @@ The filter view, jointly with the Registers Pane, is used by the user to reduce 
 
 ## Install
 ```
-pip install flask
-pip install pandas
-pip install numpy
-pip install scipy
-pip install scikit-learn
+pip3 install flask pandas numpy scipy scikit-learn
 ```
 
 ## Run
 
-The Tool is meant to be run locally, by default it opens a predetermined database of gadgets. Details on the back-end server that performs the gadget analysis will be released. You will be able to analyze your own binaries soon! Examples of analyzed binaries are included in the `files` folder.
+The Tool is meant to be run locally, by default it opens a predetermined database of gadgets. Click on `Change file` to load a different `.json` gadget database.
 
 ```
 python server.py
 ```
 
 Will start the server that will provide the interface on `localhost:5000`
- 
+
+## Custom databases
+
+`RopMate` uses [`RopDaemon`](https://github.com/pietroborrello/RopDaemon) to generate the database file with the categorized gadgets.
+Install it with:
+``` shell
+$ git clone https://github.com/pietroborrello/RopDaemon
+$ cd RopDaemon
+$ python3 setup.py install
+```
+
+Generate the JSON database with:
+``` shell
+$ ropd -cvej <binary>
+```
+
+It will create a `<binary>.json` file that can be loaded in `RopMate`.

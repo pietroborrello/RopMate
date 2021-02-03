@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 from flask import *
 import webbrowser
 import string
@@ -20,9 +21,11 @@ ALLOWED_EXTENSIONS = ['json']
 def index():
     return render_template("index.html", path=PATH[1:])
 
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def get_basename(path):
+    return os.path.basename(path) 
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -30,7 +33,10 @@ def upload():
         file = request.files.get("files[]", None)
         if file and allowed_file(file.filename):
             filename = os.path.join(
-                app.config['UPLOAD_FOLDER'], "default.json")
+                app.config['UPLOAD_FOLDER'], os.path.basename(file.filename))
+
+            global PATH
+            PATH = filename
             file.save(filename)
             return redirect(url_for('index'))
 

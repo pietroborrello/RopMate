@@ -38,14 +38,23 @@
             </div>
         </div>
         <div align=right style="display: table; height: 100%; width: 43%;">
-            <div style="display: table-cell; height: 100%; vertical-align: middle; width: 11%">
-                <div class="fileUpload reset">
+            <div style="display: table-cell; height: 100%; vertical-align: middle;">
+                <div class="fileUpload" id="current_file">
                     <form action="/upload" method="post" enctype="multipart/form-data" style="margin:0;" target="_parent">
-                        <span>Change file</span>
-                        <input type="file" class='upload' id='upload' name="files[]" data-url="/upload" accept=".json" onchange="load_file(this.form);"/>
+                        <label id='current_file_name'>Current file: </label>
+                        <input type="file" class='upload' id='upload' name="files[]" data-url="/upload" accept=".json" onchange="load_file(this.form);" hidden/>
+                        <label for="upload" class='upload'>Change file</label>
                     </form>
                 </div>
             </div> 
         </div>
+
+        <script>
+            function get_filename(path) {
+                return path.split("?")[0].split('/').pop()
+            }
+
+            document.getElementById('current_file_name').innerHTML += get_filename(parent.path)
+        </script>
     </body>
 </html>
